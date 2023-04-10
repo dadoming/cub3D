@@ -8,7 +8,7 @@ int main(int argc, char **argv)
     //if (check_map(argv[1]) == 0)
     //    return (0);
     
-    run_game(argv[1]);
+    // run_game(argv[1]);
     
     return (0);
 }
