@@ -7,27 +7,33 @@ SRCS	= $(wildcard srcs/*.c)
 
 OBJS	= $(SRCS:.c=.o)
 
-INCLUDES	= includes/cub3D.h
+INCLUDES	= includes/cub3D.h libft/libft.h
 
 CC	= cc
 
-CFLAGS	= -Wall -Wextra -Werror -g3
+CFLAGS	= -g3 -Wall -Wextra -Iincludes -Ilibft #-Werror
 
-MLX_LIB	= minilibx-linux/libmlx_Linux.a
+MLX_LIB	= minilibx-linux/libmlx.a
 
-all: $(MLX_LIB) $(NAME)
+LIBFT	= libft/libft.a
+
+all: $(MLX_LIB) $(LIBFT) $(NAME)
 
 $(MLX_LIB):
 	cd minilibx-linux && ./configure
 
+$(LIBFT):
+	make -C libft re
+
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -I$(INCLUDES) -L. $(MLX_LIB) -lXext -lX11 -lm -lz
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L. $(MLX_LIB) $(LIBFT) -lXext -lX11 -lm -lz
 
 clean:
 	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) $(LIBFT) # $(MLX_LIB) 
 
 re: fclean all
 
