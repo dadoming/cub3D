@@ -8,6 +8,12 @@
 int check_input(int argc, char **argv);
 void run_game(char *map_path);
 
+# define A 97
+# define S 115
+# define D 100
+# define W 119
+# define ESC 65307
+
 typedef struct s_game
 {
     void *mlx;
