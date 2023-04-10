@@ -24,6 +24,7 @@ $(MLX_LIB):
 
 $(LIBFT):
 	make -C libft re
+	make -C libft clean
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L. $(MLX_LIB) $(LIBFT) -lXext -lX11 -lm -lz
