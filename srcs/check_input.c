@@ -57,7 +57,7 @@ t_elinfo	lineTransform(char *rawline)
 	return (element);
 }
 
-char	**fileXtract(char *cubflpath)
+t_elinfo	*fileXtract(char *cubflpath)
 {
 	int	fd;
 	char	*raw;
@@ -100,9 +100,10 @@ char	**fileXtract(char *cubflpath)
 		
 		raw = get_next_line(fd);
 	}
-
+	//TODO: extract the map section
 	close(fd);
-	return (NULL);
+	//TODO: ? run_game(settings);
+	return (elmap);
 }
 
 int check_input(int argc, char **argv)
