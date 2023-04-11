@@ -36,6 +36,17 @@ t_settings	settingsSet(t_elinfo *elmap, char **charmap)
 	return (settings);
 }
 
+int check_valid_filename(const char *str)
+{
+	int	i;
+
+	i = ft_strlen(str) - 1;
+	while (i >= 0 && str[i] != '.')
+		i--;
+	str = str + i;
+	return (!ft_strncmp(str, ".cub", 5));
+}
+
 int	fileXtract(char *cubflpath)
 {
 	int	fd;
@@ -44,6 +55,11 @@ int	fileXtract(char *cubflpath)
 	t_settings	settings;
 
 	printf("Extracting content from %s\n", cubflpath);
+	if (check_valid_filename(cubflpath) == 0)
+	{
+		printf("Invalid map name\n");
+		exit(0);
+	}
 	fd = open(cubflpath, O_RDONLY);
 	if (fd <= 0)
 		exit(0); //TODO: fancy exit
