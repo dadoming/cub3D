@@ -1,5 +1,5 @@
 # include "../includes/cub3D.h"
-
+/*
 void close_game(t_game *game)
 {
     if (game->win)
@@ -45,7 +45,6 @@ int	rgbtocolor(unsigned char r, unsigned char g, unsigned char b)
 int	draw_map(t_game *game)
 {
 	size_t	j;
-	size_t	i;
 
 	mlx_clear_window(game->mlx, game->win);
 	j = 0;
@@ -87,3 +86,4 @@ int run_game(t_game game)
 	
 	return (1);
 }
+*/

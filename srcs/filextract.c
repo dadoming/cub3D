@@ -1,5 +1,5 @@
 # include "../includes/cub3D.h"
-
+/*
 t_settings	settingsSet(t_elinfo *elmap, char **charmap)
 {
 	t_settings	settings;
@@ -35,6 +35,7 @@ t_settings	settingsSet(t_elinfo *elmap, char **charmap)
 	}
 	return (settings);
 }
+*/
 
 int check_valid_filename(const char *str)
 {
@@ -51,27 +52,33 @@ int	fileXtract(char *cubflpath)
 {
 	int	fd;
 	t_elinfo	*elmap;
-	char		**charmap;
-	t_settings	settings;
+	//char		**charmap;
+	//t_settings	settings;
 
 	printf("Extracting content from %s\n", cubflpath);
 	if (check_valid_filename(cubflpath) == 0)
 	{
-		printf("Invalid map name\n");
+		printf("Invalid map file_name\n");
 		exit(0);
 	}
 	fd = open(cubflpath, O_RDONLY);
 	if (fd <= 0)
 		exit(0); //TODO: fancy exit
 	elmap = elmapXtract(fd);
+	if (elmap == NULL)
+	{
+		printf("Invalid file data\n");
+		exit(0);
+	}
 	//TODO: there might be many \n between these two
-	charmap = charmapXtract(fd);
+	//charmap = charmapXtract(fd);
 
 	close(fd);
 
-	settings = settingsSet(elmap, charmap);
+	//settings = settingsSet(elmap, charmap);
+//
+	//elmapFree(elmap);
 
-	elmapFree(elmap);
-
-	return (prep_game(&settings));
+	//return (prep_game(&settings));
+	return (0);
 }

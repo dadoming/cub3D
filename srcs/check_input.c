@@ -2,8 +2,6 @@
 
 int check_input(int argc, char **argv)
 {
-	t_settings	settings;
-
     if (argc == 1)
     {
 		fileXtract("maps/test.cub");
@@ -17,5 +15,6 @@ int check_input(int argc, char **argv)
 		printf("Wrong number of args");
 		exit(0);
 	}
+	return (0);
 	//TODO: ? run_game(settings);
 }

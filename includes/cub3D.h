@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+# include <limits.h>
 
 #define ELINFOLIMIT 6 //TODO: remove artificial limit
 
@@ -56,8 +57,8 @@ typedef struct s_elinfo
 int check_input(int argc, char **argv);
 int	fileXtract(char *cubflpath);
 t_elinfo	*elmapXtract(int openfd);
-int	elmapFree(t_elinfo *elmap);
-char	*elmapGet(t_elinfo *elmap ,char *elmapKey);
+//int	elmapFree(t_elinfo *elmap);
+//char	*elmapGet(t_elinfo *elmap ,char *elmapKey);
 char	**charmapXtract(int openfd);
 int	charmapFree(char **charmap);
 
