@@ -18,19 +18,20 @@
 # define W 119
 # define ESC 65307
 
-typedef struct s_game
-{
-    void *mlx;
-    void *win;
-
-} t_game;
-
 typedef struct s_img
 {
 	void	*ptr;
 	int		width;
 	int		height;
 } t_img;
+
+typedef struct s_game
+{
+    void	*mlx;
+    void	*win;
+
+	char	**charmap;
+} t_game;
 
 typedef struct s_settings
 {
@@ -61,6 +62,6 @@ char	**charmapXtract(int openfd);
 int	charmapFree(char **charmap);
 
 int	prep_game();
-int run_game(t_game game, t_settings *setts);
+int run_game(t_game game);
 
 # endif

@@ -57,5 +57,5 @@ int	fileXtract(char *cubflpath)
 
 	elmapFree(elmap);
 
-	return (prep_game(settings));
+	return (prep_game(&settings));
 }
