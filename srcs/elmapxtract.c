@@ -5,7 +5,7 @@ int	elmapFree(t_elinfo *elmap)
 	size_t	i;
 
 	i = 0;
-	while (i < ARTLIMIT)
+	while (i < ELINFOLIMIT)
 	{
 		free(elmap[i].key);
 		free(elmap[i].val);
@@ -48,7 +48,7 @@ t_elinfo	*elmapXtract(int openfd)
 	char		*raw;
 	size_t		i;
 
-	elmap = ft_calloc(ARTLIMIT, sizeof(t_elinfo)); //TODO: remove artificial limit
+	elmap = ft_calloc(ELINFOLIMIT, sizeof(t_elinfo)); //TODO: remove artificial limit
 
 	raw = get_next_line(openfd);
 
@@ -89,7 +89,7 @@ char	*elmapGet(t_elinfo *elmap ,char *elmapKey)
 	size_t	i;
 
 	i = 0;
-	while (i < ARTLIMIT)
+	while (i < ELINFOLIMIT)
 	{
 		if (ft_strcmp(elmapKey, elmap[i].key) == 0)
 			return (elmap[i].val);

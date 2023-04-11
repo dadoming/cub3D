@@ -10,7 +10,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define ARTLIMIT 100 //TODO: remove artificial limit
+#define ELINFOLIMIT 6 //TODO: remove artificial limit
 
 # define A 97
 # define S 115
