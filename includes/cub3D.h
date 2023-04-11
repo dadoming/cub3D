@@ -10,7 +10,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-
+#define ARTLIMIT 100 //TODO: remove artificial limit
 
 # define A 97
 # define S 115
@@ -32,6 +32,19 @@ typedef struct s_img
 	int		height;
 } t_img;
 
+typedef struct s_settings
+{
+	char	*Ntexpath;
+	char	*Stexpath;
+	char	*Wtexpath;
+	char	*Etexpath;
+
+	char	*Floorstr;
+	char	*Ceilstr;
+
+	char	**charmap;
+} t_settings;
+
 typedef struct s_elinfo
 {
 	char	*key;
@@ -39,17 +52,15 @@ typedef struct s_elinfo
 } t_elinfo;
 
 
-typedef struct s_settings
-{
-	t_img	Ntex;
-	t_img	Stex;
-	t_img	Wtex;
-	t_img	Etex;
-	// t_color	Floor;
-	// t_color Ceil;
-} t_settings;
-
 int check_input(int argc, char **argv);
-void run_game(char *map_path);
+int	fileXtract(char *cubflpath);
+t_elinfo	*elmapXtract(int openfd);
+int	elmapFree(t_elinfo *elmap);
+char	*elmapGet(t_elinfo *elmap ,char *elmapKey);
+char	**charmapXtract(int openfd);
+int	charmapFree(char **charmap);
+
+int	prep_game();
+int run_game(t_game game, t_settings *setts);
 
 # endif
