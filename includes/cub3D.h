@@ -52,6 +52,17 @@ typedef struct s_elinfo
 	char	*val;
 } t_elinfo;
 
+typedef struct s_vec2i
+{
+	int	x;
+	int	y;
+}				t_vec2i;
+
+typedef struct s_vec2f
+{
+	float	x;
+	float	y;
+}				t_vec2f;
 
 int check_input(int argc, char **argv);
 int	fileXtract(char *cubflpath);
@@ -63,5 +74,12 @@ int	charmapFree(char **charmap);
 
 int	prep_game();
 int run_game(t_game game);
+
+int	rgbtocolor(unsigned char r, unsigned char g, unsigned char b);
+int	line(t_game *game, t_vec2i origin, t_vec2i dest, int color);
+
+
+
+
 
 # endif
