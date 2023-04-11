@@ -49,9 +49,7 @@ t_elinfo	*elmapXtract(int openfd)
 	size_t		i;
 
 	elmap = ft_calloc(ELINFOLIMIT, sizeof(t_elinfo)); //TODO: remove artificial limit
-
 	raw = get_next_line(openfd);
-
 	i = 0;
 	while (raw && i < 6)
 	{
@@ -62,11 +60,8 @@ t_elinfo	*elmapXtract(int openfd)
 			raw = get_next_line(openfd);
 			continue;
 		}
-
-
 		elmap[i] = lineTransform(raw);
 		printf("%s__%s\n", elmap[i].key, elmap[i].val);
-
 		free(raw);
 		if (elmap[i].key == NULL || elmap[i].val == NULL)
 		{
@@ -74,13 +69,10 @@ t_elinfo	*elmapXtract(int openfd)
 			close(openfd);
 			return (NULL);
 		}
-		
 		i++;
-		
 		raw = get_next_line(openfd);
 	}
 	free(raw);
-
 	return (elmap);
 }
 
@@ -97,3 +89,30 @@ char	*elmapGet(t_elinfo *elmap ,char *elmapKey)
 	}
 	return (NULL);
 }
+
+
+
+// new 
+/*
+t_elinfo	*elmapXtract(int openfd)
+{
+	t_elinfo	*elmap;
+	char *file_line;
+	int i;
+
+	elmap = ft_calloc(ELINFOLIMIT, sizeof(t_elinfo));
+	i = 0;
+	file_line = get_next_line(openfd);
+	while (file_line && i < 6)
+	{
+		
+			if (file_line[0] == '\n')
+			{
+				free(file_line);
+				file_line = get_next_line(openfd);
+				continue;
+			}
+			
+	}
+}
+*/
