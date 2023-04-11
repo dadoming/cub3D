@@ -1,118 +1,103 @@
-# include "../includes/cub3D.h"
+# include "cub3D.h"
 
-int	elmapFree(t_elinfo *elmap)
+void init_map_settings(t_elinfo **map_settings)
 {
-	size_t	i;
+    int i;
 
-	i = 0;
-	while (i < ELINFOLIMIT)
-	{
-		free(elmap[i].key);
-		free(elmap[i].val);
-		i++;
-	}
-	free(elmap);
-	return (1);
+    i = 0;
+    *map_settings = ft_calloc(ELINFOLIMIT, sizeof(t_elinfo));
+    while (i < ELINFOLIMIT)
+    {
+        (*map_settings)[i].key = NULL;
+        (*map_settings)[i].val = NULL;
+        i++;
+    }
 }
 
-/**
- * 2 mallocs!!
-*/
-t_elinfo	lineTransform(char *rawline)
+void load_elinfo(t_elinfo **map_settings, char *file_line, int i, int option)
 {
-	t_elinfo	element;
-	size_t		space[2];
+    int spaces;
 
-	space[0] = ft_strpos(rawline, ' ');
-	if (space[0] == 0)
-		element.key = NULL;
-	else
-		element.key = ft_substr(rawline, 0, space[0]);
-	//TODO: there can be more than 1 space!!!
-	if (rawline[space[0] + 1] == '\n'
-		|| rawline[space[0] + 1] == '\0'
-			|| space[0] == 0)
-		element.val = NULL;
-	else
-	{
-		element.val = ft_substr(rawline, space[0] + ft_notstrpos(rawline + space[0], " "), 0U-1);
-		element.val[ft_strlen(element.val) - 1] = '\0'; // \n -> \0
-	}
-	
-	return (element);
+    spaces = 0;
+    while (ft_isspace(file_line[spaces]))
+        spaces++;
+    if (file_line[spaces + 2 + option] == '\0')
+        return ;
+    (*map_settings)[i].key = ft_substr(file_line, 0, 2 + option + spaces);
+    while (ft_isspace(file_line[2 + option + spaces]))
+        spaces++;
+    if (file_line[spaces + 2 + option] == '\0')
+        return ;
+    (*map_settings)[i].val = ft_substr(file_line, 2 + option + spaces, ULONG_MAX);
+}
+
+int treat_caught_info(t_elinfo **map_settings, char *file_line, int i)
+{
+    int error;
+
+    error = 0;
+    if (ft_strncmp("NO ", file_line, 3) == 0 && (*map_settings)[i].key == NULL)
+        load_elinfo(map_settings, file_line, i, 1);
+    else if (ft_strncmp("SO ", file_line, 3) == 0 && (*map_settings)[i].key == NULL)
+        load_elinfo(map_settings, file_line, i, 1);
+    else if (ft_strncmp("EA ", file_line, 3) == 0 && (*map_settings)[i].key == NULL)
+        load_elinfo(map_settings, file_line, i, 1);
+    else if (ft_strncmp("WE ", file_line, 3) == 0 && (*map_settings)[i].key == NULL)
+        load_elinfo(map_settings, file_line, i, 1);
+    else if (ft_strncmp("F ", file_line, 2) == 0 && (*map_settings)[i].key == NULL)
+        load_elinfo(map_settings, file_line, i, 0);
+    else if (ft_strncmp("C ", file_line, 2) == 0 && (*map_settings)[i].key == NULL)
+        load_elinfo(map_settings, file_line, i, 0);
+    else
+        error = 1;
+    return (error);
+}
+
+void free_loaded(t_elinfo **map_settings)
+{
+    int i;
+
+    i = 0;
+    while (i < ELINFOLIMIT)
+    {
+        if (map_settings[i]->key != NULL)
+            free((*map_settings)[i].key);
+        if (map_settings[i]->val != NULL)
+            free((*map_settings)[i].val);
+        i++;
+    }
 }
 
 t_elinfo	*elmapXtract(int openfd)
 {
-	t_elinfo	*elmap;
-	char		*raw;
-	size_t		i;
+    t_elinfo    *map_settings;
+    char        *file_line;
+    int         i;
 
-	elmap = ft_calloc(ELINFOLIMIT, sizeof(t_elinfo)); //TODO: remove artificial limit
-	raw = get_next_line(openfd);
-	i = 0;
-	while (raw && i < 6)
-	{
-		printf("%s", raw);
-		if (ft_strcmp(raw, "\n") == 0)
-		{
-			free(raw);
-			raw = get_next_line(openfd);
-			continue;
-		}
-		elmap[i] = lineTransform(raw);
-		printf("%s__%s\n", elmap[i].key, elmap[i].val);
-		free(raw);
-		if (elmap[i].key == NULL || elmap[i].val == NULL)
-		{
-			elmapFree(elmap);
-			close(openfd);
-			return (NULL);
-		}
-		i++;
-		raw = get_next_line(openfd);
-	}
-	free(raw);
-	return (elmap);
+    init_map_settings(&map_settings);
+    file_line = get_next_line(openfd);
+    i = 0;
+    while (file_line)
+    {
+        printf("file_line: %s\n", file_line);
+        if (ft_strcmp(file_line, "\n") == 0)
+        {
+            free(file_line);
+            file_line = get_next_line(openfd);
+            continue ;
+        }
+        else
+        {
+            if (treat_caught_info(&map_settings, file_line, i) == 1)
+            {
+                free(file_line);
+                free_loaded(&map_settings);
+                return (NULL);
+            }
+            free(file_line);
+            file_line = get_next_line(openfd);
+            i++;
+        }
+    }
+    return (map_settings);
 }
-
-char	*elmapGet(t_elinfo *elmap ,char *elmapKey)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < ELINFOLIMIT)
-	{
-		if (ft_strcmp(elmapKey, elmap[i].key) == 0)
-			return (elmap[i].val);
-		i++;
-	}
-	return (NULL);
-}
-
-
-
-// new 
-/*
-t_elinfo	*elmapXtract(int openfd)
-{
-	t_elinfo	*elmap;
-	char *file_line;
-	int i;
-
-	elmap = ft_calloc(ELINFOLIMIT, sizeof(t_elinfo));
-	i = 0;
-	file_line = get_next_line(openfd);
-	while (file_line && i < 6)
-	{
-		
-			if (file_line[0] == '\n')
-			{
-				free(file_line);
-				file_line = get_next_line(openfd);
-				continue;
-			}
-			
-	}
-}
-*/
