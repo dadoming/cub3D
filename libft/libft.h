@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:39:23 by amaria-d          #+#    #+#             */
-/*   Updated: 2023/04/11 09:52:50 by amaria-d         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:51:36 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,5 +218,7 @@ int		ft_putnbr_base(ssize_t nbr, char *base);
 int		ft_putunbr_base(size_t nbr, char *base);
 
 size_t	simple_putunbr_base(size_t nbr, char *base);
+
+int 	ft_isspace(char c);
 
 #endif
