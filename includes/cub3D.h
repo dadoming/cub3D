@@ -57,8 +57,7 @@ typedef struct s_elinfo
 int check_input(int argc, char **argv);
 int	fileXtract(char *cubflpath);
 t_elinfo	*elmapXtract(int openfd);
-//int	elmapFree(t_elinfo *elmap);
-//char	*elmapGet(t_elinfo *elmap ,char *elmapKey);
+void	elmapFree(t_elinfo **map_settings);
 char	**charmapXtract(int openfd);
 int	charmapFree(char **charmap);
 
