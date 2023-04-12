@@ -12,6 +12,8 @@
 
 #define ELINFOLIMIT 6 //TODO: remove artificial limit
 
+#define PI 3.14159265
+
 # define A 97
 # define S 115
 # define D 100
@@ -25,12 +27,34 @@ typedef struct s_img
 	int		height;
 } t_img;
 
+typedef struct s_vec2i
+{
+	int	x;
+	int	y;
+}				t_vec2i;
+
+typedef struct s_vec2f
+{
+	float	x;
+	float	y;
+}				t_vec2f;
+
+typedef struct s_plinfo
+{
+	t_vec2i	pos;
+	t_vec2f	posoffset;
+
+	t_vec2f	direction;
+} t_plinfo;
+
 typedef struct s_game
 {
     void	*mlx;
     void	*win;
 
 	char	**charmap;
+
+	t_plinfo	player;
 } t_game;
 
 typedef struct s_settings
@@ -52,17 +76,6 @@ typedef struct s_elinfo
 	char	*val;
 } t_elinfo;
 
-typedef struct s_vec2i
-{
-	int	x;
-	int	y;
-}				t_vec2i;
-
-typedef struct s_vec2f
-{
-	float	x;
-	float	y;
-}				t_vec2f;
 
 int check_input(int argc, char **argv);
 int	fileXtract(char *cubflpath);
@@ -73,11 +86,14 @@ char	**charmapXtract(int openfd);
 int	charmapFree(char **charmap);
 
 int	prep_game();
-int run_game(t_game game);
+int run_game(t_game *game);
 
 int	rgbtocolor(unsigned char r, unsigned char g, unsigned char b);
 int	line(t_game *game, t_vec2i origin, t_vec2i dest, int color);
+int	line_s(t_game *game, t_vec2i origin, size_t size, int color);
 
+int	pixsquare(t_game *game, t_vec2i pos, size_t size, int color);
+int	draw_map(t_game *game);
 
 
 

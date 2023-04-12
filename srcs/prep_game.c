@@ -13,6 +13,6 @@ int	prep_game(t_settings *setts)
 
 
 
-	return (run_game(game));
+	return (run_game(&game));
 	// return (1);
 }

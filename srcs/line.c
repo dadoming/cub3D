@@ -13,6 +13,18 @@ int	horline(t_game *game, t_vec2i pos, size_t size, int color)
 	return (1);
 }
 
+int	verline(t_game *game, t_vec2i pos, size_t size, int color)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < size)
+	{
+		mlx_pixel_put(game->mlx, game->win, pos.x, pos.y + i, color);
+		i++;
+	}
+	return (1);
+}
 
 int	lineNaive(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 {
@@ -73,6 +85,23 @@ int	lineBresenham(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 
 int	line(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 {
-	lineNaive(game, origin, dest, color);
+	if (origin.x > dest.x)
+		lineNaive(game, dest, origin, color);
+	else if (origin.x == dest.x && origin.y < dest.y)
+		verline(game, origin, dest.y - origin.y, color);
+	else if (origin.x == dest.x && origin.y > dest.y)
+		verline(game, dest, origin.y - dest.y, color);
+	else
+		lineNaive(game, origin, dest, color);
+	// lineBresenham(game, origin, dest, color);
+}
+
+int	line_s(t_game *game, t_vec2i origin, size_t size, int color)
+{
+	t_vec2i	dest;
+
+	dest.x = origin.x + (int)(game->player.direction.x * size);
+	dest.y = origin.y + (int)(game->player.direction.y * size);
+	line(game, origin, dest, color);
 	// lineBresenham(game, origin, dest, color);
 }
