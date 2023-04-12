@@ -34,32 +34,35 @@ typedef struct s_game
 	char	**charmap;
 } t_game;
 
-typedef struct s_settings
-{
-	char	*Ntexpath;
-	char	*Stexpath;
-	char	*Wtexpath;
-	char	*Etexpath;
-
-	char	*Floorstr;
-	char	*Ceilstr;
-
-	char	**charmap;
-} t_settings;
-
 typedef struct s_elinfo
 {
 	char	*key;
 	char	*val;
 } t_elinfo;
 
+typedef struct s_settings
+{
+	t_elinfo	*elmap;
+	char		*Ntexpath;
+	char		*Stexpath;
+	char		*Wtexpath;
+	char		*Etexpath;
+	char		*Floorstr;
+	char		*Ceilstr;
+	char		**charmap;
+} t_settings;
+
+
+
 
 int check_input(int argc, char **argv);
 int	fileXtract(char *cubflpath);
-t_elinfo	*elmapXtract(int openfd);
+t_settings	*elmapXtract(int openfd);
 void	elmapFree(t_elinfo **map_settings);
-char	**charmapXtract(int openfd);
 int	charmapFree(char **charmap);
+char **charmapClean(char **map);
+char **charmapValid(char **map);
+
 
 int	prep_game();
 int run_game(t_game game);

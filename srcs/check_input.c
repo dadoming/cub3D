@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_input.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/12 13:26:38 by dadoming          #+#    #+#             */
+/*   Updated: 2023/04/12 15:37:01 by dadoming         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include "../includes/cub3D.h"
 
 int check_input(int argc, char **argv)
@@ -5,6 +17,7 @@ int check_input(int argc, char **argv)
     if (argc == 1)
     {
 		fileXtract("maps/test.cub");
+		//fileXtract("maps/testnolines.cub");
         //fileXtract("maps/testempty.cub");
         //fileXtract("maps/test1l.cub");
         //fileXtract("maps/testrandomletter.cub");

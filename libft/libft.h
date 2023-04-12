@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:39:23 by amaria-d          #+#    #+#             */
-/*   Updated: 2023/04/11 18:51:36 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:04:37 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 /*	GET_NEXT_LINE	*/
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1
 # endif
 
 # ifndef MAX_FD
@@ -105,11 +105,11 @@ void	ft_putnbr_fd(int n, int fd);
 /* BONUS */
 typedef struct s_list
 {
-	void			*content;
+	char			*content;
 	struct s_list	*next;
 }				t_list;
 
-t_list	*ft_lstnew(void *content);
+t_list	*ft_lstnew(char *content);
 
 void	ft_lstadd_front(t_list **lst, t_list *new);
 
@@ -117,7 +117,7 @@ int		ft_lstsize(t_list *lst);
 
 t_list	*ft_lstlast(t_list *lst);
 
-void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstadd_back(t_list **lst, char *new);
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 
