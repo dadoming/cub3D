@@ -13,6 +13,8 @@ int x_close_window(t_game *game)
     return (0);
 }
 
+#define RADJUMP 16
+
 int key_event(int key, t_game *game)
 {
     //printf("key> %d\n", key);
@@ -24,30 +26,40 @@ int key_event(int key, t_game *game)
 	}
 	else if (key == A)
 	{
-		game->player.direction.x += -0.1f;
-		game->player.direction.y += -0.1f;
+		game->player.theta -= M_PI / RADJUMP;
+		// game->player.theta -= M_PI_4;
 	}
 	else if (key == D)
 	{
-		game->player.direction.x += +0.1f;
-		game->player.direction.y += +0.1f;
+		game->player.theta += M_PI / RADJUMP;
+		// game->player.theta += M_PI_4;
 	}
 	else if (key == W)
 	{
-		game->player.direction.y += -0.1f;
+		//TODO: implement posoffset
+		game->player.pos.x += cos(game->player.theta) * RADJUMP;
+		game->player.pos.y += sin(game->player.theta) * RADJUMP;
 	}
 	else if (key == S)
 	{
-		game->player.direction.y += +0.1f;
+		// game->player.direction.y += +0.1f;
 	}
     return (0);
 }
 
 int	theloop(t_game *game)
 {
-	mlx_clear_window(game->mlx, game->win);
-	draw_map(game);
-	line_s(game, game->player.pos, 100, rgbtocolor(255, 50, 100));
+	static size_t	frame = 0;
+
+	if (frame == 6000)
+	{
+		mlx_clear_window(game->mlx, game->win);
+		// draw_map(game);
+		pixsquare(game, game->player.pos, 10, rgbtocolor(0, 255, 0));
+		line_t(game, game->player.pos, 100, rgbtocolor(255, 50, 100));
+		frame = 0;
+	}
+	frame++;
 }
 
 
@@ -56,17 +68,16 @@ int run_game(t_game *game)
 	t_vec2i	vec1;
 	t_vec2i	vec2;
 
-	game->player.direction.x = +0.0f;
-	game->player.direction.y = -1.0f;
+	game->player.theta = -9 * M_PI / RADJUMP;
 
-	game->player.pos.x = 50;
-	game->player.pos.y = 50;
+	game->player.pos.x = 150;
+	game->player.pos.y = 150;
 	vec2.x = 200;
 	vec2.y	= 328;
 	// square(game, vec, 50, rgbtocolor(23, 128, 128));
 
 	draw_map(game);
-	line_s(game, game->player.pos, 100, rgbtocolor(255, 50, 100));
+	// line_s(game, game->player.pos, 100, rgbtocolor(255, 50, 100));
 	pixsquare(game, game->player.pos, 10, rgbtocolor(0, 255, 0));
 	pixsquare(game, vec2, 10, rgbtocolor(0, 255, 0));
 	

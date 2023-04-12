@@ -9,10 +9,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <math.h>
 
 #define ELINFOLIMIT 6 //TODO: remove artificial limit
-
-#define PI 3.14159265
 
 # define A 97
 # define S 115
@@ -44,7 +43,9 @@ typedef struct s_plinfo
 	t_vec2i	pos;
 	t_vec2f	posoffset;
 
-	t_vec2f	direction;
+	// t_vec2f	direction;
+	double	theta;
+
 } t_plinfo;
 
 typedef struct s_game
@@ -95,6 +96,11 @@ int	line_s(t_game *game, t_vec2i origin, size_t size, int color);
 int	pixsquare(t_game *game, t_vec2i pos, size_t size, int color);
 int	draw_map(t_game *game);
 
+int	horline(t_game *game, t_vec2i pos, size_t size, int color);
+int	verline(t_game *game, t_vec2i pos, size_t size, int color);
+int	pixsquare(t_game *game, t_vec2i pos, size_t size, int color);
+
+int	line_t(t_game *game, t_vec2i origin, size_t size, int color);
 
 
 
