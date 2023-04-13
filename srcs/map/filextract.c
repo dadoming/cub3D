@@ -14,51 +14,37 @@
 
 static char     *elmapGet(t_elinfo *elmap ,char *elmapKey);
 t_settings      *settingsSet(t_settings *map_settings);
-static int             check_valid_filename(const char *str);
+static int      check_valid_filename(const char *str);
 static void     free_and_exit(t_settings *settings);
-
-void elmapFree(t_elinfo **map_settings)
-{
-    int i;
-
-    i = 0;
-    while (i < ELINFOLIMIT)
-    {
-        if ((*map_settings)[i].key != NULL)
-            free((*map_settings)[i].key);
-        if ((*map_settings)[i].val != NULL)
-            free((*map_settings)[i].val);
-        i++;
-    }
-    free(*map_settings);
-}
 
 int	fileXtract(char *cubflpath)
 {
 	int	fd;
 	t_settings	*settings;
 
-	printf("Extracting content from %s\n", cubflpath);
+	printf("Extracting content from: %s\n", cubflpath);
 	if (check_valid_filename(cubflpath) == 0)
 	{
-		printf("Invalid map file_name\n");
+		printf("Invalid map filename!\nExiting program...\n");
 		exit(0);
 	}
 	fd = open(cubflpath, O_RDONLY);
 	if (fd <= 0)
 	{
-        printf("Could not open file\n");
+        printf("Could not open file!\nExiting program...\n");
         exit(0);
     }
-	settings = elmapXtract(fd);
-	if (settings->elmap == NULL)
+    settings = read_settings(fd);
+	if (settings == NULL)
 	{
-		printf("Invalid file data, exited extract\n");
+		printf("Exiting program...\n");
+        close(fd);
 		exit(0);
 	}
     close(fd);
-    
     settings = settingsSet(settings);
+    
+    
     /*for debug malloc , this is to erase
     */ 
     printf("SETTINGS:\n");
@@ -100,10 +86,10 @@ t_settings *settingsSet(t_settings *map_settings)
     map_settings->Etexpath = elmapGet(map_settings->elmap, "EA");
     map_settings->Floorstr = elmapGet(map_settings->elmap, "F");
     map_settings->Ceilstr = elmapGet(map_settings->elmap, "C");
-    if ((map_settings->Ntexpath && map_settings->Stexpath
-			&& map_settings->Wtexpath && map_settings->Etexpath
-			&& map_settings->Floorstr && map_settings->Ceilstr
-			&& map_settings->charmap) == 0) // if any of the settings are left blank
+    if ((map_settings->Ntexpath && map_settings->Stexpath \
+			&& map_settings->Wtexpath && map_settings->Etexpath \
+			&& map_settings->Floorstr && map_settings->Ceilstr \
+			&& map_settings->charmap) == 0)
 		free_and_exit(map_settings);
 	return (map_settings);
 }
@@ -145,6 +131,6 @@ static void free_and_exit(t_settings *settings)
     charmapFree(settings->charmap);
     elmapFree(&settings->elmap);
     free(settings);
-    printf("Invalid map info\n");
+    printf("Error: Invalid map info\n");
     exit(0);
 }
