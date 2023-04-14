@@ -1,5 +1,4 @@
 # include "../includes/cub3D.h"
-
 int	theloop(t_game *game)
 {
 	// static size_t	frame = 0;
@@ -20,9 +19,6 @@ int	theloop(t_game *game)
 
 int run_game(t_game *game)
 {
-	t_vec2i	vec1;
-	t_vec2i	vec2;
-
 	game->player.theta = M_PI;
 
 	game->player.pos.x = 150;
@@ -35,3 +31,4 @@ int run_game(t_game *game)
     mlx_loop(game->mlx);
 	return (1);
 }
+*/

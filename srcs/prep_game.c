@@ -44,10 +44,11 @@ int key_event(int key, t_game *game)
 
 int	prep_game(t_settings *setts)
 {
+	(void)setts;
+/*
 	t_game	game;
 
 	game.charmap = setts->charmap;
-
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return 0; //TODO: gotta free and exit
@@ -55,7 +56,6 @@ int	prep_game(t_settings *setts)
 
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);
-
 
 	return (run_game(&game));
 	// return (1);

@@ -1,12 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_input.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/12 13:26:38 by dadoming          #+#    #+#             */
+/*   Updated: 2023/04/14 14:45:41 by dadoming         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include "../includes/cub3D.h"
 
 int check_input(int argc, char **argv)
 {
-	t_settings	settings;
-
     if (argc == 1)
     {
 		fileXtract("maps/test.cub");
+		//fileXtract("maps/testnolines.cub");
+        //fileXtract("maps/testempty.cub");
+        //fileXtract("maps/test1l.cub");
+        //fileXtract("maps/testrandomletter.cub");
+        //fileXtract("maps/testnomap.cub");
+		//fileXtract("maps/direc.cub");
     }
 	else if (argc == 2)
 	{
@@ -17,5 +33,6 @@ int check_input(int argc, char **argv)
 		printf("Wrong number of args");
 		exit(0);
 	}
+	return (0);
 	//TODO: ? run_game(settings);
 }

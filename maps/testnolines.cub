@@ -1,18 +1,12 @@
+    NO bla
 
-NO bla
-WE         ./path_to_the_west_texture
+
+     WE         ./path_to_the_west_texture
 EA     ./path_to_the_east_texture            
 
 SO            ./path_to_the_south_texture
 F 220,100,0
-             
-
-    C 225,30,0
-    
-    C 234,60,0
-
-
-   
+C 225,30,0
 11111
 10001
 11111
