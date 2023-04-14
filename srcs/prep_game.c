@@ -55,7 +55,7 @@ int	prep_game(t_settings *setts)
 
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);
-
+	
 	return (run_game(&game));
 	// return (1);
 }

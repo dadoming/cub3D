@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 13:26:31 by dadoming          #+#    #+#             */
-/*   Updated: 2023/04/14 14:38:45 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:10:31 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	fileXtract(char *cubflpath)
 	int	fd;
 	t_settings	*settings;
 
-	printf("Extracting content from: %s\n", cubflpath);
+	printf("----------------------------------------\nExtracting content from: %s\n", cubflpath);
 	if (check_valid_filename(cubflpath) == 0)
 	{
 		printf("Invalid map filename!\nExiting program...\n");
@@ -42,11 +42,11 @@ int	fileXtract(char *cubflpath)
 	}
     close(fd);
     settings = settingsSet(settings);
-	return (prep_game(&settings));
-    //return (prepare_map(settings));
-    
+	
+    //return (prep_game(settings, prepare_map(settings)));
+    printf("!Player orientation %d\n", prepare_map(settings));//^^
+
     /*for debug malloc , this is to erase
-    */ 
     printf("SETTINGS:\n");
     printf("Ntexpath: %s", settings->Ntexpath);
     printf("Stexpath: %s", settings->Stexpath);
@@ -63,6 +63,7 @@ int	fileXtract(char *cubflpath)
             k++;
         }
     }
+    */ 
     free(settings->Ntexpath);
     free(settings->Stexpath);
     free(settings->Wtexpath);
@@ -130,6 +131,6 @@ void free_on_invalid(t_settings *settings)
     charmapFree(settings->charmap);
     elmapFree(&settings->elmap);
     free(settings);
-    printf("Error: Invalid map info\n");
+    printf("Error: Invalid map info\nExiting program...\n");
     exit(0);
 }

@@ -12,7 +12,7 @@
 #include <math.h>
 # include <limits.h>
 
-#define ELINFOLIMIT 6 //TODO: remove artificial limit
+#define ELINFOLIMIT 6
 #define RADJUMP 32
 
 # define A 97
@@ -20,6 +20,18 @@
 # define D 100
 # define W 119
 # define ESC 65307
+
+# define WALL '1'
+# define FLOOR '0'
+
+enum e_player_orientation
+{
+	NONE,
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+};
 
 typedef struct s_img
 {
@@ -47,13 +59,20 @@ typedef struct s_plinfo
 
 } t_plinfo;
 
+typedef struct s_map_check
+{
+	int top;
+	int right;
+	int left;
+	int bottom;
+} t_map_check;
+
 typedef struct s_game
 {
-    void	*mlx;
-    void	*win;
+    void		*mlx;
+    void		*win;
 
-	char	**charmap;
-
+	char		**charmap;
 	t_plinfo	player;
 } t_game;
 
@@ -80,6 +99,8 @@ int	            fileXtract(char *cubflpath);
 t_settings	    *read_settings(int openfd);
 t_settings      *init_map_settings(int list_size);
 int             treat_caught_info(t_elinfo **elinfo, t_list **file_list, int *i);
+int 			prepare_map(t_settings *map_settings);
+int				invalid_chars(char **map);
 
 
 int	            charmapFree(char **charmap);

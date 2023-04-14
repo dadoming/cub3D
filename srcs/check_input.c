@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 13:26:38 by dadoming          #+#    #+#             */
-/*   Updated: 2023/04/14 14:45:41 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:24:49 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int check_input(int argc, char **argv)
 {
     if (argc == 1)
     {
-		fileXtract("maps/test.cub");
+		fileXtract("maps/testmapborder.cub");
+		//fileXtract("maps/test.cub");
 		//fileXtract("maps/testnolines.cub");
         //fileXtract("maps/testempty.cub");
         //fileXtract("maps/test1l.cub");
