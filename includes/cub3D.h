@@ -11,9 +11,17 @@
 #include <fcntl.h>
 #include <math.h>
 # include <limits.h>
+#include <unistd.h>
+
+#define WINDOWSIZE_X 800
+#define WINDOWSIZE_Y 500
 
 #define ELINFOLIMIT 6 //TODO: remove artificial limit
 #define RADJUMP 32
+#define SQUARESIZE 5
+
+#define WALKDIST 5
+
 
 # define A 97
 # define S 115
@@ -47,12 +55,22 @@ typedef struct s_plinfo
 
 } t_plinfo;
 
+typedef struct s_imgbuffer
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+} t_imgbuffer;
+
 typedef struct s_game
 {
-    void	*mlx;
-    void	*win;
+    void		*mlx;
+    void		*win;
+	t_imgbuffer	imgbuffer;
 
-	char	**charmap;
+	char		**charmap;
 
 	t_plinfo	player;
 } t_game;
@@ -92,6 +110,8 @@ int	prep_game();
 int run_game(t_game *game);
 
 int	rgbtocolor(unsigned char r, unsigned char g, unsigned char b);
+void	mypixelput(t_imgbuffer *imgbuffer, int x, int y, int color);
+
 int	line(t_game *game, t_vec2i origin, t_vec2i dest, int color);
 int	line_s(t_game *game, t_vec2i origin, size_t size, int color);
 int	line_tf(t_game *game, t_vec2f origin, size_t size, int color);
@@ -110,6 +130,11 @@ int	line_t(t_game *game, t_vec2i origin, size_t size, int color);
 int p_move(t_game *game, int ns, int ew);
 int p_movefrwd(t_game *game);
 int p_movebkwd(t_game *game);
+
+int	setstartpos(t_game *game);
+
+int	imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
+
 
 
 

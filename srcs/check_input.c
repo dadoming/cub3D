@@ -16,13 +16,14 @@ int check_input(int argc, char **argv)
 {
     if (argc == 1)
     {
-		fileXtract("maps/test.cub");
-		//fileXtract("maps/testnolines.cub");
+		// fileXtract("maps/test.cub");
+		// fileXtract("maps/testnolines.cub");
         //fileXtract("maps/testempty.cub");
         //fileXtract("maps/test1l.cub");
         //fileXtract("maps/testrandomletter.cub");
         //fileXtract("maps/testnomap.cub");
 		//fileXtract("maps/direc.cub");
+		fileXtract("maps/workswell.cub");
     }
 	else if (argc == 2)
 	{

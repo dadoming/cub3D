@@ -3,14 +3,14 @@ int	theloop(t_game *game)
 {
 	// static size_t	frame = 0;
 
-	// if (frame == 6000)
+	// if (frame == 10000)
 	// {
 		mlx_clear_window(game->mlx, game->win);
 		draw_map(game);
-		pixsquarecent(game, game->player.pos, 50, rgbtocolor(0, 255, 0));
+		pixsquarecent(game, game->player.pos, SQUARESIZE, rgbtocolor(0, 255, 0));
 		line_tf(game, game->player.pos, 150, rgbtocolor(255, 50, 50));
 		line_tf(game, game->player.pos, 150, rgbtocolor(255, 50, 50));
-
+		mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
 	// 	frame = 0;
 	// }
 	// frame++;
@@ -19,10 +19,10 @@ int	theloop(t_game *game)
 
 int run_game(t_game *game)
 {
-	game->player.theta = M_PI;
+	// game->player.theta = M_PI;
 
-	game->player.pos.x = 150;
-	game->player.pos.y = 150;
+	// game->player.pos.x = 150;
+	// game->player.pos.y = 150;
 
 
 
