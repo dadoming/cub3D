@@ -8,8 +8,8 @@ int p_move(t_game *game, int ns, int ew)
 
     if (ns + ew < -2 || ns + ew > 2)
         return (0);
-    newpos.x = ppos.x + cos(game->player.theta) * ns * WALKDIST;
-    newpos.y = ppos.y + sin(game->player.theta) * ew * WALKDIST;
+    newpos.x = ppos.x + cos(game->player.theta) * ns;;
+    newpos.y = ppos.y + sin(game->player.theta) * ew;;
 
 	//TODO: check collisions!
 	//Do not need to check because there will always be

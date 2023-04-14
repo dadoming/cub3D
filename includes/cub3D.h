@@ -18,10 +18,11 @@
 
 #define ELINFOLIMIT 6 //TODO: remove artificial limit
 #define RADJUMP 32
-#define SQUARESIZE 5
 
-#define WALKDIST 5
-
+//Do Not Touch!
+#define SQUARESIZE 1
+// #define WALKDIST 1
+// __
 
 # define A 97
 # define S 115
