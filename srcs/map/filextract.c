@@ -42,6 +42,7 @@ int	fileXtract(char *cubflpath)
 	}
     close(fd);
     settings = settingsSet(settings);
+	return (prep_game(&settings));
     //return (prepare_map(settings));
     
     /*for debug malloc , this is to erase
@@ -73,7 +74,6 @@ int	fileXtract(char *cubflpath)
     elmapFree(&settings->elmap);
     free(settings);
     
-	//return (prep_game(&settings));
 	return (0);
 }
 

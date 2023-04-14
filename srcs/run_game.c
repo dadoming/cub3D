@@ -31,4 +31,3 @@ int run_game(t_game *game)
     mlx_loop(game->mlx);
 	return (1);
 }
-*/

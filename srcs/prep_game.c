@@ -45,7 +45,6 @@ int key_event(int key, t_game *game)
 int	prep_game(t_settings *setts)
 {
 	(void)setts;
-/*
 	t_game	game;
 
 	game.charmap = setts->charmap;

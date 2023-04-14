@@ -11,7 +11,7 @@ INCLUDES	= includes/cub3D.h libft/libft.h
 
 CC	= cc
 
-CFLAGS	= -g3 -Wall -Wextra -Iincludes -Ilibft -Werror #-fsanitize=address
+CFLAGS	= -g3 -Wall -Wextra -Iincludes -Ilibft# -Werror -fsanitize=address
 
 MLX_LIB	= minilibx-linux/libmlx.a
 
