@@ -67,6 +67,14 @@ typedef struct s_map_check
 	int bottom;
 } t_map_check;
 
+typedef struct s_player_check
+{
+    int north;
+    int south;
+    int east;
+    int west;
+} t_player_check;
+
 typedef struct s_game
 {
     void		*mlx;
@@ -101,7 +109,9 @@ t_settings      *init_map_settings(int list_size);
 int             treat_caught_info(t_elinfo **elinfo, t_list **file_list, int *i);
 int 			prepare_map(t_settings *map_settings);
 int				invalid_chars(char **map);
-
+void            get_maximum_values(t_map_check *maxs, char **map);
+char            **cut_and_define_border(char **map);
+int             get_player_orientation(char **map);
 
 int	            charmapFree(char **charmap);
 void            elmapFree(t_elinfo **map_settings);

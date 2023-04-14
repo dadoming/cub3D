@@ -49,9 +49,11 @@ int	charmapFree(char **charmap)
 	while (charmap[i] != NULL)
 	{
 		free(charmap[i]);
+        charmap[i] = NULL;
 		i++;
 	}
 	free(charmap);
+    charmap = NULL;
 	return (1);
 }
 

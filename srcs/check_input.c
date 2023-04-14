@@ -16,7 +16,8 @@ int check_input(int argc, char **argv)
 {
     if (argc == 1)
     {
-		fileXtract("maps/testmapborder.cub");
+        fileXtract("maps/testxmap.cub");
+		//fileXtract("maps/testmapborder.cub");
 		//fileXtract("maps/test.cub");
 		//fileXtract("maps/testnolines.cub");
         //fileXtract("maps/testempty.cub");
