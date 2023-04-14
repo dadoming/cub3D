@@ -3,7 +3,7 @@
 NAME	= cub3D
 
 # SRCS = srcs/main.c srcs/check_input.c srcs/run_game.c
-SRCS	= $(wildcard srcs/*.c)
+SRCS	= $(wildcard srcs/*.c) $(wildcard srcs/map/*.c)
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -11,7 +11,7 @@ INCLUDES	= includes/cub3D.h libft/libft.h
 
 CC	= cc
 
-CFLAGS	= -g3 -Wall -Wextra -Iincludes -Ilibft #-Werror
+CFLAGS	= -g3 -Wall -Wextra -Iincludes -Ilibft -Werror #-fsanitize=address
 
 MLX_LIB	= minilibx-linux/libmlx.a
 

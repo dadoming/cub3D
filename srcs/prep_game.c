@@ -2,10 +2,11 @@
 
 int	prep_game(t_settings *setts)
 {
+	(void)setts;
+/*
 	t_game	game;
 
 	game.charmap = setts->charmap;
-
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return 0; //TODO: gotta free and exit
@@ -14,5 +15,6 @@ int	prep_game(t_settings *setts)
 
 
 	return (run_game(game));
-	// return (1);
+*/
+	return (1);
 }

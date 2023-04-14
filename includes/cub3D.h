@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+# include <limits.h>
 
 #define ELINFOLIMIT 6 //TODO: remove artificial limit
 
@@ -33,33 +34,36 @@ typedef struct s_game
 	char	**charmap;
 } t_game;
 
-typedef struct s_settings
-{
-	char	*Ntexpath;
-	char	*Stexpath;
-	char	*Wtexpath;
-	char	*Etexpath;
-
-	char	*Floorstr;
-	char	*Ceilstr;
-
-	char	**charmap;
-} t_settings;
-
 typedef struct s_elinfo
 {
 	char	*key;
 	char	*val;
 } t_elinfo;
 
+typedef struct s_settings
+{
+	t_elinfo	*elmap;
+	char		*Ntexpath;
+	char		*Stexpath;
+	char		*Wtexpath;
+	char		*Etexpath;
+	char		*Floorstr;
+	char		*Ceilstr;
+	char		**charmap;
+} t_settings;
 
-int check_input(int argc, char **argv);
-int	fileXtract(char *cubflpath);
-t_elinfo	*elmapXtract(int openfd);
-int	elmapFree(t_elinfo *elmap);
-char	*elmapGet(t_elinfo *elmap ,char *elmapKey);
-char	**charmapXtract(int openfd);
-int	charmapFree(char **charmap);
+int             check_input(int argc, char **argv);
+int	            fileXtract(char *cubflpath);
+t_settings	    *read_settings(int openfd);
+t_settings      *init_map_settings(int list_size);
+int             treat_caught_info(t_elinfo **elinfo, t_list **file_list, int *i);
+
+
+int	            charmapFree(char **charmap);
+void            elmapFree(t_elinfo **map_settings);
+void            free_list(t_list **list);
+void            free_evaluation(t_settings **map_settings);
+void 			free_on_invalid(t_settings *settings);
 
 int	prep_game();
 int run_game(t_game game);

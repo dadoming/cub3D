@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:14:46 by amaria-d          #+#    #+#             */
-/*   Updated: 2022/10/18 15:08:06 by amaria-d         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:05:12 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_list	*ft_lstcpy(t_list *lst)
 	while (lst->next != NULL)
 	{
 		lst = lst->next;
-		ft_lstadd_back(&new, ft_lstnew(lst->content));
+		ft_lstadd_back(&new, lst->content);
 	}
 	return (new);
 }
