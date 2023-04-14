@@ -52,17 +52,18 @@ typedef struct s_settings
 	char		**charmap;
 } t_settings;
 
-void	        elmapFree(t_elinfo **map_settings);
 int             check_input(int argc, char **argv);
 int	            fileXtract(char *cubflpath);
 t_settings	    *read_settings(int openfd);
 t_settings      *init_map_settings(int list_size);
 int             treat_caught_info(t_elinfo **elinfo, t_list **file_list, int *i);
 
+
 int	            charmapFree(char **charmap);
 void            elmapFree(t_elinfo **map_settings);
 void            free_list(t_list **list);
 void            free_evaluation(t_settings **map_settings);
+void 			free_on_invalid(t_settings *settings);
 
 int	prep_game();
 int run_game(t_game game);

@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 13:26:31 by dadoming          #+#    #+#             */
-/*   Updated: 2023/04/12 20:09:41 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:38:45 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static char     *elmapGet(t_elinfo *elmap ,char *elmapKey);
 t_settings      *settingsSet(t_settings *map_settings);
 static int      check_valid_filename(const char *str);
-static void     free_and_exit(t_settings *settings);
 
 int	fileXtract(char *cubflpath)
 {
@@ -43,7 +42,7 @@ int	fileXtract(char *cubflpath)
 	}
     close(fd);
     settings = settingsSet(settings);
-    
+    //return (prepare_map(settings));
     
     /*for debug malloc , this is to erase
     */ 
@@ -90,7 +89,7 @@ t_settings *settingsSet(t_settings *map_settings)
 			&& map_settings->Wtexpath && map_settings->Etexpath \
 			&& map_settings->Floorstr && map_settings->Ceilstr \
 			&& map_settings->charmap) == 0)
-		free_and_exit(map_settings);
+		free_on_invalid(map_settings);
 	return (map_settings);
 }
 
@@ -120,7 +119,7 @@ static int check_valid_filename(const char *str)
 	return (!ft_strncmp(str, ".cub", 5));
 }
 
-static void free_and_exit(t_settings *settings)
+void free_on_invalid(t_settings *settings)
 {
     free(settings->Ntexpath);
 	free(settings->Stexpath);
