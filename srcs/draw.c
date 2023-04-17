@@ -1,5 +1,24 @@
 # include "../includes/cub3D.h"
 
+void	myclearimg(t_game *game)
+{
+	size_t	j;
+	size_t	i;
+
+	j = 0;
+	while (j < WINDOWSIZE_Y)
+	{
+		i = 0;
+		while (i < WINDOWSIZE_X)
+		{
+			mypixelput(&game->imgbuffer, i, j, rgbtocolor(0,0,0));
+			i++;
+		}
+		j++;
+	}
+
+}
+
 void	mypixelput(t_imgbuffer *imgbuffer, int x, int y, int color)
 {
 	char	*pixel;
@@ -38,5 +57,18 @@ int	draw_map(t_game *game)
 		vec.y += SQUARESIZE;
 		j++;
 	}
+	return (1);
+}
+
+int	draw_player(t_game *game)
+{
+	t_vec2f	drawpos;
+
+	drawpos.x = game->player.pos.x * SQUARESIZE;
+	drawpos.y = game->player.pos.y * SQUARESIZE;
+
+	pixsquarecent(game, drawpos, SQUARESIZE, rgbtocolor(0, 255, 0));
+	line_tf(game, drawpos, 150, rgbtocolor(255, 50, 50));
+
 	return (1);
 }

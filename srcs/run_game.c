@@ -8,10 +8,9 @@ int	theloop(t_game *game)
 	// {
 		//TODO: implement my clear image
 		//TODO: Here is where we insuflate the proportions
+		myclearimg(game);
 		draw_map(game);
-		pixsquarecent(game, game->player.pos, SQUARESIZE, rgbtocolor(0, 255, 0));
-		line_tf(game, game->player.pos, 150, rgbtocolor(255, 50, 50));
-		line_tf(game, game->player.pos, 150, rgbtocolor(255, 50, 50));
+		draw_player(game);
 		mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
 	// 	frame = 0;
 	// }

@@ -20,7 +20,7 @@
 #define RADJUMP 32
 
 //Do Not Touch!
-#define SQUARESIZE 1
+#define SQUARESIZE 10
 // #define WALKDIST 1
 // __
 
@@ -135,6 +135,9 @@ int p_movebkwd(t_game *game);
 int	setstartpos(t_game *game);
 
 int	imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
+
+void	myclearimg(t_game *game);
+int	draw_player(t_game *game);
 
 
 
