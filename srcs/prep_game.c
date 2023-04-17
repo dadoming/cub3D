@@ -50,12 +50,25 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	//{
 	//	free_on_invalid(map_settings);
 	//}
-	//game.player = player;
+	game.player = player;
 	game.charmap = map_settings->charmap;
+  
+	//David esta a implementar
+	game.player.pos.x = 5;
+	game.player.pos.y = 4;
+	game.player.theta = M_PI * 1.5f;
+	// _
+
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return 0; //TODO: gotta free and exit
-    game.win = mlx_new_window(game.mlx, 800, 500, "cub3D");
+    game.win = mlx_new_window(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y, "cub3D");
+
+	// Setup ImageBuffer
+	game.imgbuffer.img = mlx_new_image(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y);
+	game.imgbuffer.addr = mlx_get_data_addr(game.imgbuffer.img, &game.imgbuffer.bits_per_pixel, &game.imgbuffer.line_length, &game.imgbuffer.endian);
+
+
 
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);

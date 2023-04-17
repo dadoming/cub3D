@@ -43,10 +43,10 @@ int	fileXtract(char *cubflpath)
     close(fd);
     settings = settingsSet(settings);
 	
-    return (prep_game(settings, prepare_map(settings)));
-    //printf("!Player orientation %d\n", prepare_map(settings));//^^
-
-    /*for debug malloc , this is to erase
+    return (prep_game(settings, prepare_map(settings)));    
+   
+   
+   /*for debug malloc , this is to erase
     printf("SETTINGS:\n");
     printf("Ntexpath: %s", settings->Ntexpath);
     printf("Stexpath: %s", settings->Stexpath);
