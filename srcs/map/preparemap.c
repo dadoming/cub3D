@@ -30,6 +30,15 @@ int prepare_map(t_settings *map_settings)
     player_orientation = get_player_orientation(map_settings->charmap);
     if (player_orientation == NONE)
         free_on_invalid(map_settings);
+    int k = 0;
+    if (map_settings->charmap != 0)
+    {
+        while (map_settings->charmap[k])
+        {
+            printf("charmap[%d]: %s\n", k, map_settings->charmap[k]);
+            k++;
+        }
+    }
     return (player_orientation);
 }
 

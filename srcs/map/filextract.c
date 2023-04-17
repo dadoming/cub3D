@@ -43,8 +43,8 @@ int	fileXtract(char *cubflpath)
     close(fd);
     settings = settingsSet(settings);
 	
-    //return (prep_game(settings, prepare_map(settings)));
-    printf("!Player orientation %d\n", prepare_map(settings));//^^
+    return (prep_game(settings, prepare_map(settings)));
+    //printf("!Player orientation %d\n", prepare_map(settings));//^^
 
     /*for debug malloc , this is to erase
     printf("SETTINGS:\n");
@@ -63,7 +63,6 @@ int	fileXtract(char *cubflpath)
             k++;
         }
     }
-    */ 
     free(settings->Ntexpath);
     free(settings->Stexpath);
     free(settings->Wtexpath);
@@ -75,6 +74,7 @@ int	fileXtract(char *cubflpath)
     elmapFree(&settings->elmap);
     free(settings);
     
+    */ 
 	return (0);
 }
 
