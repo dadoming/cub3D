@@ -120,6 +120,7 @@ int	line_tf(t_game *game, t_vec2f origin, size_t size, int color);
 int	pixsquare(t_game *game, t_vec2i pos, size_t size, int color);
 int	pixsquaref(t_game *game, t_vec2f pos, size_t size, int color);
 int	pixsquarecent(t_game *game, t_vec2f pos, size_t size, int color);
+void	squarecent_prop(t_game *game, t_vec2f pos, size_t size, int color);
 
 int	draw_map(t_game *game);
 
@@ -128,9 +129,8 @@ int	verline(t_game *game, t_vec2i pos, size_t size, int color);
 
 int	line_t(t_game *game, t_vec2i origin, size_t size, int color);
 
+char	coordcheck(t_game *game, int x, int y);
 int p_move(t_game *game, int ns, int ew);
-int p_movefrwd(t_game *game);
-int p_movebkwd(t_game *game);
 
 int	setstartpos(t_game *game);
 
@@ -138,6 +138,9 @@ int	imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
 
 void	myclearimg(t_game *game);
 int	draw_player(t_game *game);
+
+int	draw_ray(t_game *game);
+
 
 
 

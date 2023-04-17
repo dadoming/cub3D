@@ -25,6 +25,8 @@ void	mypixelput(t_imgbuffer *imgbuffer, int x, int y, int color)
 
 	if (x < 0 || y < 0)
 		return ;
+	if (x > WINDOWSIZE_X || y > WINDOWSIZE_Y)
+		return ;
 	pixel = imgbuffer->addr + imgbufferoffset(imgbuffer, x, y);
 	// pixel = 
 	*(unsigned int*)pixel = color;

@@ -2,6 +2,20 @@
 
 #define ppos game->player.pos
 
+char	coordcheck(t_game *game, int x, int y)
+{
+	if (x < 0 || y < 0)
+		return 0;
+	else if (x >= WINDOWSIZE_X || y >= WINDOWSIZE_Y)
+		return 0;
+	else if (y >= ft_mtrxlen(game->charmap))
+		return 0;
+	else if (x >= ft_strlen(game->charmap[0]))
+		return 0;
+	else
+		return (game->charmap[y][x]);
+}
+
 int p_move(t_game *game, int ns, int ew)
 {
     t_vec2f newpos;
