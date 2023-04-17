@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 13:41:46 by dadoming          #+#    #+#             */
-/*   Updated: 2023/04/14 19:41:07 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:37:40 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int map_playable(char **map);
 static int check_surrounding(char **map, int i, int j);
 
-int prepare_map(t_settings *map_settings)
+t_plinfo prepare_map(t_settings *map_settings)
 {
-    int player_orientation;
+    t_plinfo player;
 
-    player_orientation = NONE;
+    player.theta = (float)NONE;
     if (invalid_chars(map_settings->charmap))
         free_on_invalid(map_settings);
     map_settings->charmap = cut_and_define_border(map_settings->charmap);
@@ -27,19 +27,10 @@ int prepare_map(t_settings *map_settings)
         free_on_invalid(map_settings);
     if (map_playable(map_settings->charmap))
         free_on_invalid(map_settings);
-    player_orientation = get_player_orientation(map_settings->charmap);
-    if (player_orientation == NONE)
+    get_player(map_settings->charmap, &player);
+    if ((int)(player.theta) == NONE)
         free_on_invalid(map_settings);
-    int k = 0;
-    if (map_settings->charmap != 0)
-    {
-        while (map_settings->charmap[k])
-        {
-            printf("charmap[%d]: %s\n", k, map_settings->charmap[k]);
-            k++;
-        }
-    }
-    return (player_orientation);
+    return (player);
 }
 
 static int check_surrounding(char **map, int i, int j)
@@ -66,7 +57,9 @@ int map_playable(char **map)
     {
         while (map[i][j] != '\0')
         {
-            if (map[i][j] == '0' || map[i][j] == 'D')
+            if (map[i][j] == FLOOR || map[i][j] == 'D' \
+                || map[i][j] == 'S' || map[i][j] == 'N' \
+                || map[i][j] == 'W' || map[i][j] == 'E')
             {
                 if (check_surrounding(map, i, j))
                 {

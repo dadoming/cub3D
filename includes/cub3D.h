@@ -75,11 +75,27 @@ typedef struct s_player_check
     int west;
 } t_player_check;
 
+typedef struct s_texture
+{
+	//t_img	*n;
+	//t_img	*s;
+	//t_img	*w;
+	//t_img	*e;
+	void	*n;
+	void	*s;
+	void	*w;
+	void	*e;
+	int		ceil_color;
+	int		floor_color;
+
+} t_texture;
+
 typedef struct s_game
 {
     void		*mlx;
     void		*win;
 
+	t_texture	*texture;
 	char		**charmap;
 	t_plinfo	player;
 } t_game;
@@ -107,11 +123,11 @@ int	            fileXtract(char *cubflpath);
 t_settings	    *read_settings(int openfd);
 t_settings      *init_map_settings(int list_size);
 int             treat_caught_info(t_elinfo **elinfo, t_list **file_list, int *i);
-int 			prepare_map(t_settings *map_settings);
+t_plinfo prepare_map(t_settings *map_settings);
 int				invalid_chars(char **map);
 void            get_maximum_values(t_map_check *maxs, char **map);
 char            **cut_and_define_border(char **map);
-int             get_player_orientation(char **map);
+void get_player(char **map, t_plinfo *player);
 
 int	            charmapFree(char **charmap);
 void            elmapFree(t_elinfo **map_settings);
@@ -119,28 +135,28 @@ void            free_list(t_list **list);
 void            free_evaluation(t_settings **map_settings);
 void 			free_on_invalid(t_settings *settings);
 
-int	prep_game();
-int run_game(t_game *game);
+int	prep_game(t_settings *map_settings, t_plinfo player);
+int 			run_game(t_game *game);
 
-int	rgbtocolor(unsigned char r, unsigned char g, unsigned char b);
-int	line(t_game *game, t_vec2i origin, t_vec2i dest, int color);
-int	line_s(t_game *game, t_vec2i origin, size_t size, int color);
-int	line_tf(t_game *game, t_vec2f origin, size_t size, int color);
+int				rgbtocolor(unsigned char r, unsigned char g, unsigned char b);
+int				line(t_game *game, t_vec2i origin, t_vec2i dest, int color);
+int				line_s(t_game *game, t_vec2i origin, size_t size, int color);
+int				line_tf(t_game *game, t_vec2f origin, size_t size, int color);
 
-int	pixsquare(t_game *game, t_vec2i pos, size_t size, int color);
-int	pixsquaref(t_game *game, t_vec2f pos, size_t size, int color);
-int	pixsquarecent(t_game *game, t_vec2f pos, size_t size, int color);
+int				pixsquare(t_game *game, t_vec2i pos, size_t size, int color);
+int				pixsquaref(t_game *game, t_vec2f pos, size_t size, int color);
+int				pixsquarecent(t_game *game, t_vec2f pos, size_t size, int color);
 
-int	draw_map(t_game *game);
+int				draw_map(t_game *game);
 
-int	horline(t_game *game, t_vec2i pos, size_t size, int color);
-int	verline(t_game *game, t_vec2i pos, size_t size, int color);
+int				horline(t_game *game, t_vec2i pos, size_t size, int color);
+int				verline(t_game *game, t_vec2i pos, size_t size, int color);
 
-int	line_t(t_game *game, t_vec2i origin, size_t size, int color);
+int				line_t(t_game *game, t_vec2i origin, size_t size, int color);
 
-int p_move(t_game *game, int ns, int ew);
-int p_movefrwd(t_game *game);
-int p_movebkwd(t_game *game);
+int 			p_move(t_game *game, int ns, int ew);
+int 			p_movefrwd(t_game *game);
+int 			p_movebkwd(t_game *game);
 
 
 

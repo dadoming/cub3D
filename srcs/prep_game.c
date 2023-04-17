@@ -41,13 +41,17 @@ int key_event(int key, t_game *game)
     return (0);
 }
 
-
-int	prep_game(t_settings *setts)
+int	prep_game(t_settings *map_settings, t_plinfo player)
 {
-	(void)setts;
 	t_game	game;
 
-	game.charmap = setts->charmap;
+	// texture init
+	//if (load_textures(&game, map_settings))
+	//{
+	//	free_on_invalid(map_settings);
+	//}
+	//game.player = player;
+	game.charmap = map_settings->charmap;
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return 0; //TODO: gotta free and exit

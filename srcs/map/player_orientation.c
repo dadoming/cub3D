@@ -2,10 +2,17 @@
 
 static void letter_init(t_player_check *l);
 static void player_found(char c, t_player_check *l);
-static int too_many_player(t_player_check *l);
-static int player_orient(t_player_check l);
+static int too_many_player(t_player_check *l, t_plinfo *player);
+static void player_pos(t_plinfo *player, int x, int y);
+static void player_orient(t_player_check l, t_plinfo *player);
 
-int get_player_orientation(char **map)
+static void player_pos(t_plinfo *player, int x, int y)
+{
+    player->pos.x = (float)x;
+    player->pos.y = (float)y;
+}
+
+void get_player(char **map, t_plinfo *player)
 {
     int i;
     int j;
@@ -18,6 +25,8 @@ int get_player_orientation(char **map)
     {
         while (map[i][j] != '\0')
         {
+            if (l.east == 0 && l.north == 0 && l.south == 0 && l.west == 0)
+                player_pos(player, i, j); 
             if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W' || map[i][j] == 'E')
                 player_found(map[i][j], &l);
             j++;
@@ -25,9 +34,9 @@ int get_player_orientation(char **map)
         i++;
         j = 0;
     }
-    if (too_many_player(&l))
-        return (NONE);
-    return (player_orient(l));
+    if (too_many_player(&l, player))
+        return ;
+    player_orient(l, player);
 }
 
 static void letter_init(t_player_check *l)
@@ -50,11 +59,12 @@ static void player_found(char c, t_player_check *l)
         l->west++;
 }
 
-static int too_many_player(t_player_check *l)
+static int too_many_player(t_player_check *l, t_plinfo *player)
 {
     if (l->east == 0 && l->north == 0 && l->south == 0 && l->west == 0)
     {
         printf("No player found in map\n");
+        player->theta = (float)NONE;
         return (1);
     }
     else if ((l->east >= 1 && (l->north >= 1 || l->south >= 1 || l->west >= 1)) || \
@@ -62,23 +72,26 @@ static int too_many_player(t_player_check *l)
             (l->south >= 1 && (l->east >= 1 || l->north >= 1 || l->west >= 1)) || \
             (l->west >= 1 && (l->east >= 1 || l->north >= 1 || l->south >= 1)))
     {
+        player->theta = (float)NONE;
         printf("More than one player letter\n");
+        printf("%f\n", player->theta);
         return (1);
     }
     return (0);
 }
 
-static int player_orient(t_player_check l)
+static void player_orient(t_player_check l, t_plinfo *player)
 {
     if (l.north == 1)
-        return (NORTH);
+        player->theta = (float)NORTH; 
     else if (l.south == 1)
-        return (SOUTH);
+        player->theta = (float)SOUTH;
     else if (l.east == 1)
-        return (EAST);
+        player->theta = (float)EAST;
     else if (l.west == 1)
-        return (WEST);
-    return (NONE);
+        player->theta = (float)WEST;
+    else 
+        player->theta = (float)NONE;
 }
 
 

@@ -17,11 +17,11 @@ static int get_top(char **map, int y, int x)
 {
     while (map[y])
     {
-        if (map[y][x] == '1')
+        if (map[y][x] == WALL)
             return (y);
         while (map[y][x])
         {
-            if (map[y][x] == '1')
+            if (map[y][x] == WALL)
                 return (y);
             x++;
         }
@@ -35,11 +35,11 @@ static int get_bottom(char **map, int y, int x)
 {
     while (y >= 0 && map[y])
     {
-        if (map[y][x] == '1')
+        if (map[y][x] == WALL)
             return (y);
         while (map[y][x])
         {
-            if (map[y][x] == '1')
+            if (map[y][x] == WALL)
                 return (y);
             x++;
         }
@@ -56,11 +56,11 @@ static int get_left(char **map, int y, int x)
     last = get_right(map, 0, 0);
     while (map[y])
     {
-        if (map[y][x] == '1' && x < last)
+        if (map[y][x] == WALL && x < last)
             last = x;
         while (map[y][x])
         {
-            if (map[y][x] == '1' && x < last)
+            if (map[y][x] == WALL && x < last)
                 last = x;
             x++;
         }
@@ -77,11 +77,11 @@ static int get_right(char **map, int y, int x)
     last = 0;
     while (map[y])
     {
-        if (map[y][x] == '1' && x > last)
+        if (map[y][x] == WALL && x > last)
             last = x;
         while (map[y][x])
         {
-            if (map[y][x] == '1' && x > last)
+            if (map[y][x] == WALL && x > last)
                 last = x;
             x++;
         }
