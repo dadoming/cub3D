@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 13:26:38 by dadoming          #+#    #+#             */
-/*   Updated: 2023/04/14 14:45:41 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/04/17 15:34:41 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,7 @@ int check_input(int argc, char **argv)
 {
     if (argc == 1)
     {
-		// fileXtract("maps/test.cub");
-		// fileXtract("maps/testnolines.cub");
-        //fileXtract("maps/testempty.cub");
-        //fileXtract("maps/test1l.cub");
-        //fileXtract("maps/testrandomletter.cub");
-        //fileXtract("maps/testnomap.cub");
-		//fileXtract("maps/direc.cub");
-		fileXtract("maps/workswell.cub");
+        fileXtract("maps/testxmap.cub");
     }
 	else if (argc == 2)
 	{

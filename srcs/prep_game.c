@@ -41,12 +41,18 @@ int key_event(int key, t_game *game)
     return (0);
 }
 
-int	prep_game(t_settings *setts)
+int	prep_game(t_settings *map_settings, t_plinfo player)
 {
-	(void)setts;
 	t_game	game;
 
-	game.charmap = setts->charmap;
+	// texture init
+	//if (load_textures(&game, map_settings))
+	//{
+	//	free_on_invalid(map_settings);
+	//}
+	game.player = player;
+	game.charmap = map_settings->charmap;
+  
 	//David esta a implementar
 	game.player.pos.x = 5;
 	game.player.pos.y = 4;
@@ -66,7 +72,7 @@ int	prep_game(t_settings *setts)
 
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);
-
+	
 	return (run_game(&game));
 	// return (1);
 }
