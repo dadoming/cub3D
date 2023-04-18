@@ -9,12 +9,6 @@ t_settings *init_map_settings(int list_size)
     map_settings = malloc(sizeof(t_settings));
     if (!map_settings)
         return (NULL);
-    map_settings->elmap = malloc(ELINFOLIMIT * sizeof(t_elinfo));
-    if (!(map_settings->elmap))
-    {
-        free(map_settings);
-        return (NULL);
-    }
     init_map_settings_2(&map_settings);
     if (list_size < ELINFOLIMIT)
     {

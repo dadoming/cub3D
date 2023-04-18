@@ -3,42 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 11:56:30 by amaria-d          #+#    #+#             */
-/*   Updated: 2022/10/14 11:15:48 by amaria-d         ###   ########.fr       */
+/*   Updated: 2023/04/18 19:19:33 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+long int	ft_atoi(const char *str)
 {
-	unsigned int	num;
-	signed char		sign;
-	size_t			i;
+	int			i;
+	long int	neg;
+	long int	res;
 
-	sign = 1;
-	num = 0;
+	res = 0;
+	neg = 1;
 	i = 0;
-	while ((str[i] == ' ' || str[i] == '\n'
-			|| str[i] == '\t' || str[i] == '\v'
-			|| str[i] == '\r' || str[i] == '\f') && str[i])
+	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+		|| str[i] == '\f' || str[i] == '\r' || str[i] == 32)
 		i++;
-	if (str[i] == '-' || str[i] == '+')
+	if (str[i] == '+' || str[i] == '-')
+		if (str[i++] == '-')
+			neg *= -1;
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
+		res = (res * 10) + (str[i++] - '0');
+		if ((res * neg) < INT_MIN || (res * neg) > INT_MAX)
+			return (res * neg);
 	}
-	while (str[i] != '\0')
-	{
-		if (! (48 <= str[i] && str[i] <= 57))
-			return (num * sign);
-		num = (num * 10) + str[i] - '0';
-		i++;
-	}
-	return (num * sign);
+	return (res * neg);
 }
 
 /*

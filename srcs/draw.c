@@ -50,7 +50,7 @@ int	draw_map(t_game *game)
 				pixsquare(game, vec, SQUARESIZE, rgbtocolor(23, 128, 20));
 			else if (ft_charinside(game->charmap[j][i], "NSWE"))
 				pixsquare(game, vec, SQUARESIZE, rgbtocolor(255, 0, 0));
-			
+				
 			vec.x += SQUARESIZE;
 			i++;
 		}
