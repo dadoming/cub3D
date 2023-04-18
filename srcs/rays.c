@@ -1,36 +1,40 @@
 # include "../includes/cub3D.h"
 
+/**
+ * -2 <- 1.2 || 1.2 -> 2
+*/
 double	excenter(double x)
 {
 	if (x >= 0)
 		return (ceil(x));
 	else
 		return (floor(x));
-	
 }
 
 void	drawXgridColl(t_game *game)
 {
-	t_vec2f	rayend;
-	float	triangbase;
+	t_vec2f	pos;
+	float		base;
 	char	chk;
+	size_t	i;
 
-	rayend.x = game->player.pos.x;
-	rayend.y = game->player.pos.y;
+	pos.x = (int)(game->player.pos.x * excenter(cos(game->player.pos.x)))
 
-	chk = coordcheck(game, rayend.x, rayend.y); //TODO: it's writing outside the map
-	while (chk != '1' && chk != 0)
+	i = 1;
+	while (i)
 	{
-		triangbase = (int)(rayend.x + 1) - rayend.x;
+		// base = (excenter(game->player.pos.x) - game->player.pos.x) * i;
+		pos.x += excenter(cos(game->player.pos.x));
+		pos.y = game->player.pos.y + tan(game->player.theta) * base;// * excenter(cos(game->player.theta));
+		pos.y = roun
 
-		rayend.y += tan(game->player.theta) * triangbase * excenter(cos(game->player.theta));
-		squarecent_prop(game, rayend, 4, rgbtocolor(128, 0, 128));
-
-		// rayend.x = (int)(rayend.x + 1);
-		rayend.x = rayend.x + excenter(cos(game->player.theta));
-		chk = coordcheck(game, rayend.x, rayend.y);
+		chk = coordcheck(game, pos.x, pos.y);
+		if (chk == '1' || chk == 0)
+			return;
+		squarecent_prop(game, pos, 4, rgbtocolor(128, 0, 128));
+		i++;
 	}
-
+	printf("Shouldn't get here\n");
 }
 
 int	draw_ray(t_game *game)
