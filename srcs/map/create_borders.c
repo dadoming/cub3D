@@ -15,7 +15,6 @@ char **cut_and_define_border(char **map)
         return (NULL);
     }
     new_map = malloc(sizeof(char*) * (maxs.bottom - maxs.top + 3 + 1));
-    new_map[maxs.bottom - maxs.top + 3] = NULL;
     fill_map(map, maxs, new_map);
     charmapFree(map);
     return (new_map);
@@ -28,21 +27,24 @@ static void fill_map(char **map, t_map_check maxs, char **new_map)
     
     i = 0;
     j = 0;
-    while (i < maxs.bottom - maxs.top + 3)
+    
+    while (i < maxs.bottom - maxs.top + 2 + 1)
     {
-        new_map[i] = malloc(sizeof(char) * (maxs.right - maxs.left) + 3 + 1);
-        new_map[i][maxs.right - maxs.left + 3] = '\0';
-        while (j < maxs.right - maxs.left + 3)
+        new_map[i] = malloc(sizeof(char) * (maxs.right - maxs.left + 2 + 2));
+        while (j < maxs.right - maxs.left + 2 + 1)
         {
-            if (i < maxs.bottom - 2 && i < maxs.right - 2 && ft_charinside(map[i + maxs.top - 1][j + maxs.left - 1], "10NSWEDXK") && i > 0 && j>0)
-            {
+            if (i == 0 || j == 0 || j == maxs.right - maxs.left + 2 || i == maxs.bottom - maxs.top + 2)
+                new_map[i][j] = '2';
+            else if ((j + maxs.left - 1 < (int)ft_strlen(map[i + maxs.top - 1])) \
+                && ft_charinside(map[i + maxs.top - 1][j + maxs.left - 1], "10NSWEDXK"))
                 new_map[i][j] = map[i + maxs.top - 1][j + maxs.left - 1];
-            }
-            else 
+            else
                 new_map[i][j] = '2';
             j++;
         }
-        i++;
+        new_map[i][j] = '\0';
         j = 0;
+        i++;
     }
+    new_map[i] = NULL;
 }

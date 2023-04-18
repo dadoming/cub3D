@@ -63,6 +63,14 @@ int map_playable(char **map)
             {
                 if (check_surrounding(map, i, j))
                 {
+                    printf("\nmap[%d] = %s\n", i - 1, map[i - 1]);
+                    printf("map[%d] = %s\n", i, map[i]);
+                    printf("map[%d] = %s\n", i + 1, map[i + 1]);
+                    printf("map[%d][%d] = %c\n", i, j + 1, map[i][j + 1]);
+                    printf("map[%d][%d] = %c\n", i, j - 1, map[i][j - 1]);
+                    printf("map[%d][%d] = %c\n", i + 1, j, map[i + 1][j]);
+                    printf("map[%d][%d] = %c\n", i - 1, j, map[i - 1][j]);
+                    printf("map[%d][%d] = %c\n", i, j, map[i][j]);
                     printf("Map is open\n");
                     return (1);
                 }
