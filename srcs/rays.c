@@ -33,11 +33,14 @@ float	XgridColl(t_game *game, double theta)
 		
 		chk = coordcheck(game, pos.x, pos.y);
 		if (chk == '1' || chk == 0)
+		{
+			squarecent_prop(game, pos, 2, rgbtocolor(128, 0, 128));				
 			return dist;
+		}
 
 		// dist += sqrt(1 + tan(theta)*tan(theta));
 		dist += fabs(tan(theta) / sin(theta));
-		squarecent_prop(game, pos, 2, rgbtocolor(128, 128, 0));
+		// squarecent_prop(game, pos, 2, rgbtocolor(128, 128, 0));
 	}
 	printf("Shouldn't get here\n");
 }
@@ -65,11 +68,14 @@ float	YgridColl(t_game *game, double theta)
 
 		chk = coordcheck(game, pos.x, pos.y);
 		if (chk == '1' || chk == 0)
+		{
+			squarecent_prop(game, pos, 2, rgbtocolor(128, 0, 128));
 			return dist;
+		}
 		
 		// dist += sqrt(1 + (1/tan(theta))*(1/tan(theta)));
-		dist += 1 / sin(theta);
-		squarecent_prop(game, pos, 2, rgbtocolor(128, 0, 128));
+		dist += fabs(1 / sin(theta));
+		// squarecent_prop(game, pos, 2, rgbtocolor(128, 0, 128));
 	}
 	printf("Shouldn't get here\n");
 }
@@ -111,6 +117,7 @@ int	draw_ray(t_game *game)
 	float	distx;
 	float	disty;
 
+	//TODO: negative dists returned!!!
 	distx = XgridColl(game, game->player.theta);
 	disty = YgridColl(game, game->player.theta);
 
