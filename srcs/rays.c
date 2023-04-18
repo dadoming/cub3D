@@ -35,7 +35,8 @@ float	XgridColl(t_game *game, double theta)
 		if (chk == '1' || chk == 0)
 			return dist;
 
-		dist += sqrt(1 + tan(theta)*tan(theta));
+		// dist += sqrt(1 + tan(theta)*tan(theta));
+		dist += fabs(tan(theta) / sin(theta));
 		squarecent_prop(game, pos, 2, rgbtocolor(128, 128, 0));
 	}
 	printf("Shouldn't get here\n");
@@ -66,7 +67,8 @@ float	YgridColl(t_game *game, double theta)
 		if (chk == '1' || chk == 0)
 			return dist;
 		
-		dist += sqrt(1 + (1/tan(theta))*(1/tan(theta)));
+		// dist += sqrt(1 + (1/tan(theta))*(1/tan(theta)));
+		dist += 1 / sin(theta);
 		squarecent_prop(game, pos, 2, rgbtocolor(128, 0, 128));
 	}
 	printf("Shouldn't get here\n");
