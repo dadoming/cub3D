@@ -86,14 +86,10 @@ typedef struct s_player_check
 
 typedef struct s_texture
 {
-	//t_img	*n;
-	//t_img	*s;
-	//t_img	*w;
-	//t_img	*e;
-	void	*n;
-	void	*s;
-	void	*w;
-	void	*e;
+	t_img	n;
+	t_img	s;
+	t_img	w;
+	t_img	e;
 	int		ceil_color;
 	int		floor_color;
 
@@ -114,7 +110,7 @@ typedef struct s_game
     void		*win;
 	t_imgbuffer	imgbuffer;
 
-	t_texture	*texture;
+	t_texture	texture;
 	char		**charmap;
 	t_plinfo	player;
 } t_game;
@@ -156,6 +152,8 @@ void 			free_on_invalid(t_settings *settings);
 
 int	      prep_game(t_settings *map_settings, t_plinfo player);
 int 			run_game(t_game *game);
+void load_textures(t_game *game, t_settings *map_settings);
+int load_rgb(char *value);
 
 int				rgbtocolor(unsigned char r, unsigned char g, unsigned char b);
 int				line(t_game *game, t_vec2i origin, t_vec2i dest, int color);

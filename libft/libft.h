@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:39:23 by amaria-d          #+#    #+#             */
-/*   Updated: 2023/04/12 16:04:37 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/04/18 19:19:46 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include <limits.h>
 
 /*	GET_NEXT_LINE	*/
 # ifndef BUFFER_SIZE
@@ -72,7 +73,7 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 
-int		ft_atoi(const char *str);
+long int		ft_atoi(const char *str);
 
 long	ft_atol(const char *str);
 

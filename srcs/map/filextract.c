@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 13:26:31 by dadoming          #+#    #+#             */
-/*   Updated: 2023/04/14 19:10:31 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/04/18 20:08:37 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ int	fileXtract(char *cubflpath)
 
 t_settings *settingsSet(t_settings *map_settings)
 {
+	int i;
+
+	i = 0;
     map_settings->Ntexpath = elmapGet(map_settings->elmap, "NO");
     map_settings->Stexpath = elmapGet(map_settings->elmap, "SO");
     map_settings->Wtexpath = elmapGet(map_settings->elmap, "WE");
@@ -58,6 +61,16 @@ t_settings *settingsSet(t_settings *map_settings)
 			&& map_settings->Floorstr && map_settings->Ceilstr \
 			&& map_settings->charmap) == 0)
 		free_on_invalid(map_settings);
+	while (i < ELINFOLIMIT)
+	{
+		free(map_settings->elmap[i].key);
+		map_settings->elmap[i].key = NULL;
+    	free(map_settings->elmap[i].val);
+    	map_settings->elmap[i].val = NULL;
+		i++;
+	}
+	free(map_settings->elmap);
+	map_settings->elmap = NULL;
 	return (map_settings);
 }
 
@@ -74,7 +87,6 @@ static char *elmapGet(t_elinfo *elmap ,char *elmapKey)
 	}
 	return (NULL);
 }
-
 
 static int check_valid_filename(const char *str)
 {

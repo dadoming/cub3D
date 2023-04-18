@@ -3,7 +3,7 @@
 NAME	= cub3D
 
 # SRCS = srcs/main.c srcs/check_input.c srcs/run_game.c
-SRCS	= $(wildcard srcs/*.c) $(wildcard srcs/map/*.c)
+SRCS	= $(wildcard srcs/*.c) $(wildcard srcs/map/*.c) $(wildcard srcs/textures/*.c)
 
 OBJS	= $(SRCS:.c=.o)
 

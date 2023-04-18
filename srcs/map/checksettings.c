@@ -47,7 +47,9 @@ static int load_info_from_line(t_elinfo **elinfo, char *file_line, int *i)
 void load_elinfo(t_elinfo **elinfo, char *file_line, int i, int option)
 {
     int spaces;
+    int j;
 
+    j = 0;
     spaces = 0;
     if (file_line[2 + option] == '\n' || file_line[2 + option] == '\0')
         return ;
@@ -57,4 +59,12 @@ void load_elinfo(t_elinfo **elinfo, char *file_line, int i, int option)
     if (file_line[spaces + 2 + option] == '\n' || file_line[spaces + 2 + option] == '\0')
         return ;
     (*elinfo)[i].val = ft_substr(file_line, 2 + option + spaces, ft_strlen(file_line) - 2 - option - spaces);
+    while ((*elinfo)[i].val[j])
+    {
+        if (i < 4 && ft_isspace((*elinfo)[i].val[j]))
+            (*elinfo)[i].val[j] = '\0';
+        else if (i >= 4 && (*elinfo)[i].val[j] == '\n')
+            (*elinfo)[i].val[j] = '\0';
+        j++;
+    }
 }
