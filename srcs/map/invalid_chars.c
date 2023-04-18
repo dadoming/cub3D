@@ -23,7 +23,7 @@ int invalid_chars(char **map)
     j = 0;
     while (map[i])
     {
-        while (map[i] != NULL && map[i][j])
+        while (map[i] != NULL && map[i][j] != '\0')
         {
             if (iterate_through_empty_map(map, &i, &j))
                 continue;
@@ -34,7 +34,9 @@ int invalid_chars(char **map)
             }
             j++;
         }
-        i++;
+        j = 0;
+        if (map[i] != NULL)
+            i++;
     }
     return (0);
 }

@@ -4,6 +4,7 @@ void close_game(t_game *game)
 {
     if (game->win)
         mlx_destroy_window(game->mlx, game->win);
+    charmapFree(game->charmap);
     exit(0);
 }
 
@@ -18,8 +19,8 @@ int key_event(int key, t_game *game)
     //printf("key> %d\n", key);
     if (key == ESC)
 	{
-        close_game(game);
 		printf("ESC\n");
+        close_game(game);
 		// printf("%i\n", (int)(1.5f - 0.3f));
 	}
 	else if (key == A)

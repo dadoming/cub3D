@@ -71,7 +71,7 @@ t_list  *read_file(int fd)
 
 void load_charmap(t_settings **map_settings, t_list *file_list, t_list **temp, int j)
 {
-    if (!(*map_settings)->charmap)
+    if (!((*map_settings)->charmap))
     {
         free_evaluation(map_settings);
         free_list(temp);
@@ -83,7 +83,7 @@ void load_charmap(t_settings **map_settings, t_list *file_list, t_list **temp, i
         file_list = file_list->next;
         j++;
     }
-    (*map_settings)->charmap[j] = 0;
+    (*map_settings)->charmap[j] = NULL;
     free_list(temp);
 }
 
@@ -106,6 +106,6 @@ void evaluate_settings(t_list *file_list, t_settings **map_settings)
         }
         i++;
     }
-    (*map_settings)->charmap = malloc(sizeof(char *) * (ft_lstsize(temp) - i + 1));
+    (*map_settings)->charmap = malloc(sizeof(char *) * (ft_lstsize(temp) - ELINFOLIMIT + 1));
     load_charmap(map_settings, file_list, &temp, j);
 }

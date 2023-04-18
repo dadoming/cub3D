@@ -42,40 +42,7 @@ int	fileXtract(char *cubflpath)
 	}
     close(fd);
     settings = settingsSet(settings);
-	
     return (prep_game(settings, prepare_map(settings)));    
-   
-   
-   /*for debug malloc , this is to erase
-    printf("SETTINGS:\n");
-    printf("Ntexpath: %s", settings->Ntexpath);
-    printf("Stexpath: %s", settings->Stexpath);
-    printf("Wtexpath: %s", settings->Wtexpath);
-    printf("Etexpath: %s", settings->Etexpath);
-    printf("Floorstr: %s", settings->Floorstr);
-    printf("Ceilstr: %s", settings->Ceilstr);
-    int k = 0;
-    if (settings->charmap != 0)
-    {
-        while (settings->charmap[k])
-        {
-            printf("charmap[%d]: %s", k, settings->charmap[k]);
-            k++;
-        }
-    }
-    free(settings->Ntexpath);
-    free(settings->Stexpath);
-    free(settings->Wtexpath);
-    free(settings->Etexpath);
-    free(settings->Floorstr);
-    free(settings->Ceilstr);
-    if (settings->charmap != NULL)
-        charmapFree(settings->charmap);
-    elmapFree(&settings->elmap);
-    free(settings);
-    
-    */ 
-	return (0);
 }
 
 t_settings *settingsSet(t_settings *map_settings)
