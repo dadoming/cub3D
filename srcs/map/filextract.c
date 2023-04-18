@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 13:26:31 by dadoming          #+#    #+#             */
-/*   Updated: 2023/04/18 20:08:37 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/04/18 21:01:48 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ t_settings *settingsSet(t_settings *map_settings)
     	map_settings->elmap[i].val = NULL;
 		i++;
 	}
-	free(map_settings->elmap);
-	map_settings->elmap = NULL;
 	return (map_settings);
 }
 
@@ -108,7 +106,7 @@ void free_on_invalid(t_settings *settings)
 	free(settings->Floorstr);
 	free(settings->Ceilstr);
     charmapFree(settings->charmap);
-    elmapFree(&settings->elmap);
+    elmapFree(settings->elmap);
     free(settings);
     printf("Error: Invalid map info\nExiting program...\n");
     exit(0);

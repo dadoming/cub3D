@@ -123,7 +123,7 @@ typedef struct s_elinfo
 
 typedef struct s_settings
 {
-	t_elinfo	*elmap;
+	t_elinfo	elmap[ELINFOLIMIT];
 	char		*Ntexpath;
 	char		*Stexpath;
 	char		*Wtexpath;
@@ -137,7 +137,7 @@ int             check_input(int argc, char **argv);
 int	            fileXtract(char *cubflpath);
 t_settings	    *read_settings(int openfd);
 t_settings      *init_map_settings(int list_size);
-int             treat_caught_info(t_elinfo **elinfo, t_list **file_list, int *i);
+int             treat_caught_info(t_elinfo *elinfo, t_list **file_list, int *i);
 t_plinfo  prepare_map(t_settings *map_settings);
 int				invalid_chars(char **map);
 void      get_maximum_values(t_map_check *maxs, char **map);
@@ -145,7 +145,7 @@ char      **cut_and_define_border(char **map);
 void      get_player(char **map, t_plinfo *player);
 
 int	      charmapFree(char **charmap);
-void      elmapFree(t_elinfo **map_settings);
+void      elmapFree(t_elinfo *map_settings);
 void      free_list(t_list **list);
 void      free_evaluation(t_settings **map_settings);
 void 			free_on_invalid(t_settings *settings);

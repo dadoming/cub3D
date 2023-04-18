@@ -5,7 +5,6 @@ static int load_textures_to_mlx(t_game *game, t_settings *map_settings)
     game->texture.n.ptr = mlx_xpm_file_to_image(game->mlx, map_settings->Ntexpath, &(game->texture.n.width), &(game->texture.n.height));
     game->texture.s.ptr = mlx_xpm_file_to_image(game->mlx, map_settings->Stexpath, &(game->texture.s.width), &(game->texture.s.height));
     game->texture.w.ptr = mlx_xpm_file_to_image(game->mlx, map_settings->Wtexpath, &(game->texture.w.width), &(game->texture.w.height));
-    printf("%s\n", map_settings->Etexpath);
     game->texture.e.ptr = mlx_xpm_file_to_image(game->mlx, map_settings->Etexpath, &(game->texture.e.width), &(game->texture.e.height));
     if ((game->texture.n.ptr == NULL) \
      || (game->texture.s.ptr == NULL) \
@@ -29,6 +28,9 @@ static void free_textures(t_game *game)
         mlx_destroy_image(game->mlx, game->texture.w.ptr);
     if (game->texture.e.ptr)
         mlx_destroy_image(game->mlx, game->texture.e.ptr);
+    if (game->mlx)
+		mlx_destroy_display(game->mlx);
+	free(game->mlx);
 }
 
 void load_textures(t_game *game, t_settings *map_settings)
@@ -58,7 +60,6 @@ void load_textures(t_game *game, t_settings *map_settings)
     free(map_settings->Etexpath);
     free(map_settings->Ceilstr);
     free(map_settings->Floorstr);
-    free(map_settings->elmap);
     free(map_settings);
     printf("Textures loaded\n");
     printf("Ceiling color: %d\n", game->texture.ceil_color);
