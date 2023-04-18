@@ -3,7 +3,7 @@
 /**
  * -2 <- 1.2 || 1.2 -> 2
 */
-double	excenter(double x)
+double	excenter(double x)//TODO: maybe return int
 {
 	if (x >= 0)
 		return (ceil(x));
@@ -18,21 +18,18 @@ void	drawXgridColl(t_game *game)
 	char	chk;
 	size_t	i;
 
-	pos.x = (int)(game->player.pos.x * excenter(cos(game->player.pos.x)))
+	pos.x = (int)(excenter(game->player.pos.x));
+	pos.y = game->player.pos.y + tan(game->player.theta) * (pos.x - game->player.pos.x);
 
-	i = 1;
-	while (i)
+	while (1)
 	{
-		// base = (excenter(game->player.pos.x) - game->player.pos.x) * i;
-		pos.x += excenter(cos(game->player.pos.x));
-		pos.y = game->player.pos.y + tan(game->player.theta) * base;// * excenter(cos(game->player.theta));
-		pos.y = roun
+		pos.x += excenter(cos(game->player.theta));
+		pos.y = game->player.pos.y + tan(game->player.theta) * (pos.x - game->player.pos.x);
 
 		chk = coordcheck(game, pos.x, pos.y);
 		if (chk == '1' || chk == 0)
 			return;
 		squarecent_prop(game, pos, 4, rgbtocolor(128, 0, 128));
-		i++;
 	}
 	printf("Shouldn't get here\n");
 }
