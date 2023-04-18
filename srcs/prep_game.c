@@ -49,8 +49,8 @@ int	prep_game(t_settings *setts)
 	game.charmap = setts->charmap;
 	//David esta a implementar
 	game.player.pos.x = 43.3f;
-	game.player.pos.y = 19;
-	game.player.theta = M_PI;
+	game.player.pos.y = 19.6f;
+	game.player.theta = M_PI * 0.8f;
 	// game.player.theta = 4.7712936f;
 	// _
 

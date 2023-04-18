@@ -8,9 +8,9 @@ char	coordcheck(t_game *game, int x, int y)
 		return 0;
 	else if (x >= WINDOWSIZE_X || y >= WINDOWSIZE_Y)
 		return 0;
-	else if (y >= ft_mtrxlen(game->charmap))
+	else if (y >= (long long)ft_mtrxlen((void **)game->charmap))
 		return 0;
-	else if (x >= ft_strlen(game->charmap[0]))
+	else if (x >= (long)ft_strlen(game->charmap[0]))
 		return 0;
 	else
 		return (game->charmap[y][x]);
