@@ -13,33 +13,39 @@ double	excenter(double x)//TODO: maybe return int
 
 float	XgridColl(t_game *game, double theta)
 {
+	t_vec2f	tmp;
 	t_vec2f	pos;
 	char	chk;
 	float	tofirstX;
 	float	dist;
 
 
-	pos.x = (int)(excenter(game->player.pos.x));
-	tofirstX = pos.x - game->player.pos.x; //TODO: what if pos.x is less than game.x
+	tmp.x = (int)(excenter(game->player.pos.x));
+	tofirstX = tmp.x - game->player.pos.x; //TODO: what if pos.x is less than game.x
 
 	dist = fabs(tan(theta) * tofirstX / sin(theta)); // hypothenuse
 
-	pos.y = game->player.pos.y + tan(theta) * tofirstX;
+	tmp.y = game->player.pos.y + tan(theta) * tofirstX;
 
+	pos.x = tmp.x;
+	pos.y = tmp.y;
 	while (1)
 	{
-		pos.x += excenter(cos(theta));
-		pos.y += tan(theta) * excenter(cos(theta));
-		
-		chk = coordcheck(game, pos.x, pos.y);
+		tmp.x += excenter(cos(theta));
+		tmp.y += tan(theta) * excenter(cos(theta));
+
+		chk = coordcheck(game, tmp.x, tmp.y);
 		if (chk == '1' || chk == 0)
 		{
 			squarecent_prop(game, pos, 2, rgbtocolor(128, 0, 128));				
 			return dist;
 		}
+		pos.x = tmp.x;
+		pos.y = tmp.y;
 
 		// dist += sqrt(1 + tan(theta)*tan(theta));
-		dist += fabs(tan(theta) / sin(theta));
+		// dist += fabs(tan(theta) / sin(theta));
+		dist += fabs(1 / cos(theta));
 		// squarecent_prop(game, pos, 2, rgbtocolor(128, 128, 0));
 	}
 	printf("Shouldn't get here\n");
@@ -47,32 +53,38 @@ float	XgridColl(t_game *game, double theta)
 
 float	YgridColl(t_game *game, double theta)
 {
+	t_vec2f	tmp;
 	t_vec2f	pos;
 	char	chk;
 	float	tofirstY;
 	float	dist;
 
 
-	pos.y = (int)(excenter(game->player.pos.y));
+	tmp.y = (int)(excenter(game->player.pos.y));
 	// pos.y = (int)floor(game->player.pos.y);
-	tofirstY = pos.y - game->player.pos.y;
+	tofirstY = tmp.y - game->player.pos.y;
 
 	dist = fabs(tofirstY / tan(theta)); //TODO: can this be zero?
 
-	pos.x = game->player.pos.x + tofirstY / tan(theta);
+	tmp.x = game->player.pos.x + tofirstY / tan(theta);
+
+	pos.x = tmp.x;
+	pos.y = tmp.y;
 
 	while (1)
 	{
-		pos.y += excenter(sin(game->player.theta));
-		pos.x += 1 / tan(theta) * excenter(sin(game->player.theta));
+		tmp.y += excenter(sin(game->player.theta));
+		tmp.x += 1 / tan(theta) * excenter(sin(game->player.theta));
 
-		chk = coordcheck(game, pos.x, pos.y);
+		chk = coordcheck(game, tmp.x, tmp.y);
 		if (chk == '1' || chk == 0)
 		{
 			squarecent_prop(game, pos, 2, rgbtocolor(128, 0, 128));
 			return dist;
 		}
-		
+		pos.x = tmp.x;
+		pos.y = tmp.y;
+
 		// dist += sqrt(1 + (1/tan(theta))*(1/tan(theta)));
 		dist += fabs(1 / sin(theta));
 		// squarecent_prop(game, pos, 2, rgbtocolor(128, 0, 128));
