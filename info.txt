@@ -6,11 +6,3 @@ Line drawing algorithm:
 
 Permadi:
     https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/
-
-
-
-Check se a path para as textures esta correta.
-Check input string of ground and ceiling color.
-
-assign color to struct member -> funcao criada color.c
-
