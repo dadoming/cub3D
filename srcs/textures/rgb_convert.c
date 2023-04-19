@@ -67,7 +67,7 @@ static int atoi_this(char *str, char **rgb, int i, int *rgbi)
         free(rgb);
         return (-1);
     }
-    return (0);
+    return (rgbi[i]);
 }
 
 int load_rgb(char *value)
