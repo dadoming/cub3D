@@ -13,14 +13,14 @@
 # include <limits.h>
 #include <unistd.h>
 
-#define WINDOWSIZE_X 800
-#define WINDOWSIZE_Y 500
+#define WINDOWSIZE_X 1600
+#define WINDOWSIZE_Y 800
 
 #define ELINFOLIMIT 6 //TODO: remove artificial limit
 #define RADJUMP 32
 
 //Do Not Touch!
-#define SQUARESIZE 10
+#define SQUARESIZE 16
 // #define WALKDIST 1
 // __
 

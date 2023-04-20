@@ -53,14 +53,14 @@ void	square_prop(t_game *game, t_vec2i pos, size_t size, int color)
 {
 	size_t	i;
 
-	pos.x = (1 + pos.x) * SQUARESIZE;
-	pos.y = (1 + pos.y) * SQUARESIZE;
+	pos.x = pos.x * SQUARESIZE;
+	pos.y = pos.y * SQUARESIZE;
 
 	i = 0;
 	while (i < size * SQUARESIZE)
 	{
 		pos.y += 1;
-		horline(game, pos, size, color);
+		horline(game, pos, size * SQUARESIZE, color);
 		i++;
 	}
 }
@@ -73,8 +73,8 @@ void	square_prop(t_game *game, t_vec2i pos, size_t size, int color)
 void	square_propf(t_game *game, t_vec2f pos, size_t size, int color)
 {
 	t_vec2i	tmp;
-	tmp.x = pos.x * SQUARESIZE;
-	tmp.y = pos.y * SQUARESIZE;
+	tmp.x = pos.x;// * SQUARESIZE;
+	tmp.y = pos.y;// * SQUARESIZE;
 	square_prop(game, tmp, size, color);
 
 }

@@ -69,8 +69,12 @@ int	draw_player(t_game *game)
 	drawpos.x = game->player.pos.x * SQUARESIZE;
 	drawpos.y = game->player.pos.y * SQUARESIZE;
 
-	pixsquarecent(game, drawpos, SQUARESIZE, rgbtocolor(0, 255, 0));
+	// pixsquarecent(game, drawpos, SQUARESIZE, rgbtocolor(0, 255, 0));
+	// line_tf(game, drawpos, 150, rgbtocolor(255, 50, 50));
+
+	square_propf(game, game->player.pos, 5, rgbtocolor(0, 255, 0));
 	line_tf(game, drawpos, 150, rgbtocolor(255, 50, 50));
+
 
 	return (1);
 }

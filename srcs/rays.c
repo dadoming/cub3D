@@ -101,7 +101,7 @@ t_vec2f	vec2f(float x, float y)
 	return (tmp);
 }
 
-t_vec2f	ray(t_game *game, double theta)
+t_vec2f	rayX(t_game *game, double theta)
 {
 	float	x;
 	float	y;
@@ -128,40 +128,88 @@ t_vec2f	ray(t_game *game, double theta)
 	xatYintercept = x + dx + dy / tan(theta);
 	xforYstep = 1 / tan(theta) * ystep;
 
-	x = x * 1;
-	while (1)
+	while (yatXintercept > y)
 	{
-		while (yatXintercept > y)
+		if (coordcheck(game, x, yatXintercept) == '1' || coordcheck(game, x, yatXintercept) == 0)
 		{
-			if (coordcheck(game, x, yatXintercept) == '1' || coordcheck(game, x, yatXintercept) == 0)
-			{
-				// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
-				return (vec2f(x, yatXintercept)); //TODO:
-			}
-			x += xstep; //TODO: 
-			yatXintercept += yforXstep;
+			// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
+			return (vec2f(x, yatXintercept)); //TODO:
 		}
-		while (xatYintercept < x)
-		{
-			if (coordcheck(game, xatYintercept, y) == '1' || coordcheck(game, xatYintercept, y) == 0)
-			{
-				// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
-				return (vec2f(xatYintercept, y)); //TODO:
-			}
-			y += ystep;
-			xatYintercept += xforYstep;
-		}
+		x += xstep; //TODO: 
+		yatXintercept += yforXstep;
 	}
+	// while (xatYintercept < x)
+	// {
+	// 	if (coordcheck(game, xatYintercept, y) == '1' || coordcheck(game, xatYintercept, y) == 0)
+	// 	{
+	// 		// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
+	// 		return (vec2f(xatYintercept, y)); //TODO:
+	// 	}
+	// 	y += ystep;
+	// 	xatYintercept += xforYstep;
+	// }
 }
 
+t_vec2f	rayY(t_game *game, double theta)
+{
+	float	x;
+	float	y;
+	float	dx;
+	float	dy;
+	int		xstep;
+	float	yatXintercept;
+	float	yforXstep;
+	int		ystep;
+	float	xatYintercept;
+	float	xforYstep;
+
+	x = (int)game->player.pos.x;
+	y = (int)game->player.pos.y;
+
+	dy = game->player.pos.y - y;
+	dx = game->player.pos.x - x;
+
+	xstep = excenter(cos(theta));
+	yatXintercept = y + dy + dx * tan(theta);
+	yforXstep = tan(theta) * xstep;
+
+	ystep = excenter(sin(theta));
+	xatYintercept = x + dx + dy / tan(theta);
+	xforYstep = 1 / tan(theta) * ystep;
+
+	// while (yatXintercept > y)
+	// {
+	// 	if (coordcheck(game, x, yatXintercept) == '1' || coordcheck(game, x, yatXintercept) == 0)
+	// 	{
+	// 		// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
+	// 		return (vec2f(x, yatXintercept)); //TODO:
+	// 	}
+	// 	x += xstep; //TODO: 
+	// 	yatXintercept += yforXstep;
+	// }
+	while (xatYintercept < x)
+	{
+		if (coordcheck(game, xatYintercept, y) == '1' || coordcheck(game, xatYintercept, y) == 0)
+		{
+			// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
+			return (vec2f(xatYintercept, y)); //TODO:
+		}
+		y += ystep;
+		xatYintercept += xforYstep;
+	}
+}
 int	draw_ray(t_game *game)
 {
 	// float	distx;
 	// float	disty;
+	t_vec2f	x_pos;
+	t_vec2f	y_pos;
 
-	//TODO: negative dists returned!!!
-	// distx = XgridColl(game, game->player.theta);
-	// disty = YgridColl(game, game->player.theta);
+	x_pos = rayX(game, game->player.theta);
+	squarecent_prop(game, x_pos, 40, rgbtocolor(128,0,128));
+
+	y_pos = rayY(game, game->player.theta);
+	squarecent_prop(game, y_pos, 40, rgbtocolor(128,0,128));
 
 	// if (distx <= disty)
 	// 	printf("X is nearest: %f\n", distx);
