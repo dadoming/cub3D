@@ -9,9 +9,9 @@ int	theloop(t_game *game)
 		//TODO: implement my clear image
 		//TODO: Here is where we insuflate the proportions
 		myclearimg(game);
-		draw_map(game);
+		// draw_map(game);
 		draw_player(game);
-		draw_ray(game);
+		// draw_ray(game);
 		mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
 	// 	frame = 0;
 	// }

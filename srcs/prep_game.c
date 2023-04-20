@@ -25,10 +25,12 @@ int key_event(int key, t_game *game)
 	else if (key == A)
 	{
 		game->player.theta -= M_PI / RADJUMP;
+		printf("%f\n", game->player.theta);
 	}
 	else if (key == D)
 	{
 		game->player.theta += M_PI / RADJUMP;
+		printf("%f\n", game->player.theta);
 	}
 	else if (key == W)
 	{
@@ -48,9 +50,9 @@ int	prep_game(t_settings *setts)
 
 	game.charmap = setts->charmap;
 	//David esta a implementar
-	game.player.pos.x = 43.3f;
-	game.player.pos.y = 19.6f;
-	game.player.theta = M_PI * 1.8f;
+	game.player.pos.x = 0.3f;
+	game.player.pos.y = 13.6f;
+	game.player.theta = M_PI * 0.203f;
 	// game.player.theta = 4.7712936f;
 	// _
 

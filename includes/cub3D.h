@@ -121,6 +121,8 @@ int	pixsquare(t_game *game, t_vec2i pos, size_t size, int color);
 int	pixsquaref(t_game *game, t_vec2f pos, size_t size, int color);
 int	pixsquarecent(t_game *game, t_vec2f pos, size_t size, int color);
 void	squarecent_prop(t_game *game, t_vec2f pos, size_t size, int color);
+void	square_prop(t_game *game, t_vec2i pos, size_t size, int color);
+void	square_propf(t_game *game, t_vec2f pos, size_t size, int color);
 
 int	draw_map(t_game *game);
 
