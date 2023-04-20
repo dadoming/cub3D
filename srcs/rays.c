@@ -92,15 +92,6 @@ float	YgridColl(t_game *game, double theta)
 	printf("Shouldn't get here\n");
 }
 
-t_vec2f	vec2f(float x, float y)
-{
-	t_vec2f	tmp;
-
-	tmp.x = x;
-	tmp.y = y;
-	return (tmp);
-}
-
 t_vec2f	rayX(t_game *game, double theta)
 {
 	float	x;

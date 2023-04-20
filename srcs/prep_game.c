@@ -69,8 +69,8 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	t_game	game;
 
 
-	game.player.pos.x = 41.3f;
-	game.player.pos.y = 18.6f;
+	game.player.pos.x = 30.3f;
+	game.player.pos.y = 26.6f;
 	game.player.theta = M_PI * 1.8203f;
 	// game.player.theta = 4.7712936f;
 	game.charmap = map_settings->charmap;

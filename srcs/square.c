@@ -56,15 +56,16 @@ void	square_prop(t_game *game, t_vec2i pos, size_t size, int color)
 	pos.x = pos.x * SQUARESIZE;
 	pos.y = pos.y * SQUARESIZE;
 
+	size = size * SQUARESIZE;
+
 	i = 0;
-	while (i < size * SQUARESIZE)
+	while (i < size)
 	{
+		horline(game, pos, size, color);
 		pos.y += 1;
-		horline(game, pos, size * SQUARESIZE, color);
 		i++;
 	}
 }
-
 
 /**
  * Not centered Square that is "printed" with proportions.
@@ -72,11 +73,19 @@ void	square_prop(t_game *game, t_vec2i pos, size_t size, int color)
 */
 void	square_propf(t_game *game, t_vec2f pos, size_t size, int color)
 {
-	t_vec2i	tmp;
-	tmp.x = pos.x;// * SQUARESIZE;
-	tmp.y = pos.y;// * SQUARESIZE;
-	square_prop(game, tmp, size, color);
+	size_t	i;
 
+	pos.x = pos.x * SQUARESIZE;
+	pos.y = pos.y * SQUARESIZE;
+	size = size * SQUARESIZE;
+
+	i = 0;
+	while (i < size)
+	{
+		horline(game, vec2i(pos.x, pos.y), size, color);
+		pos.y += 1;
+		i++;
+	}
 }
 
 /**

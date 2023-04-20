@@ -16,7 +16,6 @@ void	myclearimg(t_game *game)
 		}
 		j++;
 	}
-
 }
 
 void	mypixelput(t_imgbuffer *imgbuffer, int x, int y, int color)
@@ -28,53 +27,38 @@ void	mypixelput(t_imgbuffer *imgbuffer, int x, int y, int color)
 	if (x > WINDOWSIZE_X || y > WINDOWSIZE_Y)
 		return ;
 	pixel = imgbuffer->addr + imgbufferoffset(imgbuffer, x, y);
-	// pixel = 
 	*(unsigned int*)pixel = color;
 }
 
 int	draw_map(t_game *game)
 {
-	size_t	j;
-	size_t	i;
 	t_vec2i	vec;
 	
-	j = 0;
 	vec.y = 00;
-	while (game->charmap[j] != NULL)
+	while (game->charmap[vec.y] != NULL)
 	{
-		i = 0;
 		vec.x = 00;
-		while (game->charmap[j][i] != '\0')
+		while (game->charmap[vec.y][vec.x] != '\0')
 		{
-			if (game->charmap[j][i] == WALL)
-				pixsquare(game, vec, SQUARESIZE, rgbtocolor(23, 128, 250));
-			else if (game->charmap[j][i] == FLOOR)
-				pixsquare(game, vec, SQUARESIZE, rgbtocolor(23, 128, 20));
-			else if (ft_charinside(game->charmap[j][i], "NSWE"))
-				pixsquare(game, vec, SQUARESIZE, rgbtocolor(255, 0, 0));
-				
-			vec.x += SQUARESIZE;
-			i++;
+			if (game->charmap[vec.y][vec.x] == WALL)
+				square_prop(game, vec, 1, rgbtocolor(23, 128, 250));
+			else if (game->charmap[vec.y][vec.x] == FLOOR)
+				square_prop(game, vec, 1, rgbtocolor(23, 128, 20));
+			else if (ft_charinside(game->charmap[vec.y][vec.x], "NSWE"))
+				square_prop(game, vec, 1, rgbtocolor(255, 0, 0));
+			else
+				square_prop(game, vec, 1, rgbtocolor(128,128,128));
+			vec.x += 1;
 		}
-		vec.y += SQUARESIZE;
-		j++;
+		vec.y += 1;
 	}
 	return (1);
 }
 
 int	draw_player(t_game *game)
 {
-	t_vec2f	drawpos;
-
-	drawpos.x = game->player.pos.x * SQUARESIZE;
-	drawpos.y = game->player.pos.y * SQUARESIZE;
-
-	// pixsquarecent(game, drawpos, SQUARESIZE, rgbtocolor(0, 255, 0));
-	// line_tf(game, drawpos, 150, rgbtocolor(255, 50, 50));
-
-	square_propf(game, game->player.pos, 5, rgbtocolor(0, 255, 0));
-	line_tf(game, drawpos, 150, rgbtocolor(255, 50, 50));
-
+	square_propf(game, game->player.pos, 1, rgbtocolor(128, 20, 100));
+	line_prop(game, game->player.pos, 10, rgbtocolor(255, 50, 50));
 
 	return (1);
 }
