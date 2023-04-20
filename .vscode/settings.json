@@ -1,12 +1,14 @@
 {
     "files.associations": {
-        "so_long.h": "c",
-        "mlx.h": "c",
-        "libft.h": "c",
-        "unistd.h": "c",
-        "cub3d.h": "c",
-        "elmapxtract": "c"
-    },
+		"so_long.h": "c",
+		"mlx.h": "c",
+		"libft.h": "c",
+		"unistd.h": "c",
+		"cub3d.h": "c",
+		"elmapxtract": "c",
+		"chrono": "cpp",
+		"cmath": "cpp"
+	},
 	"C_Cpp.errorSquiggles": "Disabled",
 	"makefile.launchConfigurations": [
 		{

@@ -94,54 +94,58 @@ float	YgridColl(t_game *game, double theta)
 
 float	ray(t_game *game, double theta)
 {
-	t_vec2f	pos;
-	char	chk;
-	size_t	i;
-	float	tox;
-	float	toy;
-	float	AB;
+	float	x;
+	float	y;
+	float	dx;
+	float	dy;
+	float	xatYintercept;
+	float	yatXintercept;
+	float	yforXstep;
+	float	xforYstep;
 
-	pos.x = game->player.pos.x;
-	pos.y = game->player.pos.y;
+	x = (int)game->player.pos.x;
+	y = (int)game->player.pos.y;
 
-	AB = tan(theta);
-	tox = AB / sin(theta);
-	pos.x = excenter(pos.x);
-	pos.y -= tox;
-	squarecent_prop(game, pos, 4, rgbtocolor(50,50,50));
+	dy = game->player.pos.y - y;
+	dx = game->player.pos.x - x;
 
+	xatYintercept = x + dx + dy / tan(theta);
+	xforYstep = 1 / tan(theta);
 
-	// i = 0;
-	// while (1)
-	// {
-	// 	chk = coordcheck(game, pos.x, pos.y);
-	// 	if (chk == '1' || chk == 0)
-	// 		return (i - 1) / 2;
-	// 	squarecent_prop(game, pos, 4, rgbtocolor(50, 50, 50));
-	// 	pos.x += cos(theta) / 2;
-	// 	pos.y += sin(theta) / 2;
-	// 	i++;
-	// }
+	yatXintercept = y + dy + dx * tan(theta);
+	yforXstep = tan(theta);
+
+	x = x * 1;
+	while (1)
+	{
+		if (coordcheck(game, x, (int)yatXintercept) == '1' || coordcheck(game, x, yatXintercept) == 0)
+		{
+			squarecent_prop(game, )
+			break ; //TODO:
+		}
+		x += 1; //TODO: 
+		yatXintercept += yforXstep;
+	}
 }
 
 int	draw_ray(t_game *game)
 {
-	float	distx;
-	float	disty;
+	// float	distx;
+	// float	disty;
 
 	//TODO: negative dists returned!!!
-	distx = XgridColl(game, game->player.theta);
-	disty = YgridColl(game, game->player.theta);
+	// distx = XgridColl(game, game->player.theta);
+	// disty = YgridColl(game, game->player.theta);
 
-	if (distx <= disty)
-		printf("X is nearest: %f\n", distx);
-	else
-		printf("Y is nearest: %f\n", disty);
+	// if (distx <= disty)
+	// 	printf("X is nearest: %f\n", distx);
+	// else
+	// 	printf("Y is nearest: %f\n", disty);
 
 	// drawXgridColl(game);
 	// drawYgridColl(game);
 	// printf("%f\n", XgridColl(game, game->player.theta));
 	// printf("%f\n", YgridColl(game, game->player.theta));
-	// ray(game, game->player.theta);
-	// printf("%f\n", ray(game, game->player.theta));
+	ray(game, game->player.theta);
+	printf("%f\n", ray(game, game->player.theta));
 }
