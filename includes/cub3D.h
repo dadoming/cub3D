@@ -13,16 +13,16 @@
 # include <limits.h>
 #include <unistd.h>
 
-#define WINDOWSIZE_X 1600
-#define WINDOWSIZE_Y 800
-
 #define ELINFOLIMIT 6
 #define RADJUMP 32
 
 //Do Not Touch!
-#define SQUARESIZE 16
-// #define WALKDIST 1
+#define SQUARESIZE 32
+// #define WALKDIST 1.0f
 // __
+
+#define WINDOWSIZE_X SQUARESIZE * 80
+#define WINDOWSIZE_Y SQUARESIZE * 40
 
 # define A 97
 # define S 115
@@ -175,6 +175,7 @@ int				horline(t_game *game, t_vec2i pos, size_t size, int color);
 int				verline(t_game *game, t_vec2i pos, size_t size, int color);
 
 int				line_t(t_game *game, t_vec2i origin, size_t size, int color);
+int	line_prop(t_game *game, t_vec2f origin, size_t size, int color);
 
 
 char	coordcheck(t_game *game, int x, int y);
@@ -190,6 +191,8 @@ int	      draw_player(t_game *game);
 
 int	draw_ray(t_game *game);
 
+t_vec2f	vec2f(float x, float y);
+t_vec2i  vec2i(int x, int y);;
 
 
 
