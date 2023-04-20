@@ -4,8 +4,7 @@ void free_evaluation(t_settings **map_settings)
 {
     printf("Cleaning Settings.\n");
     
-    if ((*map_settings)->elmap)
-        elmapFree(&((*map_settings)->elmap));
+    elmapFree((*map_settings)->elmap);
     if ((*map_settings)->charmap)
         charmapFree((*map_settings)->charmap);
     if ((*map_settings)->Ntexpath)
@@ -49,24 +48,25 @@ int	charmapFree(char **charmap)
 	while (charmap[i] != NULL)
 	{
 		free(charmap[i]);
+        charmap[i] = NULL;
 		i++;
 	}
 	free(charmap);
+    charmap = NULL;
 	return (1);
 }
 
-void elmapFree(t_elinfo **map_settings)
+void elmapFree(t_elinfo *elmap)
 {
     int i;
 
     i = 0;
     while (i < ELINFOLIMIT)
     {
-        if ((*map_settings)[i].key != NULL)
-            free((*map_settings)[i].key);
-        if ((*map_settings)[i].val != NULL)
-            free((*map_settings)[i].val);
+        if (elmap[i].key != NULL)
+            free(elmap[i].key);
+        if (elmap[i].val != NULL)
+            free(elmap[i].val);
         i++;
     }
-    free(*map_settings);
 }

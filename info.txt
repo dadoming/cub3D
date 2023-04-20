@@ -4,19 +4,5 @@ Line drawing algorithm:
 42 docs:
     https://harm-smits.github.io/42docs/projects/cub3d
 
-
-
-Checkar o tamanho da linha maior e igualizar todas a essa
-
-
-
-verificar primeira linha do mapa (em caso de ter mais de 7 settings)
-Exit invalid map se for alguma coisa para alem de 0 ou 1.
-Se for 0 ou 1 entao e como se fosse uma "ilha"
-
-verficar se o mapa esta circundado por paredes e 
-    verficiar a quantidade de elementos
-
-Check se a path para as textures esta correta e se
-
-
+Permadi:
+    https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/

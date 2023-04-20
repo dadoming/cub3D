@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   elmapextract.c                                     :+:      :+:    :+:   */
+/*   readsettings.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:35:26 by dadoming          #+#    #+#             */
-/*   Updated: 2023/04/12 20:05:14 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/04/18 21:09:46 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_list      *read_file(int fd);
 void        evaluate_settings(t_list *file_list, t_settings **map_settings);
-int         treat_caught_info(t_elinfo **map_settings, t_list **file_list, int *i);
 void        load_elinfo(t_elinfo **map_settings, char *file_line, int i, int option);
 
 t_settings	*read_settings(int openfd)
@@ -71,7 +70,7 @@ t_list  *read_file(int fd)
 
 void load_charmap(t_settings **map_settings, t_list *file_list, t_list **temp, int j)
 {
-    if (!(*map_settings)->charmap)
+    if (!((*map_settings)->charmap))
     {
         free_evaluation(map_settings);
         free_list(temp);
@@ -83,7 +82,7 @@ void load_charmap(t_settings **map_settings, t_list *file_list, t_list **temp, i
         file_list = file_list->next;
         j++;
     }
-    (*map_settings)->charmap[j] = 0;
+    (*map_settings)->charmap[j] = NULL;
     free_list(temp);
 }
 
@@ -98,7 +97,7 @@ void evaluate_settings(t_list *file_list, t_settings **map_settings)
     j = 0;
     while (file_list && i < ELINFOLIMIT)
     {
-        if (treat_caught_info(&((*map_settings)->elmap), &file_list, &i) == 1)
+        if (treat_caught_info((*map_settings)->elmap, &file_list, &i) == 1)
         {
             free_evaluation(map_settings);
             free_list(&temp);
@@ -106,6 +105,6 @@ void evaluate_settings(t_list *file_list, t_settings **map_settings)
         }
         i++;
     }
-    (*map_settings)->charmap = malloc(sizeof(char *) * (ft_lstsize(temp) - i + 1));
+    (*map_settings)->charmap = malloc(sizeof(char *) * (ft_lstsize(temp) - ELINFOLIMIT + 1));
     load_charmap(map_settings, file_list, &temp, j);
 }

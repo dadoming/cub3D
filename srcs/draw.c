@@ -46,13 +46,13 @@ int	draw_map(t_game *game)
 		vec.x = 00;
 		while (game->charmap[j][i] != '\0')
 		{
-			if (game->charmap[j][i] == '1')
+			if (game->charmap[j][i] == WALL)
 				pixsquare(game, vec, SQUARESIZE, rgbtocolor(23, 128, 250));
-			else if (game->charmap[j][i] == '0')
+			else if (game->charmap[j][i] == FLOOR)
 				pixsquare(game, vec, SQUARESIZE, rgbtocolor(23, 128, 20));
 			else if (ft_charinside(game->charmap[j][i], "NSWE"))
 				pixsquare(game, vec, SQUARESIZE, rgbtocolor(255, 0, 0));
-			
+				
 			vec.x += SQUARESIZE;
 			i++;
 		}
