@@ -11,6 +11,7 @@ int	theloop(t_game *game)
 		myclearimg(game);
 		draw_map(game);
 		draw_player(game);
+		draw_ray(game);
 		mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
 	// 	frame = 0;
 	// }

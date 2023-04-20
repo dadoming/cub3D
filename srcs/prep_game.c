@@ -34,10 +34,12 @@ int key_event(int key, t_game *game)
 	else if (key == A)
 	{
 		game->player.theta -= M_PI / RADJUMP;
+		printf("%f\n", game->player.theta);
 	}
 	else if (key == D)
 	{
 		game->player.theta += M_PI / RADJUMP;
+		printf("%f\n", game->player.theta);
 	}
 	else if (key == W)
 	{
@@ -66,10 +68,15 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 {
 	t_game	game;
 
+
+	game.player.pos.x = 41.3f;
+	game.player.pos.y = 18.6f;
+	game.player.theta = M_PI * 1.8203f;
+	// game.player.theta = 4.7712936f;
 	game.charmap = map_settings->charmap;
 
-	game.player = player;
-  	define_start_orientation(&game.player);
+	//game.player = player;
+  //define_start_orientation(&game.player);
 
 	game.mlx = mlx_init();
 	load_textures(&game, map_settings);
