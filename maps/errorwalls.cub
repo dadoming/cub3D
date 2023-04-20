@@ -1,0 +1,19 @@
+    NO ./textures/lava.xpm
+
+
+     WE         ./textures/leaves.xpm
+EA     ./textures/stone.xpm           
+
+SO            ./textures/water.xpm
+F 220   ,      100,0
+C 225    ,30  ,    0112
+1111111111
+1111111111
+1111111111
+1111111111
+1111011111
+1110N01111
+1111011111
+1111111111
+1111111111
+1111111111

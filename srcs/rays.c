@@ -92,7 +92,7 @@ float	YgridColl(t_game *game, double theta)
 	printf("Shouldn't get here\n");
 }
 
-t_vec2f	rayX(t_game *game, double theta)
+t_vec2f	ray(t_game *game, double theta)
 {
 	float	x;
 	float	y;
@@ -104,11 +104,13 @@ t_vec2f	rayX(t_game *game, double theta)
 	int		ystep;
 	float	xatYintercept;
 	float	xforYstep;
+	int		hit;
+	int		side;
 
 	x = (int)game->player.pos.x;
 	y = (int)game->player.pos.y;
 
-	dy = game->player.pos.y - y;
+	dy = y + 1 - game->player.pos.y;
 	dx = game->player.pos.x - x;
 
 	xstep = excenter(cos(theta));
@@ -116,19 +118,39 @@ t_vec2f	rayX(t_game *game, double theta)
 	yforXstep = tan(theta) * xstep;
 
 	ystep = excenter(sin(theta));
-	xatYintercept = x + dx + dy / tan(theta);
+	xatYintercept = x + dx + (1 - dy) / tan(theta);
 	xforYstep = 1 / tan(theta) * ystep;
 
-	while (yatXintercept > y)
+	hit = 0;
+	while (hit == 0)
 	{
-		if (coordcheck(game, x, yatXintercept) == '1' || coordcheck(game, x, yatXintercept) == 0)
+		if (x < xatYintercept)
 		{
-			// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
-			return (vec2f(x, yatXintercept)); //TODO:
+			x += xstep;
+			yatXintercept += yforXstep;
+			side = 0;
 		}
-		x += xstep; //TODO: 
-		yatXintercept += yforXstep;
+		else
+		{
+			y += ystep;
+			xatYintercept += xforYstep;			
+			side = 1;
+		}
+		if (coordcheck(game, x, y) == '1')
+			hit = 1;
 	}
+	return (vec2f(x, y));
+
+	// while (yatXintercept > y)
+	// {
+	// 	if (coordcheck(game, x, yatXintercept) == '1' || coordcheck(game, x, yatXintercept) == 0)
+	// 	{
+	// 		// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
+	// 		return (vec2f(x, yatXintercept)); //TODO:
+	// 	}
+	// 	x += xstep; //TODO: 
+	// 	yatXintercept += yforXstep;
+	// }
 	// while (xatYintercept < x)
 	// {
 	// 	if (coordcheck(game, xatYintercept, y) == '1' || coordcheck(game, xatYintercept, y) == 0)
@@ -141,66 +163,19 @@ t_vec2f	rayX(t_game *game, double theta)
 	// }
 }
 
-t_vec2f	rayY(t_game *game, double theta)
-{
-	float	x;
-	float	y;
-	float	dx;
-	float	dy;
-	int		xstep;
-	float	yatXintercept;
-	float	yforXstep;
-	int		ystep;
-	float	xatYintercept;
-	float	xforYstep;
 
-	x = (int)game->player.pos.x;
-	y = (int)game->player.pos.y;
-
-	dy = game->player.pos.y - y;
-	dx = game->player.pos.x - x;
-
-	xstep = excenter(cos(theta));
-	yatXintercept = y + dy + dx * tan(theta);
-	yforXstep = tan(theta) * xstep;
-
-	ystep = excenter(sin(theta));
-	xatYintercept = x + dx + dy / tan(theta);
-	xforYstep = 1 / tan(theta) * ystep;
-
-	// while (yatXintercept > y)
-	// {
-	// 	if (coordcheck(game, x, yatXintercept) == '1' || coordcheck(game, x, yatXintercept) == 0)
-	// 	{
-	// 		// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
-	// 		return (vec2f(x, yatXintercept)); //TODO:
-	// 	}
-	// 	x += xstep; //TODO: 
-	// 	yatXintercept += yforXstep;
-	// }
-	while (xatYintercept < x)
-	{
-		if (coordcheck(game, xatYintercept, y) == '1' || coordcheck(game, xatYintercept, y) == 0)
-		{
-			// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
-			return (vec2f(xatYintercept, y)); //TODO:
-		}
-		y += ystep;
-		xatYintercept += xforYstep;
-	}
-}
 int	draw_ray(t_game *game)
 {
 	// float	distx;
 	// float	disty;
-	t_vec2f	x_pos;
-	t_vec2f	y_pos;
+	// t_vec2f	x_pos;
+	// t_vec2f	y_pos;
+	t_vec2f		rayend;
+	// x_pos = rayX(game, game->player.theta);
+	// squarecent_prop(game, x_pos, 40, rgbtocolor(128,0,128));
 
-	x_pos = rayX(game, game->player.theta);
-	squarecent_prop(game, x_pos, 40, rgbtocolor(128,0,128));
-
-	y_pos = rayY(game, game->player.theta);
-	squarecent_prop(game, y_pos, 40, rgbtocolor(128,0,128));
+	// y_pos = rayY(game, game->player.theta);
+	// squarecent_prop(game, y_pos, 40, rgbtocolor(128,0,128));
 
 	// if (distx <= disty)
 	// 	printf("X is nearest: %f\n", distx);
@@ -211,7 +186,9 @@ int	draw_ray(t_game *game)
 	// drawYgridColl(game);
 	// printf("%f\n", XgridColl(game, game->player.theta));
 	// printf("%f\n", YgridColl(game, game->player.theta));
-	// ray(game, game->player.theta);
+	rayend = ray(game, game->player.theta);
+	square_propf(game, rayend, 1, rgbtocolor(128,0,128));
+
 	// squarecent_prop(game, ray(game, game->player.theta), 4, rgbtocolor(128,0,128));
 	// t_vec2f	pos;
 	// pos.x = 65;
