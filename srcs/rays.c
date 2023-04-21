@@ -20,7 +20,7 @@ float	XgridColl(t_game *game, double theta)
 	float	dist;
 
 
-	tmp.x = (int)(excenter(game->player.pos.x));
+	tmp.x = (int)(excenter(px));
 	tofirstX = tmp.x - game->player.pos.x; //TODO: what if pos.x is less than game.x
 
 	dist = fabs(tan(theta) * tofirstX / sin(theta)); // hypothenuse
@@ -94,73 +94,54 @@ float	YgridColl(t_game *game, double theta)
 
 t_vec2f	ray(t_game *game, double theta)
 {
-	float	x;
-	float	y;
-	float	dx;
-	float	dy;
-	int		xstep;
-	float	yatXintercept;
-	float	yforXstep;
-	int		ystep;
-	float	xatYintercept;
-	float	xforYstep;
-	int		hit;
-	int		side;
+	float rx, ry, ra, xoffset, yoffset;
+	int	r, mx, my, mp, dof;
+	float aTan;
 
-	x = (int)game->player.pos.x;
-	y = (int)game->player.pos.y;
+	ra = fmod(theta, M_PI * 2); //TODO: there is a bug with neg ra
+	
+	dof = 0;
+	aTan = 1 / tan(ra);
 
-	dy = y + 1 - game->player.pos.y;
-	dx = game->player.pos.x - x;
-
-	xstep = excenter(cos(theta));
-	yatXintercept = y + dy + dx * tan(theta);
-	yforXstep = tan(theta) * xstep;
-
-	ystep = excenter(sin(theta));
-	xatYintercept = x + dx + (1 - dy) / tan(theta);
-	xforYstep = 1 / tan(theta) * ystep;
-
-	hit = 0;
-	while (hit == 0)
+	// HORIZONTAL LINES
+	if (ra > M_PI) // if looking upwards
 	{
-		if (x < xatYintercept)
-		{
-			x += xstep;
-			yatXintercept += yforXstep;
-			side = 0;
-		}
+		ry = (int)py - 0.0001f; // subtraction is important!
+		rx = px + (py - ry) / tan(ra);
+		yoffset = -1;
+		xoffset = yoffset * aTan;
+	}
+	else if (ra < M_PI)// looking downwards
+	{
+		ry = ceil(py) + 0.0001f;
+		rx = px + (ry - py) / tan(ra);
+		yoffset = 1;
+		xoffset = yoffset * aTan;
+	}
+	else // if (ray == 0 || ray == M_PI)
+	{
+		rx = px;
+		ry = py;
+		// dof = 8;
+		return (vec2f(rx, ry));
+	}
+	
+	// while (dof < 8)
+	while (1)
+	{
+		mx = (int)rx;
+		my = (int)ry;
+		if (coordcheck(game, mx, my) == '1' || coordcheck(game, mx, my) == 0)
+			return (vec2f(rx, ry));
+			// dof = 8;
 		else
 		{
-			y += ystep;
-			xatYintercept += xforYstep;			
-			side = 1;
+			rx += xoffset;
+			ry += yoffset;
+			// dof++;
 		}
-		if (coordcheck(game, x, y) == '1')
-			hit = 1;
 	}
-	return (vec2f(x, y));
-
-	// while (yatXintercept > y)
-	// {
-	// 	if (coordcheck(game, x, yatXintercept) == '1' || coordcheck(game, x, yatXintercept) == 0)
-	// 	{
-	// 		// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
-	// 		return (vec2f(x, yatXintercept)); //TODO:
-	// 	}
-	// 	x += xstep; //TODO: 
-	// 	yatXintercept += yforXstep;
-	// }
-	// while (xatYintercept < x)
-	// {
-	// 	if (coordcheck(game, xatYintercept, y) == '1' || coordcheck(game, xatYintercept, y) == 0)
-	// 	{
-	// 		// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
-	// 		return (vec2f(xatYintercept, y)); //TODO:
-	// 	}
-	// 	y += ystep;
-	// 	xatYintercept += xforYstep;
-	// }
+	// square_propf(game, vec2f(rx, ry), 1, rgbtocolor(128,0,128));
 }
 
 
@@ -187,7 +168,8 @@ int	draw_ray(t_game *game)
 	// printf("%f\n", XgridColl(game, game->player.theta));
 	// printf("%f\n", YgridColl(game, game->player.theta));
 	rayend = ray(game, game->player.theta);
-	square_propf(game, rayend, 1, rgbtocolor(128,0,128));
+	// square_propf(game, rayend, 1, rgbtocolor(128,0,128));
+	line_odprop(game, game->player.pos, rayend, rgbtocolor(0,255,0));
 
 	// squarecent_prop(game, ray(game, game->player.theta), 4, rgbtocolor(128,0,128));
 	// t_vec2f	pos;

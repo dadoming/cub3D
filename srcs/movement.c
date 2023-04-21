@@ -4,6 +4,8 @@
 
 char	coordcheck(t_game *game, int x, int y)
 {
+	// x += 1;
+	// y += 1;
 	if (x < 0 || y < 0)
 		return 0;
 	else if (x >= WINDOWSIZE_X || y >= WINDOWSIZE_Y)
@@ -25,12 +27,12 @@ int p_move(t_game *game, int ns, int ew)
     newpos.x = ppos.x + cos(game->player.theta) * ns;// * WALKDIST;
     newpos.y = ppos.y + sin(game->player.theta) * ew;// * WALKDIST;
 
-	if (coordcheck(game, newpos.x, newpos.y) == '1')
-	{
-		// ppos.x = (int)ppos.x;
-		// ppos.y = (int)ppos.y;
-	}
-	else
+	// if (coordcheck(game, newpos.x, newpos.y) == '1')
+	// {
+	// 	// ppos.x = (int)ppos.x;
+	// 	// ppos.y = (int)ppos.y;
+	// }
+	// else
     	ppos = newpos;
 
     printf("(%d,%d)__", (int)game->player.pos.x, (int)game->player.pos.y);

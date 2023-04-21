@@ -17,12 +17,17 @@
 #define RADJUMP 32
 
 //Do Not Touch!
-#define SQUARESIZE 32
-// #define WALKDIST 1.0f
+#define SQUARESIZE 50
+#define WALKDIST 5 // pixels every move
 // __
 
-#define WINDOWSIZE_X SQUARESIZE * 80
-#define WINDOWSIZE_Y SQUARESIZE * 40
+#define WINDOWSIZE_X SQUARESIZE * 20
+#define WINDOWSIZE_Y SQUARESIZE * 10
+
+// Shortcuts
+#define px game->player.pos.x
+#define py game->player.pos.y
+//___
 
 # define A 97
 # define S 115
@@ -159,14 +164,16 @@ int				rgbtocolor(unsigned char r, unsigned char g, unsigned char b);
 int				line(t_game *game, t_vec2i origin, t_vec2i dest, int color);
 int				line_s(t_game *game, t_vec2i origin, size_t size, int color);
 int				line_tf(t_game *game, t_vec2f origin, size_t size, int color);
+int	line_odprop(t_game *game, t_vec2f origin, t_vec2f dest, int color);
+
 void	    mypixelput(t_imgbuffer *imgbuffer, int x, int y, int color);
 
 int	pixsquare(t_game *game, t_vec2i pos, size_t size, int color);
 int	pixsquaref(t_game *game, t_vec2f pos, size_t size, int color);
 int	pixsquarecent(t_game *game, t_vec2f pos, size_t size, int color);
-void	squarecent_prop(t_game *game, t_vec2f pos, size_t size, int color);
+void	squarecent_prop(t_game *game, t_vec2f pos, float size, int color);
 void	square_prop(t_game *game, t_vec2i pos, size_t size, int color);
-void	square_propf(t_game *game, t_vec2f pos, size_t size, int color);
+void	square_propf(t_game *game, t_vec2f pos, float size, int color);
 
 
 int				draw_map(t_game *game);
