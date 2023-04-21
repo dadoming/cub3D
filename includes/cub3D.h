@@ -16,15 +16,14 @@
 #define ELINFOLIMIT 6
 #define RADJUMP 32
 
-//Do Not Touch!
 #define SQUARESIZE 50
 #define WALKDIST 5 // pixels every move
-// __
 
 #define WINDOWSIZE_X SQUARESIZE * 20
 #define WINDOWSIZE_Y SQUARESIZE * 10
 
 // Shortcuts
+#define ppos game->player.pos
 #define px game->player.pos.x
 #define py game->player.pos.y
 //___
@@ -186,6 +185,7 @@ int	line_prop(t_game *game, t_vec2f origin, size_t size, int color);
 
 
 char	coordcheck(t_game *game, int x, int y);
+char	coordcheck_prop(t_game *game, int x, int y);
 int p_move(t_game *game, int ns, int ew);
 
 

@@ -61,7 +61,10 @@ int	draw_player(t_game *game)
 {
 	// square_propf(game, game->player.pos, 0.5f, rgbtocolor(128, 20, 100));
 	// pixsquaref(game, game->player.pos, 50, rgbtocolor(128,20,100));
-	line_prop(game, game->player.pos, 10, rgbtocolor(255, 50, 50));
+	// line_prop(game, game->player.pos, 10, rgbtocolor(255, 50, 50));
+
+	pixsquare(game, vec2i(px, py), 10, rgbtocolor(128,20,100));
+	line_tf(game, game->player.pos, 80, rgbtocolor(128,0,20));
 
 	return (1);
 }

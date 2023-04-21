@@ -5,8 +5,7 @@ int	theloop(t_game *game)
 		myclearimg(game);
 		draw_map(game);
 		draw_player(game);
-		// // draw_ray(game);
-		pixsquare(game, vec2i(px, py), 10, rgbtocolor(128,20,100));
+		draw_ray(game);
 		mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
 
 }

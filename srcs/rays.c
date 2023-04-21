@@ -131,7 +131,7 @@ t_vec2f	ray(t_game *game, double theta)
 	{
 		mx = (int)rx;
 		my = (int)ry;
-		if (coordcheck(game, mx, my) == '1' || coordcheck(game, mx, my) == 0)
+		if (coordcheck_prop(game, mx, my) == '1' || coordcheck_prop(game, mx, my) == 0)
 			return (vec2f(rx, ry));
 			// dof = 8;
 		else
@@ -169,8 +169,8 @@ int	draw_ray(t_game *game)
 	// printf("%f\n", YgridColl(game, game->player.theta));
 	rayend = ray(game, game->player.theta);
 	// square_propf(game, rayend, 1, rgbtocolor(128,0,128));
-	line_odprop(game, game->player.pos, rayend, rgbtocolor(0,255,0));
-
+	line_odprop(game, ppos, rayend, rgbtocolor(0,255,0));
+	line(game, vec2i(px, py), vec2i(rayend.x, rayend.y), rgbtocolor(0,255,0));
 	// squarecent_prop(game, ray(game, game->player.theta), 4, rgbtocolor(128,0,128));
 	// t_vec2f	pos;
 	// pos.x = 65;
