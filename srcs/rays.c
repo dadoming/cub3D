@@ -92,59 +92,92 @@ float	YgridColl(t_game *game, double theta)
 	printf("Shouldn't get here\n");
 }
 
-t_vec2f	ray(t_game *game, double theta)
+t_vec2f	rayHor(t_game *game, double theta)
 {
-	double ra;
 	float rx, ry, xoffset, yoffset;
-	int	r, mx, my, mp, dof;
-	float aTan;
-
-	ra = theta;
-
-	// dof = 0;
-	// aTan = 1 / tan(ra);
-
+	int	mx, my;
 
 	// HORIZONTAL LINES
-	if (ra == 0 || ra == M_PI)
+	if (theta == 0 || theta == M_PI)
 	{
-		rx = px;
-		ry = py;
-		// dof = 8;
-		return (vec2f(rx, ry));
+		return (vec2f(px, py));
 	}
-	else if (ra < M_PI) // if looking upwards
+	else if (theta < M_PI) // if looking upwards
 	{
 		ry = (int)py;// - 0.0001f; // subtraction is important!
-		rx = px + (py - ry) / tan(ra);
+		rx = px + (py - ry) / tan(theta);
 		yoffset = -1;
-		xoffset = 1 / tan(ra);
+		xoffset = 1 / tan(theta);
 	}
-	else // if (ra > M_PI)// looking downwards
+	else // if (theta > M_PI)// looking downwards
 	{
 		ry = ceil(py);// + 0.0001f;
-		rx = px + (ry - py) / tan(ra);
+		rx = px + (ry - py) / tan(theta);
 		yoffset = 1;
-		xoffset = -1 / tan(ra);
+		xoffset = -1 / tan(theta);
 	}
 	
-	// while (dof < 8)
 	while (1)
 	{
-		mx = (int)(rx / 64) *64;
-		my = (int)(ry / 64) *64;
-		// if (coordcheck_prop(game, mx, my) == '1' || coordcheck_prop(game, mx, my) == 0)
+		mx = (int)(rx / 64);
+		my = (int)(ry / 64);
 		if (coordcheck(game, mx, my) == '1' || coordcheck(game, mx, my) == 0)
 			return (vec2f(rx, ry));
-			// dof = 8;
 		else
 		{
 			rx += xoffset;
 			ry += yoffset;
-			// dof++;
 		}
 	}
-	// square_propf(game, vec2f(rx, ry), 1, rgbtocolor(128,0,128));
+}
+
+t_vec2f	rayVer(t_game *game, double theta)
+{
+	float rx, ry, xoffset, yoffset;
+	int	mx, my;
+
+	// VERTICAL LINES
+	if (theta == M_PI / 2 || theta == 3 * M_PI / 2)
+	{
+		return (vec2f(px, py));
+	}
+	else if (theta < M_PI / 2 || theta > 3 * M_PI / 2) // if looking right
+	{
+		rx = ceil(px);
+		ry = py + (rx - px) * -tan(theta);
+		xoffset = 1;
+		yoffset = -tan(theta);
+	}
+	else // if (theta > M_PI || theta < 3 * M_PI / 2) // looking left
+	{
+		rx = (int)px;
+		ry = py + (px - rx) * tan(theta);
+		xoffset = -1;
+		yoffset = tan(theta);
+	}
+	
+	while (1)
+	{
+		mx = (int)(rx / 64);
+		my = (int)(ry / 64);
+		if (coordcheck(game, mx, my) == '1' || coordcheck(game, mx, my) == 0)
+			return (vec2f(rx, ry));
+		else
+		{
+			rx += xoffset;
+			ry += yoffset;
+		}
+	}
+}
+
+t_vec2f	ray(t_game *game, double theta)
+{
+	t_vec2f	hor;
+	t_vec2f	vert;
+
+	hor = rayHor(game, theta);
+	vert = rayVer(game, theta);
+	return (vec2f(vert.x, hor.y));
 }
 
 
@@ -172,7 +205,7 @@ int	draw_ray(t_game *game)
 	// printf("%f\n", YgridColl(game, game->player.theta));
 	rayend = ray(game, game->player.theta);
 	// square_propf(game, rayend, 1, rgbtocolor(128,0,128));
-	line_odprop(game, ppos, rayend, rgbtocolor(0,255,0));
+	// line_odprop(game, ppos, rayend, rgbtocolor(0,255,0));
 	line(game, vec2i(px, py), vec2i(rayend.x, rayend.y), rgbtocolor(0,255,0));
 	// squarecent_prop(game, ray(game, game->player.theta), 4, rgbtocolor(128,0,128));
 	// t_vec2f	pos;
