@@ -22,36 +22,6 @@ int x_close_window(t_game *game)
     return (0);
 }
 
-int key_event(int key, t_game *game)
-{
-    //printf("key> %d\n", key);
-    if (key == ESC)
-	{
-		printf("ESC\n");
-        close_game(game);
-		// printf("%i\n", (int)(1.5f - 0.3f));
-	}
-	else if (key == A)
-	{
-		game->player.theta -= M_PI / RADJUMP;
-		printf("%f\n", game->player.theta);
-	}
-	else if (key == D)
-	{
-		game->player.theta += M_PI / RADJUMP;
-		printf("%f\n", game->player.theta);
-	}
-	else if (key == W)
-	{
-		p_move(game, 1, 1);
-	}
-	else if (key == S)
-	{
-		p_move(game, -1, -1);
-	}
-    return (0);
-}
-
 void define_start_orientation(t_plinfo *player)
 {
 	if (player->theta == NORTH)
@@ -69,10 +39,10 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	t_game	game;
 
 
-	game.player.pos.x = 346.598083f;
+	game.player.pos.x = 326.598083f;
 	game.player.pos.y = 334.118866f;
-	// game.player.theta = M_PI * 1.3203f;
-	game.player.theta = 5.9149905948490558f;
+	game.player.theta = M_PI * 0.1803f;
+	// game.player.theta = 0;
 	game.charmap = map_settings->charmap;
 
 	//game.player = player;

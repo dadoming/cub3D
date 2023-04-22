@@ -94,44 +94,47 @@ float	YgridColl(t_game *game, double theta)
 
 t_vec2f	ray(t_game *game, double theta)
 {
-	float rx, ry, ra, xoffset, yoffset;
+	double ra;
+	float rx, ry, xoffset, yoffset;
 	int	r, mx, my, mp, dof;
 	float aTan;
 
-	ra = fmod(theta, M_PI * 2); //TODO: there is a bug with neg ra
-	
-	dof = 0;
-	aTan = 1 / tan(ra);
+	ra = theta;
+
+	// dof = 0;
+	// aTan = 1 / tan(ra);
+
 
 	// HORIZONTAL LINES
-	if (ra > M_PI) // if looking upwards
-	{
-		ry = (int)py - 0.0001f; // subtraction is important!
-		rx = px + (py - ry) / tan(ra);
-		yoffset = -1;
-		xoffset = yoffset * aTan;
-	}
-	else if (ra < M_PI)// looking downwards
-	{
-		ry = ceil(py) + 0.0001f;
-		rx = px + (ry - py) / tan(ra);
-		yoffset = 1;
-		xoffset = yoffset * aTan;
-	}
-	else // if (ray == 0 || ray == M_PI)
+	if (ra == 0 || ra == M_PI)
 	{
 		rx = px;
 		ry = py;
 		// dof = 8;
 		return (vec2f(rx, ry));
 	}
+	else if (ra < M_PI) // if looking upwards
+	{
+		ry = (int)py;// - 0.0001f; // subtraction is important!
+		rx = px + (py - ry) / tan(ra);
+		yoffset = -1;
+		xoffset = 1 / tan(ra);
+	}
+	else // if (ra > M_PI)// looking downwards
+	{
+		ry = ceil(py);// + 0.0001f;
+		rx = px + (ry - py) / tan(ra);
+		yoffset = 1;
+		xoffset = -1 / tan(ra);
+	}
 	
 	// while (dof < 8)
 	while (1)
 	{
-		mx = (int)rx;
-		my = (int)ry;
-		if (coordcheck_prop(game, mx, my) == '1' || coordcheck_prop(game, mx, my) == 0)
+		mx = (int)(rx / 64) *64;
+		my = (int)(ry / 64) *64;
+		// if (coordcheck_prop(game, mx, my) == '1' || coordcheck_prop(game, mx, my) == 0)
+		if (coordcheck(game, mx, my) == '1' || coordcheck(game, mx, my) == 0)
 			return (vec2f(rx, ry));
 			// dof = 8;
 		else

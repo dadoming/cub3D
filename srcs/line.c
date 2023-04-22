@@ -142,8 +142,11 @@ int	line_tf(t_game *game, t_vec2f origin, size_t size, int color)
 	tmp.x = origin.x;
 	tmp.y = origin.y;
 
-	dest.x = tmp.x + cos(game->player.theta) * size;
-	dest.y = tmp.y + sin(game->player.theta) * size;
+	// dest.x = tmp.x + cos(game->player.theta) * size;
+	// dest.y = tmp.y + sin(game->player.theta) * size;
+	dest.x = tmp.x + cos(prt) * size;
+	dest.y = tmp.y + sin(prt) * size;
+
 	line(game, tmp, dest, color);
 	return (1);
 }

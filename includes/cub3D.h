@@ -14,9 +14,9 @@
 #include <unistd.h>
 
 #define ELINFOLIMIT 6
-#define RADJUMP 32
+#define RADJUMP 64
 
-#define SQUARESIZE 50
+#define SQUARESIZE 64
 #define WALKDIST 5 // pixels every move
 
 #define WINDOWSIZE_X SQUARESIZE * 20
@@ -26,6 +26,8 @@
 #define ppos game->player.pos
 #define px game->player.pos.x
 #define py game->player.pos.y
+#define pt game->player.theta // Real theta
+#define prt 2*M_PI - game->player.theta // Reverse theta -> game_dev
 //___
 
 # define A 97
@@ -65,10 +67,14 @@ typedef struct s_vec2f
 	float	y;
 }				t_vec2f;
 
+/**
+ * Theta is the real angle:
+ * 	not inverted!
+*/
 typedef struct s_plinfo
 {
 	t_vec2f	pos;
-	double	theta;
+	double	theta; // Theta is the real angle: not inverted!
 
 } t_plinfo;
 
@@ -183,7 +189,7 @@ int				verline(t_game *game, t_vec2i pos, size_t size, int color);
 int				line_t(t_game *game, t_vec2i origin, size_t size, int color);
 int	line_prop(t_game *game, t_vec2f origin, size_t size, int color);
 
-
+int key_event(int key, t_game *game);
 char	coordcheck(t_game *game, int x, int y);
 char	coordcheck_prop(t_game *game, int x, int y);
 int p_move(t_game *game, int ns, int ew);
@@ -201,6 +207,8 @@ int	draw_ray(t_game *game);
 t_vec2f	vec2f(float x, float y);
 t_vec2i  vec2i(int x, int y);;
 
+
+void close_game(t_game *game);
 
 
 
