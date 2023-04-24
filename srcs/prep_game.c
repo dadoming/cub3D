@@ -55,12 +55,12 @@ int key_event(int key, t_game *game)
 void define_start_orientation(t_plinfo *player)
 {
 	if (player->theta == NORTH)
-		player->theta = M_PI * 1.5f;
-	else if (player->theta == 'S')
 		player->theta = M_PI * 0.5f;
-	else if (player->theta == 'E')
+	else if (player->theta == SOUTH)
+		player->theta = M_PI * 1.5f;
+	else if (player->theta == EAST)
 		player->theta = 0;
-	else if (player->theta == 'W')
+	else if (player->theta == WEST)
 		player->theta = M_PI;
 }
 
@@ -68,15 +68,10 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 {
 	t_game	game;
 
-
-	game.player.pos.x = 30.3f;
-	game.player.pos.y = 26.6f;
-	game.player.theta = M_PI * 1.8203f;
-	// game.player.theta = 4.7712936f;
 	game.charmap = map_settings->charmap;
 
-	//game.player = player;
-  //define_start_orientation(&game.player);
+	game.player = player;
+  	define_start_orientation(&game.player);
 
 	game.mlx = mlx_init();
 	load_textures(&game, map_settings);
