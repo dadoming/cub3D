@@ -137,11 +137,11 @@ t_vec2f	rayVer(t_game *game, double theta)
 	int	mx, my;
 
 	// VERTICAL LINES
-	if (theta == M_PI / 2 || theta == 3 * M_PI / 2)
+	if (theta == M_PI_2 || theta == 3 * M_PI_2)
 	{
 		return (vec2f(px, py));
 	}
-	else if (theta < M_PI / 2 || theta > 3 * M_PI / 2) // if looking right
+	else if (theta < M_PI_2 || theta > 3 * M_PI_2) // if looking right
 	{
 		rx = ceil(px);
 		ry = py + (rx - px) * -tan(theta);
@@ -175,6 +175,10 @@ t_vec2f	ray(t_game *game, double theta)
 	t_vec2f	hor;
 	t_vec2f	vert;
 
+	if (theta < 0)
+		theta += 2*M_PI;
+	if (theta > 2*M_PI)
+		theta -= 2*M_PI;
 	hor = rayHor(game, theta);
 	vert = rayVer(game, theta);
 	return (vec2f(vert.x, hor.y));
@@ -203,10 +207,46 @@ int	draw_ray(t_game *game)
 	// drawYgridColl(game);
 	// printf("%f\n", XgridColl(game, game->player.theta));
 	// printf("%f\n", YgridColl(game, game->player.theta));
-	rayend = ray(game, game->player.theta);
 	// square_propf(game, rayend, 1, rgbtocolor(128,0,128));
 	// line_odprop(game, ppos, rayend, rgbtocolor(0,255,0));
-	line(game, vec2i(px, py), vec2i(rayend.x, rayend.y), rgbtocolor(0,255,0));
+	
+	
+	// sixty deg is M_PI / 3 and is divided by 2 because we want 
+	//  to display rays from the half of the negative to half of the positive
+	float final_distance;
+	float sixty_degrees = (M_PI / 3) / 2;  
+	float i = -1 * sixty_degrees;
+	printf("%f %f \n", i, sixty_degrees);
+	while (i < sixty_degrees)
+	{
+		rayend = ray(game, game->player.theta + i);
+		line(game, vec2i(px, py), vec2i(rayend.x, rayend.y), rgbtocolor(0,255,0));
+
+		if (rayend.x > rayend.y)
+		{
+			final_distance = rayend.y;
+		}
+
+		if (rayend.x < rayend.y)
+		{
+			final_distance = rayend.x;
+		}
+
+		int line_height = WINDOWSIZE_Y / final_distance;
+		if (line_height > WINDOWSIZE_Y)
+			line_height = WINDOWSIZE_Y;
+
+		printf("final_distance: %f\n", final_distance);
+		printf("line_height: %d\n", line_height);
+		line(game, vec2i(WINDOWSIZE_X / 2 + i * 1000, WINDOWSIZE_Y - line_height * 50), vec2i(WINDOWSIZE_X / 2 + i * 1000, WINDOWSIZE_Y + line_height * 50), rgbtocolor(255,0,0));
+
+
+
+
+		i += 0.01;
+	}
+	
+	
 	// squarecent_prop(game, ray(game, game->player.theta), 4, rgbtocolor(128,0,128));
 	// t_vec2f	pos;
 	// pos.x = 65;

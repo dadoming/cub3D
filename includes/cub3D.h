@@ -19,7 +19,7 @@
 #define SQUARESIZE 64
 #define WALKDIST 5 // pixels every move
 
-#define WINDOWSIZE_X SQUARESIZE * 20
+#define WINDOWSIZE_X SQUARESIZE * 30
 #define WINDOWSIZE_Y SQUARESIZE * 10
 
 // Shortcuts
@@ -38,6 +38,8 @@
 
 # define WALL '1'
 # define FLOOR '0'
+
+# define PI M_PI // works
 
 enum e_player_orientation
 {
