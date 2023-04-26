@@ -24,8 +24,7 @@ int x_close_window(t_game *game)
 
 int key_event(int key, t_game *game)
 {
-    //printf("key> %d\n", key);
-    if (key == ESC)
+	if (key == ESC)
 	{
 		printf("ESC\n");
         close_game(game);
@@ -82,6 +81,8 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	// Setup ImageBuffer
 	game.imgbuffer.img = mlx_new_image(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y);
 	game.imgbuffer.addr = mlx_get_data_addr(game.imgbuffer.img, &game.imgbuffer.bits_per_pixel, &game.imgbuffer.line_length, &game.imgbuffer.endian);
+
+
 
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);

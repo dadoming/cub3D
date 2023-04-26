@@ -2,7 +2,6 @@
 # define CUB3D_H
 
 # include "../minilibx-linux/mlx.h"
-// #include <libft.h>
 #include "../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -28,6 +27,13 @@
 # define S 115
 # define D 100
 # define W 119
+# define UP 65362
+# define DOWN 65364
+# define LEFT 65361
+# define RIGHT 65363
+# define SPACE 32
+# define CTRL 65507
+# define SHIFT 65505
 # define ESC 65307
 
 # define WALL '1'
@@ -181,9 +187,6 @@ int	line_prop(t_game *game, t_vec2f origin, size_t size, int color);
 char	coordcheck(t_game *game, int x, int y);
 int p_move(t_game *game, int ns, int ew);
 
-
-int	      setstartpos(t_game *game);
-
 int	      imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
 
 void	    myclearimg(t_game *game);
@@ -193,8 +196,5 @@ int	draw_ray(t_game *game);
 
 t_vec2f	vec2f(float x, float y);
 t_vec2i  vec2i(int x, int y);;
-
-
-
 
 # endif
