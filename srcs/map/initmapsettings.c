@@ -1,4 +1,4 @@
-# include "../includes/cub3D.h"
+# include "../../includes/cub3D.h"
 
 static void     init_map_settings_2(t_settings **map_settings);
 
