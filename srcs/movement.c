@@ -1,27 +1,48 @@
 # include "../includes/cub3D.h"
 
+void door_action(t_game *game, int x, int y)
+{
+	int i = 0;
+	while (i < game->door_count)
+	{
+		if (abs(game->door[i].x - x / SQUARESIZE) == 1 && abs(game->door[i].y - y / SQUARESIZE) == 0)
+		{
+			if (game->door[i].state == 0)
+				game->door[i].state = 1;
+			else
+				game->door[i].state = 0;
+			printf("changed door %d to %d\n", i, game->door[i].state);
+		}
+		else if (abs(game->door[i].x - x) == 0 && abs(game->door[i].y - y) == 1)
+		{
+			if (game->door[i].state == 0)
+				game->door[i].state = 1;
+			else
+				game->door[i].state = 0;
+			printf("changed\n");
+		}
+		i++;
+	}
+}
+
 int key_event(int key, t_game *game)
 {
-    //printf("key> %d\n", key);
     if (key == ESC)
 	{
 		printf("ESC\n");
         close_game(game);
-		// printf("%i\n", (int)(1.5f - 0.3f));
 	}
 	else if (key == A)
 	{
 		game->player.theta += M_PI / RADJUMP;
 		if (pt> 2 * M_PI)
 			pt-= 2 * M_PI;
-		printf("%f\n", game->player.theta);
 	}
 	else if (key == D)
 	{
 		game->player.theta -= M_PI / RADJUMP;
 		if (pt< 0)
 			pt+= 2 * M_PI;
-		printf("%f\n", game->player.theta);
 	}
 	else if (key == W)
 	{
@@ -30,6 +51,10 @@ int key_event(int key, t_game *game)
 	else if (key == S)
 	{
 		p_move(game, -1, -1);
+	}
+	else if (key == SPACE)
+	{
+		door_action(game, ppos.x, ppos.y);
 	}
     return (0);
 }
@@ -62,14 +87,13 @@ int p_move(t_game *game, int ns, int ew)
     newpos.x = ppos.x + cos(prt) * ns * WALKDIST;
     newpos.y = ppos.y + sin(prt) * ew * WALKDIST;
 
-	if (coordcheck(game, newpos.x / SQUARESIZE, newpos.y / SQUARESIZE) == '1')
+	if (coordcheck(game, newpos.x / SQUARESIZE, newpos.y / SQUARESIZE) == '1' || \
+		(coordcheck(game, newpos.x / SQUARESIZE, newpos.y / SQUARESIZE) == 'D' && \
+		this_door_open(game, newpos.x, newpos.y) == 0))
 	{
 		// ppos.x = (int)ppos.x;
 		// ppos.y = (int)ppos.y;
 	}
 	else
     	ppos = newpos;
-
-    printf("(%d,%d)__", (int)game->player.pos.x, (int)game->player.pos.y);
-    printf("(%f,%f)\n", game->player.pos.x, game->player.pos.y);    
 }

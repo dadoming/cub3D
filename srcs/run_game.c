@@ -9,7 +9,6 @@ int	theloop(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
 }
 
-
 int run_game(t_game *game)
 {
 	mlx_loop_hook(game->mlx, theloop, game);

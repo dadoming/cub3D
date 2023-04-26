@@ -216,7 +216,6 @@ int	draw_ray(t_game *game)
 	float final_distance;
 	float sixty_degrees = (M_PI / 3) / 2;  
 	float i = -1 * sixty_degrees;
-	printf("%f %f \n", i, sixty_degrees);
 	while (i < sixty_degrees)
 	{
 		rayend = ray(game, game->player.theta + i);
@@ -236,8 +235,7 @@ int	draw_ray(t_game *game)
 		if (line_height > WINDOWSIZE_Y)
 			line_height = WINDOWSIZE_Y;
 
-		printf("final_distance: %f\n", final_distance);
-		printf("line_height: %d\n", line_height);
+		
 		line(game, vec2i(WINDOWSIZE_X / 2 + i * 1000, WINDOWSIZE_Y - line_height * 50), vec2i(WINDOWSIZE_X / 2 + i * 1000, WINDOWSIZE_Y + line_height * 50), rgbtocolor(255,0,0));
 
 

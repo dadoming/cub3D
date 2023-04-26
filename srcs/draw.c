@@ -37,19 +37,13 @@ int	draw_map(t_game *game)
 	vec.y = 0;
 	while (game->charmap[vec.y] != NULL)
 	{
-		vec.x = 00;
+		vec.x = 0;
 		while (game->charmap[vec.y][vec.x] != '\0')
 		{
 			if (game->charmap[vec.y][vec.x] == WALL)
 				square_prop(game, vec, 1, rgbtocolor(255, 255, 255));
-				// square_prop(game, vec, 1, rgbtocolor(23, 128, 250));
-			// else if (game->charmap[vec.y][vec.x] == FLOOR)
-			// 	square_prop(game, vec, 1, rgbtocolor(0, 0, 0));
-				// square_prop(game, vec, 1, rgbtocolor(23, 128, 20));
 			else if (ft_charinside(game->charmap[vec.y][vec.x], "NSWE"))
 				square_prop(game, vec, 1, rgbtocolor(255, 0, 0));
-			// else
-			// 	square_prop(game, vec, 1, rgbtocolor(128,128,128));
 			vec.x += 1;
 		}
 		vec.y += 1;
@@ -59,10 +53,6 @@ int	draw_map(t_game *game)
 
 int	draw_player(t_game *game)
 {
-	// square_propf(game, game->player.pos, 0.5f, rgbtocolor(128, 20, 100));
-	// pixsquaref(game, game->player.pos, 50, rgbtocolor(128,20,100));
-	// line_prop(game, game->player.pos, 10, rgbtocolor(255, 50, 50));
-
 	pixsquare(game, vec2i(px, py), 10, rgbtocolor(128,20,100));
 	line_tf(game, game->player.pos, 80, rgbtocolor(128,0,20));
 

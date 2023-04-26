@@ -34,6 +34,13 @@
 # define S 115
 # define D 100
 # define W 119
+# define UP 65362
+# define DOWN 65364
+# define LEFT 65361
+# define RIGHT 65363
+# define SPACE 32
+# define CTRL 65507
+# define SHIFT 65505
 # define ESC 65307
 
 # define WALL '1'
@@ -77,7 +84,6 @@ typedef struct s_plinfo
 {
 	t_vec2f	pos;
 	double	theta; // Theta is the real angle: not inverted!
-
 } t_plinfo;
 
 typedef struct s_map_check
@@ -116,12 +122,20 @@ typedef struct s_imgbuffer
 	int		endian;
 } t_imgbuffer;
 
+typedef struct s_door
+{
+	int     state;
+	int     x;
+	int     y;
+} t_door;
+
 typedef struct s_game
 {
     void		*mlx;
     void		*win;
 	t_imgbuffer	imgbuffer;
-
+	t_door      *door;
+	int 			door_count;
 	t_texture	texture;
 	char		**charmap;
 	t_plinfo	player;
@@ -166,6 +180,8 @@ int	      prep_game(t_settings *map_settings, t_plinfo player);
 int 			run_game(t_game *game);
 void load_textures(t_game *game, t_settings *map_settings);
 int load_rgb(char *value);
+void init_doors(t_game *game);
+int this_door_open(t_game *game, int x, int y);
 
 int				rgbtocolor(unsigned char r, unsigned char g, unsigned char b);
 int				line(t_game *game, t_vec2i origin, t_vec2i dest, int color);

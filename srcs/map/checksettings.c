@@ -1,4 +1,4 @@
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 static void     load_elinfo(t_elinfo *elinfo, char *file_line, int i, int option);
 static int      load_info_from_line(t_elinfo *elinfo, char *file_line, int *i);
