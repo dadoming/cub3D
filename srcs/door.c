@@ -7,15 +7,12 @@ int this_door_open(t_game *game, int x, int y)
 	i = 0;
 	while (i < game->door_count)
 	{
-		printf("door %d = %d %d\nplayer =   %d %d\n", i, game->door[i].x, game->door[i].y, x / SQUARESIZE, y/ SQUARESIZE);
 		if (abs(game->door[i].x - x / SQUARESIZE) <= 1 && abs(game->door[i].y - y / SQUARESIZE) == 0)
 		{
-			printf("door %d state: %d\n", i, game->door[i].state);
 			return (game->door[i].state);
 		}
 		else if (abs(game->door[i].x - x) == 0 && abs(game->door[i].y - y) <= 1)
 		{
-			printf("door %d state: %d\n", i, game->door[i].state);
 			return (game->door[i].state);
 		}
 		i++;

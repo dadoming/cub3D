@@ -22,6 +22,13 @@
 #define WINDOWSIZE_X SQUARESIZE * 30
 #define WINDOWSIZE_Y SQUARESIZE * 10
 
+#define MINIMAPSIZE_X 160
+#define MINIMAPSIZE_Y 160
+#define MINIMAPSCALE 16
+#define MINIMAPBORDER 8
+
+
+
 // Shortcuts
 #define ppos game->player.pos
 #define px game->player.pos.x
@@ -45,6 +52,7 @@
 
 # define WALL '1'
 # define FLOOR '0'
+# define DOOR 'D'
 
 # define PI M_PI // works
 
@@ -134,9 +142,13 @@ typedef struct s_game
     void		*mlx;
     void		*win;
 	t_imgbuffer	imgbuffer;
+
 	t_door      *door;
 	int 			door_count;
 	t_texture	texture;
+
+	int			minimap_toggle;	
+	t_vec2i		mapsize;
 	char		**charmap;
 	t_plinfo	player;
 } t_game;
@@ -183,6 +195,7 @@ int load_rgb(char *value);
 void init_doors(t_game *game);
 int this_door_open(t_game *game, int x, int y);
 
+void load_minimap_image(t_game *game, t_vec2i player_pos);
 int				rgbtocolor(unsigned char r, unsigned char g, unsigned char b);
 int				line(t_game *game, t_vec2i origin, t_vec2i dest, int color);
 int				line_s(t_game *game, t_vec2i origin, size_t size, int color);
@@ -190,6 +203,8 @@ int				line_tf(t_game *game, t_vec2f origin, size_t size, int color);
 int	line_odprop(t_game *game, t_vec2f origin, t_vec2f dest, int color);
 
 void	    mypixelput(t_imgbuffer *imgbuffer, int x, int y, int color);
+void add_square(t_imgbuffer *imgbuffer, t_vec2i vec, int size_square, int color);
+void load_minimap_border(t_game *game);
 
 int	pixsquare(t_game *game, t_vec2i pos, size_t size, int color);
 int	pixsquaref(t_game *game, t_vec2f pos, size_t size, int color);
@@ -220,6 +235,7 @@ int	      imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
 void	    myclearimg(t_game *game);
 int	      draw_player(t_game *game);
 
+void draw_minimap(t_game *game, t_vec2f pos);
 int	draw_ray(t_game *game);
 
 t_vec2f	vec2f(float x, float y);

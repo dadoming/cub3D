@@ -11,7 +11,6 @@ void door_action(t_game *game, int x, int y)
 				game->door[i].state = 1;
 			else
 				game->door[i].state = 0;
-			printf("changed door %d to %d\n", i, game->door[i].state);
 		}
 		else if (abs(game->door[i].x - x) == 0 && abs(game->door[i].y - y) == 1)
 		{
@@ -19,7 +18,6 @@ void door_action(t_game *game, int x, int y)
 				game->door[i].state = 1;
 			else
 				game->door[i].state = 0;
-			printf("changed\n");
 		}
 		i++;
 	}
@@ -56,6 +54,13 @@ int key_event(int key, t_game *game)
 	{
 		door_action(game, ppos.x, ppos.y);
 	}
+	else if (key == CTRL)
+	{
+		if (game->minimap_toggle == 1)
+			game->minimap_toggle = 0;
+		else
+			game->minimap_toggle = 1;
+	}
     return (0);
 }
 
@@ -65,9 +70,9 @@ char	coordcheck(t_game *game, int x, int y)
 		return 0;
 	else if (x >= WINDOWSIZE_X || y >= WINDOWSIZE_Y)
 		return 0;
-	else if (y >= (long long)ft_mtrxlen((void **)game->charmap))
+	else if (y >= game->mapsize.y)
 		return 0;
-	else if (x >= (long)ft_strlen(game->charmap[0]))
+	else if (x >= game->mapsize.x)
 		return 0;
 	else
 		return (game->charmap[y][x]);

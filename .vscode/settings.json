@@ -7,7 +7,15 @@
 		"cub3d.h": "c",
 		"elmapxtract": "c",
 		"chrono": "cpp",
-		"cmath": "cpp"
+		"cmath": "cpp",
+		"mlx_int.h": "c",
+		"limits.h": "c",
+		"math.h": "c",
+		"fcntl.h": "c",
+		"stat.h": "c",
+		"types.h": "c",
+		"stdlib.h": "c",
+		"stdio.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "Disabled",
 	"makefile.launchConfigurations": [

@@ -42,6 +42,8 @@ int	draw_map(t_game *game)
 		{
 			if (game->charmap[vec.y][vec.x] == WALL)
 				square_prop(game, vec, 1, rgbtocolor(255, 255, 255));
+			else if (game->charmap[vec.y][vec.x] == DOOR)
+				square_prop(game, vec, 1, rgbtocolor(255, 255, 0));
 			else if (ft_charinside(game->charmap[vec.y][vec.x], "NSWE"))
 				square_prop(game, vec, 1, rgbtocolor(255, 0, 0));
 			vec.x += 1;

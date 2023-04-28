@@ -52,18 +52,18 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	game.mlx = mlx_init();
 	load_textures(&game, map_settings);
 	init_doors(&game);
+	game.minimap_toggle = 0;
+
+	// init mapsize
+	game.mapsize.x = ft_strlen(game.charmap[0]);
+	game.mapsize.y = ft_mtrxlen((void **)game.charmap);
 	if (!game.mlx)
 		return 0; //TODO: gotta free and exit
     game.win = mlx_new_window(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y, "cub3D");
 
-
-
 	// Setup ImageBuffer
 	game.imgbuffer.img = mlx_new_image(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y);
 	game.imgbuffer.addr = mlx_get_data_addr(game.imgbuffer.img, &game.imgbuffer.bits_per_pixel, &game.imgbuffer.line_length, &game.imgbuffer.endian);
-
-
-
 
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);
