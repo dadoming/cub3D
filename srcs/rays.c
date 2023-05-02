@@ -192,6 +192,10 @@ int	draw_ray(t_game *game)
 	// t_vec2f	x_pos;
 	// t_vec2f	y_pos;
 	t_vec2f		rayend;
+
+	rayend = ray(game, pt);
+	line(game, vec2i(px, py), vec2i(rayend.x, rayend.y), rgbtocolor(0,255,0));
+	return (1);
 	// x_pos = rayX(game, game->player.theta);
 	// squarecent_prop(game, x_pos, 40, rgbtocolor(128,0,128));
 

@@ -20,7 +20,7 @@ MAP_LIST = checksettings.c filextract.c initmapsettings.c player_orientation.c r
 MAP_DIRECTORY = map/
 MAP = $(addprefix $(MAP_DIRECTORY), $(MAP_LIST))
 
-SRCS_LIST = $(MAP) $(TEXTURES) main.c check_input.c color.c draw.c imgbuffer.c line.c movement.c prep_game.c rays.c run_game.c square.c vector.c door.c minimap.c
+SRCS_LIST = $(MAP) $(TEXTURES) main.c check_input.c color.c draw.c imgbuffer.c line.c movement.c prep_game.c rays.c run_game.c square.c vector.c door.c minimap.c minimapSmooth.c
 SRCS_DIRECTORY = srcs/
 SRCS = $(addprefix $(SRCS_DIRECTORY), $(SRCS_LIST))
 

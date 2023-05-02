@@ -35,12 +35,14 @@ int key_event(int key, t_game *game)
 		game->player.theta += M_PI / RADJUMP;
 		if (pt> 2 * M_PI)
 			pt-= 2 * M_PI;
+			printf("%f\n", pt);
 	}
 	else if (key == D)
 	{
 		game->player.theta -= M_PI / RADJUMP;
 		if (pt< 0)
 			pt+= 2 * M_PI;
+			printf("%f\n", pt);
 	}
 	else if (key == W)
 	{
@@ -101,4 +103,5 @@ int p_move(t_game *game, int ns, int ew)
 	}
 	else
     	ppos = newpos;
+	printf("(%f,%f)\n", px, py);
 }

@@ -17,6 +17,7 @@ int check_input(int argc, char **argv)
     if (argc == 1)
     {
         fileXtract("maps/5_works_small.cub");
+		// fileXtract("maps/")
     }
 	else if (argc == 2)
 	{

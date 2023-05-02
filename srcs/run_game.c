@@ -78,13 +78,14 @@ void draw_full_minimap(t_game *game)
 int	theloop(t_game *game)
 {
 	myclearimg(game);
-	draw_map(game);
-	draw_player(game);
+	// draw_map(game);
+	// draw_player(game);
 	draw_ray(game);
 	if (game->minimap_toggle == 0)
 	{
-		draw_minimap(game, game->player.pos); // in int
+		// draw_minimap(game, game->player.pos); // in int
     	//draw_full_minimap(game);
+		draw_minimapSmooth(game);
 	}
     mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
 }
