@@ -19,8 +19,8 @@
 #define SQUARESIZE 64
 #define WALKDIST 5 // pixels every move
 
-#define WINDOWSIZE_X SQUARESIZE * 30
-#define WINDOWSIZE_Y SQUARESIZE * 10
+#define WINDOWSIZE_X SQUARESIZE * 10
+#define WINDOWSIZE_Y SQUARESIZE * 7.5
 
 #define MINIMAPSIZE_X 160
 #define MINIMAPSIZE_Y 160
@@ -35,7 +35,9 @@
 #define py game->player.pos.y
 #define pt game->player.theta // Real theta
 #define prt 2*M_PI - game->player.theta // Reverse theta -> game_dev
-//___
+
+
+
 
 # define A 97
 # define S 115
@@ -84,14 +86,10 @@ typedef struct s_vec2f
 	float	y;
 }				t_vec2f;
 
-/**
- * Theta is the real angle:
- * 	not inverted!
-*/
 typedef struct s_plinfo
 {
 	t_vec2f	pos;
-	double	theta; // Theta is the real angle: not inverted!
+	double	theta;
 } t_plinfo;
 
 typedef struct s_map_check

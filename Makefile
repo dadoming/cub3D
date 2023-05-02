@@ -32,7 +32,7 @@ CC = cc
 CFLAGS = -g3 -Wall -Wextra #-fsanitize=address #-Werror
 
 LIBS = -L$(LIBFT_DIRECTORY) -lft $(MLX) -lXext -lX11 -lm -lz
-INCLUDES = -I $(HEADERS) -I $(LIBFT_HEADER) -I $(MLX_HEADER)
+INCLUDES = -I.$(HEADERS) -I.$(LIBFT_HEADER) -I.$(MLX_HEADER)
 
 all: $(NAME)
 
