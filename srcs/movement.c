@@ -1,59 +1,68 @@
 # include "../includes/cub3D.h"
 
-void door_action(t_game *game, int x, int y)
+
+void press_forward(t_game *game)
 {
-	int i = 0;
-	while (i < game->door_count)
-	{
-		if (abs(game->door[i].x - x / SQUARESIZE) == 1 && abs(game->door[i].y - y / SQUARESIZE) == 0)
-		{
-			if (game->door[i].state == 0)
-				game->door[i].state = 1;
-			else
-				game->door[i].state = 0;
-		}
-		else if (abs(game->door[i].x - x) == 0 && abs(game->door[i].y - y) == 1)
-		{
-			if (game->door[i].state == 0)
-				game->door[i].state = 1;
-			else
-				game->door[i].state = 0;
-		}
-		i++;
-	}
+    if ((game->charmap[(int)floor(game->player.inv_pos.x + game->player.dirX * MOVESPEED)][(int)floor(game->player.inv_pos.y)] != '1'  && \
+        game->charmap[(int)floor(game->player.inv_pos.x + game->player.dirX * MOVESPEED)][(int)floor(game->player.inv_pos.y)] != 'D')  || \
+        (game->charmap[(int)floor(game->player.inv_pos.x + game->player.dirX * MOVESPEED)][(int)floor(game->player.inv_pos.y)] == 'D' && \
+        this_door_open(game, (int)floor(game->player.inv_pos.x + game->player.dirX * MOVESPEED), (int)floor(game->player.inv_pos.y))))
+            game->player.inv_pos.x += game->player.dirX * MOVESPEED;
+    if ((game->charmap[(int)floor(game->player.inv_pos.x)][(int)floor(game->player.inv_pos.y + game->player.dirY * MOVESPEED)] != '1'  && \
+        game->charmap[(int)floor(game->player.inv_pos.x)][(int)floor(game->player.inv_pos.y + game->player.dirY * MOVESPEED)] != 'D')  || \
+        (game->charmap[(int)floor(game->player.inv_pos.x)][(int)floor(game->player.inv_pos.y + game->player.dirY * MOVESPEED)] == 'D' && \
+        this_door_open(game, (int)floor(game->player.inv_pos.x), (int)floor(game->player.inv_pos.y + game->player.dirY * MOVESPEED))))
+            game->player.inv_pos.y += game->player.dirY * MOVESPEED;
+}
+
+void press_left(t_game *game)
+{
+    double oldDirX = game->player.dirX;
+    game->player.dirX = game->player.dirX * cos(ROTATESPEED) - game->player.dirY * sin(ROTATESPEED);
+    game->player.dirY = oldDirX * sin(ROTATESPEED) + game->player.dirY * cos(ROTATESPEED);
+    double oldPlaneX = game->player.planeX;
+    game->player.planeX = game->player.planeX * cos(ROTATESPEED) - game->player.planeY * sin(ROTATESPEED);
+    game->player.planeY = oldPlaneX * sin(ROTATESPEED) + game->player.planeY * cos(ROTATESPEED);
+}
+
+void press_back(t_game *game)
+{
+    if ((game->charmap[(int)floor(game->player.inv_pos.x - game->player.dirX * MOVESPEED)][(int)floor(game->player.inv_pos.y)] != '1' && \
+        game->charmap[(int)floor(game->player.inv_pos.x - game->player.dirX * MOVESPEED)][(int)floor(game->player.inv_pos.y)] != 'D') || \
+        (game->charmap[(int)floor(game->player.inv_pos.x - game->player.dirX * MOVESPEED)][(int)floor(game->player.inv_pos.y)] == 'D' && \
+        this_door_open(game, (int)floor(game->player.inv_pos.x - game->player.dirX * MOVESPEED), (int)floor(game->player.inv_pos.y))))
+        game->player.inv_pos.x -= game->player.dirX * MOVESPEED;
+    if ((game->charmap[(int)floor(game->player.inv_pos.x)][(int)floor(game->player.inv_pos.y - game->player.dirY * MOVESPEED)] != '1' && \
+        game->charmap[(int)floor(game->player.inv_pos.x)][(int)floor(game->player.inv_pos.y - game->player.dirY * MOVESPEED)] != 'D') || \
+        (game->charmap[(int)floor(game->player.inv_pos.x)][(int)floor(game->player.inv_pos.y - game->player.dirY * MOVESPEED)] == 'D' && \
+        this_door_open(game, (int)floor(game->player.inv_pos.x), (int)floor(game->player.inv_pos.y - game->player.dirY * MOVESPEED))))
+        game->player.inv_pos.y -= game->player.dirY * MOVESPEED;
+}
+
+void press_right(t_game *game)
+{
+    double oldDirX = game->player.dirX;
+    game->player.dirX = game->player.dirX * cos(-ROTATESPEED) - game->player.dirY * sin(-ROTATESPEED);
+    game->player.dirY = oldDirX * sin(-ROTATESPEED) + game->player.dirY * cos(-ROTATESPEED);
+    double oldPlaneX = game->player.planeX;
+    game->player.planeX = game->player.planeX * cos(-ROTATESPEED) - game->player.planeY * sin(-ROTATESPEED);
+    game->player.planeY = oldPlaneX * sin(-ROTATESPEED) + game->player.planeY * cos(-ROTATESPEED);
 }
 
 int key_event(int key, t_game *game)
 {
-    if (key == ESC)
-	{
-		printf("ESC\n");
+    if      (key == ESC)
         close_game(game);
-	}
-	else if (key == A)
-	{
-		game->player.theta += M_PI / RADJUMP;
-		if (pt> 2 * M_PI)
-			pt-= 2 * M_PI;
-	}
-	else if (key == D)
-	{
-		game->player.theta -= M_PI / RADJUMP;
-		if (pt< 0)
-			pt+= 2 * M_PI;
-	}
 	else if (key == W)
-	{
-		p_move(game, 1, 1);
-	}
+        press_forward(game);
+	else if (key == A)
+        press_left(game);
 	else if (key == S)
-	{
-		p_move(game, -1, -1);
-	}
+        press_back(game);
+	else if (key == D)
+        press_right(game);   
 	else if (key == SPACE)
-	{
 		door_action(game, ppos.x, ppos.y);
-	}
 	else if (key == CTRL)
 	{
 		if (game->minimap_toggle == 1)
@@ -83,22 +92,22 @@ char	coordcheck_prop(t_game *game, int x, int y)
 	return (coordcheck(game, x / SQUARESIZE, y / SQUARESIZE));
 }
 
-int p_move(t_game *game, int ns, int ew)
-{
-    t_vec2f newpos;
-
-    if (ns + ew < -2 || ns + ew > 2)
-        return (0);
-    newpos.x = ppos.x + cos(prt) * ns * WALKDIST;
-    newpos.y = ppos.y + sin(prt) * ew * WALKDIST;
-
-	if (coordcheck(game, newpos.x / SQUARESIZE, newpos.y / SQUARESIZE) == '1' || \
+//int p_move(t_game *game, int ns, int ew)
+//{
+//    t_vec2f newpos;
+//
+//    if (ns + ew < -2 || ns + ew > 2)
+//        return (0);
+//    newpos.x = ppos.x + cos(prt) * ns * WALKDIST;
+//    newpos.y = ppos.y + sin(prt) * ew * WALKDIST;
+//
+//	if (coordcheck(game, newpos.x / SQUARESIZE, newpos.y / SQUARESIZE) == '1' || \
 		(coordcheck(game, newpos.x / SQUARESIZE, newpos.y / SQUARESIZE) == 'D' && \
 		this_door_open(game, newpos.x, newpos.y) == 0))
-	{
-		// ppos.x = (int)ppos.x;
-		// ppos.y = (int)ppos.y;
-	}
-	else
-    	ppos = newpos;
-}
+//	{
+//		// ppos.x = (int)ppos.x;
+//		// ppos.y = (int)ppos.y;
+//	}
+//	else
+//    	ppos = newpos;
+//}

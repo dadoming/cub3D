@@ -64,10 +64,19 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	// Setup ImageBuffer
 	game.imgbuffer.img = mlx_new_image(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y);
 	game.imgbuffer.addr = mlx_get_data_addr(game.imgbuffer.img, &game.imgbuffer.bits_per_pixel, &game.imgbuffer.line_length, &game.imgbuffer.endian);
+    
+    game.player.inv_pos.x = player.pos.x;
+    game.player.inv_pos.y = player.pos.y;
+    game.inv_mapsize.x = game.mapsize.y;
+    game.inv_mapsize.y = game.mapsize.x;
+    game.player.dirX = -1;
+    game.player.dirY = 0;
+    game.player.planeX = 0;
+    game.player.planeY = 0.66;
+
 
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);
 	
 	return (run_game(&game));
-	// return (1);
 }

@@ -1,9 +1,10 @@
+    NO ./textures/lava.xpm
 
-NO bla
-WE         ./path_to_the_west_texture
-EA     ./path_to_the_east_texture            
 
-SO            ./path_to_the_south_texture
+     WE         ./textures/leaves.xpm
+EA     ./textures/stone.xpm           
+
+SO            ./textures/water.xpm
 F 220,100,0
              
 

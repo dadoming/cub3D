@@ -17,10 +17,13 @@
 #define RADJUMP 64
 
 #define SQUARESIZE 64
-#define WALKDIST 5 // pixels every move
 
-#define WINDOWSIZE_X SQUARESIZE * 10
-#define WINDOWSIZE_Y SQUARESIZE * 7.5
+#define WALKDIST 5 // pixels every move
+# define MOVESPEED 0.15
+# define ROTATESPEED 0.15
+
+#define WINDOWSIZE_X 640
+#define WINDOWSIZE_Y 640
 
 #define MINIMAPSIZE_X 160
 #define MINIMAPSIZE_Y 160
@@ -89,6 +92,12 @@ typedef struct s_vec2f
 typedef struct s_plinfo
 {
 	t_vec2f	pos;
+    t_vec2f inv_pos;
+
+    float dirX;
+    float dirY;
+    float planeX;
+    float planeY;
 	double	theta;
 } t_plinfo;
 
@@ -147,6 +156,7 @@ typedef struct s_game
 
 	int			minimap_toggle;	
 	t_vec2i		mapsize;
+    t_vec2i		inv_mapsize;
 	char		**charmap;
 	t_plinfo	player;
 } t_game;
@@ -210,7 +220,7 @@ int	pixsquarecent(t_game *game, t_vec2f pos, size_t size, int color);
 void	squarecent_prop(t_game *game, t_vec2f pos, float size, int color);
 void	square_prop(t_game *game, t_vec2i pos, size_t size, int color);
 void	square_propf(t_game *game, t_vec2f pos, float size, int color);
-
+void door_action(t_game *game, int x, int y);
 
 int				draw_map(t_game *game);
 
@@ -224,9 +234,7 @@ int key_event(int key, t_game *game);
 char	coordcheck(t_game *game, int x, int y);
 char	coordcheck_prop(t_game *game, int x, int y);
 int p_move(t_game *game, int ns, int ew);
-
-
-int	      setstartpos(t_game *game);
+void draw_full_minimap(t_game *game);
 
 int	      imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
 
@@ -234,7 +242,7 @@ void	    myclearimg(t_game *game);
 int	      draw_player(t_game *game);
 
 void draw_minimap(t_game *game, t_vec2f pos);
-int	draw_ray(t_game *game);
+void	draw_ray(t_game *game);
 
 t_vec2f	vec2f(float x, float y);
 t_vec2i  vec2i(int x, int y);;

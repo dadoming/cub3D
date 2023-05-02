@@ -1,17 +1,41 @@
 # include "../includes/cub3D.h"
 
+void door_action(t_game *game, int x, int y)
+{
+	int i = 0;
+	while (i < game->door_count)
+	{
+		if (abs(game->door[i].x - x) == 1 && abs(game->door[i].y - y) == 0)
+		{
+			if (game->door[i].state == 0)
+				game->door[i].state = 1;
+			else
+				game->door[i].state = 0;
+		}
+		else if (abs(game->door[i].x - x) == 0 && abs(game->door[i].y - y) == 1)
+		{
+			if (game->door[i].state == 0)
+				game->door[i].state = 1;
+			else
+				game->door[i].state = 0;
+		}
+		i++;
+	}
+}
+
+
 int this_door_open(t_game *game, int x, int y)
 {
 	int i;
 
 	i = 0;
 	while (i < game->door_count)
-	{
-		if (abs(game->door[i].x - x / SQUARESIZE) <= 1 && abs(game->door[i].y - y / SQUARESIZE) == 0)
+    {
+		if (abs(game->door[i].x - y) <= 1 && abs(game->door[i].y - x) == 0)
 		{
 			return (game->door[i].state);
 		}
-		else if (abs(game->door[i].x - x) == 0 && abs(game->door[i].y - y) <= 1)
+		else if (abs(game->door[i].y - x) == 0 && abs(game->door[i].x - y) <= 1)
 		{
 			return (game->door[i].state);
 		}
@@ -72,11 +96,6 @@ static void init(t_game *game)
 
 void init_doors(t_game *game)
 {
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
 	game->door_count = get_number_doors(game->charmap);
 	if (game->door_count == 0)
 	{

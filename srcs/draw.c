@@ -55,8 +55,8 @@ int	draw_map(t_game *game)
 
 int	draw_player(t_game *game)
 {
+    game->player.pos.x = game->player.inv_pos.y * SQUARESIZE;
+    game->player.pos.y = game->player.inv_pos.x * SQUARESIZE;
 	pixsquare(game, vec2i(px, py), 10, rgbtocolor(128,20,100));
-	line_tf(game, game->player.pos, 80, rgbtocolor(128,0,20));
-
 	return (1);
 }

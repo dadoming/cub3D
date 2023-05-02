@@ -8,8 +8,8 @@ static void player_orient(t_player_check l, t_plinfo *player);
 
 static void player_pos(t_plinfo *player, int x, int y)
 {
-    player->pos.x = (((float)x - 1) * 64) + 32;
-    player->pos.y = (((float)y + 1) * 64) + 32;
+    player->pos.x = (float)x;
+    player->pos.y = (float)y;
 }
 
 void get_player(char **map, t_plinfo *player)

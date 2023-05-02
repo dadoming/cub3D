@@ -14,6 +14,50 @@
     
 */
 
+void	square_prop_minimap(t_game *game, t_vec2i pos, size_t size, int color)
+{
+	size_t	i;
+
+	pos.x = pos.x * MINIMAPSCALE;
+	pos.y = pos.y * MINIMAPSCALE;
+
+	size = size * MINIMAPSCALE;
+
+	i = 0;
+	while (i < size)
+	{
+		horline(game, pos, size, color);
+		pos.y += 1;
+		i++;
+	}
+}
+
+int	draw_minimap_map(t_game *game)
+{
+	t_vec2i	vec;
+	
+	vec.y = 0;
+	while (game->charmap[vec.y] != NULL)
+	{
+		vec.x = 0;
+		while (game->charmap[vec.y][vec.x] != '\0')
+		{
+			if (game->charmap[vec.y][vec.x] == WALL)
+				square_prop_minimap(game, vec, 1, 0x00D27D2D);
+			else if (game->charmap[vec.y][vec.x] == DOOR)
+				square_prop_minimap(game, vec, 1, 0x00FFD700);
+			vec.x += 1;
+		}
+		vec.y += 1;
+	}
+	return (1);
+}
+
+void draw_full_minimap(t_game *game)
+{
+    draw_minimap_map(game);
+}
+
 static void	my_minimap_pixelput(t_imgbuffer *imgbuffer, int x, int y, int color)
 {
 	char	*pixel;
@@ -110,8 +154,8 @@ void draw_minimap(t_game *game, t_vec2f player_pos)
 {
     t_vec2i vec;
     
-    vec.y = (int)(player_pos.y/64);
-    vec.x = (int)(player_pos.x/64);
+    vec.y = (int)(player_pos.x);
+    vec.x = (int)(player_pos.y);
     load_minimap_border(game);
     load_minimap_image(game, vec);
     load_player(game);
