@@ -29,6 +29,7 @@
 
 #define MinimapLeftRightSquares 4
 #define MinimapTopBotSquares 4
+#define MinimapSquareSize 4
 #define MinimapSquarePixelSize 32
 
 // Shortcuts
@@ -236,6 +237,8 @@ int	      imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
 
 void	    myclearimg(t_game *game);
 int	      draw_player(t_game *game);
+
+void draw_checkerboard(t_game *game, t_vec2i start, size_t q, size_t pixelsize);
 
 void draw_minimap(t_game *game, t_vec2f pos);
 void draw_minimapSmooth(t_game *game);

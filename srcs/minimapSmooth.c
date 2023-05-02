@@ -13,35 +13,33 @@ void    minimap_show(t_game *game)
     int pixeldrawy;
 
     pixeldrawy = 0;
-    y = py - MinimapTopBotSquares;
-    while (y < py + MinimapTopBotSquares + 1)
+    y = py - 3.5;
+    while (y < py + 3.5)
     {
         pixeldrawx = 0;
-        x = px - MinimapLeftRightSquares;
-        while (x < px + MinimapLeftRightSquares + 1)
+        x = px - 3.5;
+        while (x < px + 3.5)
         {
-            if (pixeldrawx == MinimapLeftRightSquares * MinimapSquarePixelSize && pixeldrawy == MinimapTopBotSquares * MinimapSquarePixelSize)
-                pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MinimapSquarePixelSize, 0);
-            else if (coordcheck(game, x, y) == 'N')
-                pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MinimapSquarePixelSize, rgbtocolor(0,255,255));
+            // if (pixeldrawx == MinimapLeftRightSquares * MinimapSquarePixelSize && pixeldrawy == MinimapTopBotSquares * MinimapSquarePixelSize)
+            //     pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MinimapSquarePixelSize, 0);
+            if (coordcheck(game, x, y) == 'N')
+                pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MinimapSquarePixelSize/2, rgbtocolor(0,255,255));
             else if (coordcheck(game,x,y) == WALL)
-                pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MinimapSquarePixelSize, 0x00D27D2D);
+                pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MinimapSquarePixelSize/2, 0x00D27D2D);
             else if (coordcheck(game,x,y) == DOOR)
-                pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MinimapSquarePixelSize, 0x00FFD700);
+                pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MinimapSquarePixelSize/2, 0x00FFD700);
             else
-                pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MinimapSquarePixelSize, rgbtocolor(255,0,0));
+                pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MinimapSquarePixelSize/2, rgbtocolor(255,0,0));
             
 
-            horline(game, vec2i(pixeldrawx, pixeldrawy), MinimapSquarePixelSize, 0);
-            verline(game, vec2i(pixeldrawx, pixeldrawy), MinimapSquarePixelSize, 0);
-            x += 1;
-            pixeldrawx += MinimapSquarePixelSize;
+            x += 0.5;
+            pixeldrawx += MinimapSquarePixelSize/2;
         }
-        y += 1;
-        pixeldrawy += MinimapSquarePixelSize;
+        y += 0.5;
+        pixeldrawy += MinimapSquarePixelSize/2;
     }
-    horline(game, vec2i(0, pixeldrawy), MinimapSquarePixelSize*5, 0);
-    // verline(game, vec2i(pixeldrawx, pixeldrawy), MinimapSquarePixelSize, 0);
+    draw_checkerboard(game, vec2i(-MinimapSquarePixelSize/2,-MinimapSquarePixelSize/2), 8, MinimapSquarePixelSize);
+    pixsquarecent(game, vec2f(MinimapSquarePixelSize*3.5,MinimapSquarePixelSize*3.5), MinimapSquarePixelSize/2, 0);
 
 }
 
