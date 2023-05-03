@@ -64,7 +64,7 @@ static int too_many_player(t_player_check *l, t_plinfo *player)
     if (l->east == 0 && l->north == 0 && l->south == 0 && l->west == 0)
     {
         printf("No player found in map\n");
-        player->theta = (float)NONE;
+        player->start = NONE;
         return (1);
     }
     else if ((l->east >= 1 && (l->north >= 1 || l->south >= 1 || l->west >= 1)) || \
@@ -72,9 +72,9 @@ static int too_many_player(t_player_check *l, t_plinfo *player)
             (l->south >= 1 && (l->east >= 1 || l->north >= 1 || l->west >= 1)) || \
             (l->west >= 1 && (l->east >= 1 || l->north >= 1 || l->south >= 1)))
     {
-        player->theta = (float)NONE;
+        player->start = NONE;
         printf("More than one player letter\n");
-        printf("%f\n", player->theta);
+        printf("%f\n", player->start);
         return (1);
     }
     return (0);
@@ -83,15 +83,15 @@ static int too_many_player(t_player_check *l, t_plinfo *player)
 static void player_orient(t_player_check l, t_plinfo *player)
 {
     if (l.north == 1)
-        player->theta = (float)NORTH; 
+        player->start = NORTH; 
     else if (l.south == 1)
-        player->theta = (float)SOUTH;
+        player->start = SOUTH;
     else if (l.east == 1)
-        player->theta = (float)EAST;
+        player->start = EAST;
     else if (l.west == 1)
-        player->theta = (float)WEST;
+        player->start = WEST;
     else 
-        player->theta = (float)NONE;
+        player->start = NONE;
 }
 
 

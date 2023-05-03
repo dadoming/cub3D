@@ -12,7 +12,6 @@ int	pixsquare(t_game *game, t_vec2i pos, size_t size, int color)
 		i++;
 	}
 	return (1);
-
 }
 
 int	pixsquaref(t_game *game, t_vec2f pos, size_t size, int color)

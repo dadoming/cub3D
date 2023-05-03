@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 13:41:46 by dadoming          #+#    #+#             */
-/*   Updated: 2023/04/17 18:37:40 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/03 17:51:17 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_plinfo prepare_map(t_settings *map_settings)
 {
     t_plinfo player;
 
-    player.theta = (float)NONE;
     if (invalid_chars(map_settings->charmap))
         free_on_invalid(map_settings);
     map_settings->charmap = cut_and_define_border(map_settings->charmap);
@@ -28,7 +27,7 @@ t_plinfo prepare_map(t_settings *map_settings)
     if (map_playable(map_settings->charmap))
         free_on_invalid(map_settings);
     get_player(map_settings->charmap, &player);
-    if ((int)(player.theta) == NONE)
+    if (player.start == NONE)
         free_on_invalid(map_settings);
     return (player);
 }

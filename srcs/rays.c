@@ -81,7 +81,6 @@ void	draw_ray(t_game *game)
         if (drawEnd >= WINDOWSIZE_Y)
             drawEnd = WINDOWSIZE_Y - 1;
 
-        //line (game, vec2i(game->player.inv_pos.y * SQUARESIZE, game->player.inv_pos.x* SQUARESIZE), vec2i(mapX* SQUARESIZE, mapY* SQUARESIZE), rgbtocolor(255, 0, 0));
         drawVertical(game, x, vec2i(drawStart, drawEnd), game->objmap[mapX][mapY]);
         x++;
     }

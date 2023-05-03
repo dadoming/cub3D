@@ -27,16 +27,40 @@ int x_close_window(t_game *game)
     return (0);
 }
 
+void load_pov(t_plinfo *player, float planeX, float planeY)
+{
+	player->planeX = planeX;
+	player->planeY = planeY;
+}
+
+void load_orientation(t_plinfo *player, int dirX, int dirY)
+{
+	player->dirX = dirX;
+	player->dirY = dirY;
+}
+
 void define_start_orientation(t_plinfo *player)
 {
-	if (player->theta == NORTH)
-		player->theta = M_PI * 0.5f;
-	else if (player->theta == SOUTH)
-		player->theta = M_PI * 1.5f;
-	else if (player->theta == EAST)
-		player->theta = 0;
-	else if (player->theta == WEST)
-		player->theta = M_PI;
+	if (player->start == NORTH)
+	{
+		load_orientation(player, -1, 0);
+		load_pov(player, 0, 0.66);
+	}
+	else if (player->start == SOUTH)
+	{
+		load_orientation(player, 1, 0);
+		load_pov(player, 0, -0.66);
+	}
+	else if (player->start == EAST)
+	{
+		load_orientation(player, 0, 1);
+		load_pov(player, 0.66, 0);
+	}
+	else if (player->start == WEST)
+	{
+		load_orientation(player, 0, -1);
+		load_pov(player, -0.66, 0);
+	}
 }
 
 t_object ***load_individual_map_tile(char **map)
@@ -97,11 +121,11 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
     game.player.inv_pos.y = player.pos.y;
     game.inv_mapsize.x = game.mapsize.y;
     game.inv_mapsize.y = game.mapsize.x;
-    game.player.dirX = -1;
-    game.player.dirY = 0;
-    game.player.planeX = 0;
-    game.player.planeY = 0.66;
-
+	
+	// game.player.dirX = -1;
+	// game.player.dirY = 0;
+    // game.player.planeX = 0;
+    // game.player.planeY = 0.66;
 
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);
