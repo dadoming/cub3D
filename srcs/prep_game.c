@@ -27,6 +27,7 @@ int x_close_window(t_game *game)
     return (0);
 }
 
+
 void define_start_orientation(t_plinfo *player)
 {
 	if (player->theta == NORTH)
@@ -101,6 +102,8 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
     game.player.dirY = 0;
     game.player.planeX = 0;
     game.player.planeY = 0.66;
+
+
 
 
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);

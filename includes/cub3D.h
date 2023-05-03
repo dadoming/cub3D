@@ -2,7 +2,6 @@
 # define CUB3D_H
 
 # include "../minilibx-linux/mlx.h"
-// #include <libft.h>
 #include "../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -247,7 +246,9 @@ int key_event(int key, t_game *game);
 char	coordcheck(t_game *game, int x, int y);
 char	coordcheck_prop(t_game *game, int x, int y);
 int p_move(t_game *game, int ns, int ew);
+
 void draw_full_minimap(t_game *game);
+
 
 int	      imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
 
@@ -261,8 +262,8 @@ t_vec2f	vec2f(float x, float y);
 t_vec2i  vec2i(int x, int y);;
 
 
+
 void close_game(t_game *game);
 
-
-
 # endif
+

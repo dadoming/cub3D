@@ -4,6 +4,9 @@ cub3D
 # Prerequisites
 *.d
 
+# Folder
+objects/
+
 # Object files
 *.o
 *.ko
