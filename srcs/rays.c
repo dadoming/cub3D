@@ -1,6 +1,6 @@
 # include "../includes/cub3D.h"
 
-void drawVertical(t_game *game, int x, t_vec2i y, int rgb);
+void drawVertical(t_game *game, int x, t_vec2i y, t_object *ob);
 
 void	draw_ray(t_game *game)
 {
@@ -63,7 +63,7 @@ void	draw_ray(t_game *game)
                 mapY += stepY;
                 side = 1;
             }
-            if (game->charmap[mapX][mapY] == WALL)
+            if (game->objmap[mapX][mapY] && (game->objmap[mapX][mapY]->type == WALL || game->objmap[mapX][mapY]->type == DOOR))
                 hit = 1;
         }
 
@@ -82,17 +82,23 @@ void	draw_ray(t_game *game)
             drawEnd = WINDOWSIZE_Y - 1;
 
         //line (game, vec2i(game->player.inv_pos.y * SQUARESIZE, game->player.inv_pos.x* SQUARESIZE), vec2i(mapX* SQUARESIZE, mapY* SQUARESIZE), rgbtocolor(255, 0, 0));
-        drawVertical(game, x, vec2i(drawStart, drawEnd), rgbtocolor(255, 0, 0));
+        drawVertical(game, x, vec2i(drawStart, drawEnd), game->objmap[mapX][mapY]);
         x++;
     }
 }
 
-void drawVertical(t_game *game, int x, t_vec2i y, int rgb)
+void drawVertical(t_game *game, int x, t_vec2i y, t_object *ob)
 {
     int i = y.x;
+    int color;
+
+    if (ob == NULL)
+        return ;
+    if (x == (WINDOWSIZE_X / 2))
+        game->select = ob;
     while (i < y.y)
     {
-        mypixelput(&game->imgbuffer, x, i, rgb);
+        mypixelput(&game->imgbuffer, x, i, ob->get_image(ob, 0));
         i++;
     }
 }

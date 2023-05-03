@@ -1,107 +1,35 @@
 # include "../includes/cub3D.h"
 
-void door_action(t_game *game, int x, int y)
+static void 		action_door(t_object *this, t_game *game)
 {
-	int i = 0;
-	while (i < game->door_count)
-	{
-		if (abs(game->door[i].x - x) == 1 && abs(game->door[i].y - y) == 0)
-		{
-			if (game->door[i].state == 0)
-				game->door[i].state = 1;
-			else
-				game->door[i].state = 0;
-		}
-		else if (abs(game->door[i].x - x) == 0 && abs(game->door[i].y - y) == 1)
-		{
-			if (game->door[i].state == 0)
-				game->door[i].state = 1;
-			else
-				game->door[i].state = 0;
-		}
-		i++;
-	}
+	t_door *door;
+	float dist;
+
+	door = (t_door *) this;
+	dist = sqrt(pow(game->player.pos.x - door->x, 2) + pow(game->player.pos.y - door->y, 2));
+	printf("dist: %f\n", dist); // it looks like it has different values for different positions
+	if (dist <= 2)
+		door->state = !door->state;
 }
 
-
-int this_door_open(t_game *game, int x, int y)
+static int			get_image_door(t_object *this, int dir)
 {
-	int i;
-
-	i = 0;
-	while (i < game->door_count)
-    {
-		if (abs(game->door[i].x - y) <= 1 && abs(game->door[i].y - x) == 0)
-		{
-			return (game->door[i].state);
-		}
-		else if (abs(game->door[i].y - x) == 0 && abs(game->door[i].x - y) <= 1)
-		{
-			return (game->door[i].state);
-		}
-		i++;
-	}
-	return (0);
+	(void) dir; // this is gonna be the side of the door to print
+	if (((t_door *) this)->state == 1)
+		return (rgbtocolor(0, 255, 0));
+	return (rgbtocolor(0, 0, 255));
 }
 
-int get_number_doors(char **map)
+t_object *new_door(int x, int y)
 {
-	int i;
-	int j;
-	int nmbr_doors;
+	t_door *door;
 
-	i = 0;
-	j = 0;
-	nmbr_doors = 0;
-	while (map[i])
-	{
-		while (map[i][j])
-		{
-			if (map[i][j] == 'D')
-				nmbr_doors++;
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	return (nmbr_doors);
-}
-
-static void init(t_game *game)
-{
-    int i;
-    int j;
-    int nmbr_doors;
-
-    i = 0;
-    j = 0;
-    nmbr_doors = 0;
-    while (game->charmap[i])
-	{
-		while (game->charmap[i][j])
-		{
-			if (game->charmap[i][j] == 'D')
-			{
-				game->door[nmbr_doors].x = j;
-				game->door[nmbr_doors].y = i;
-				game->door[nmbr_doors].state = 0;
-                nmbr_doors++;
-			}
-			j++;
-		}
-		j = 0;
-		i++;
-    }
-}
-
-void init_doors(t_game *game)
-{
-	game->door_count = get_number_doors(game->charmap);
-	if (game->door_count == 0)
-	{
-		game->door = NULL;
-		return ;
-	}
-	game->door = malloc(sizeof(t_door) * game->door_count);
-    init(game);
+	door = ft_calloc(sizeof(t_door), 1);
+	door->x = x;
+	door->y = y;
+	door->state = 0;
+	door->type = DOOR;
+	door->action = action_door;
+	door->get_image = get_image_door;
+	return ((t_object *) door);
 }

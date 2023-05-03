@@ -61,6 +61,9 @@
 
 # define PI M_PI // works
 
+typedef struct s_object t_object;
+typedef struct s_game t_game;
+
 enum e_player_orientation
 {
 	NONE,
@@ -88,6 +91,7 @@ typedef struct s_vec2f
 	float	x;
 	float	y;
 }				t_vec2f;
+
 
 typedef struct s_plinfo
 {
@@ -139,27 +143,37 @@ typedef struct s_imgbuffer
 
 typedef struct s_door
 {
+	int		type;
+	int		(*get_image)(t_object *this, int dir);
+	void 	(*action)(t_object *this, t_game *game);
 	int     state;
 	int     x;
 	int     y;
 } t_door;
 
-typedef struct s_game
+struct s_object
+{
+	int			type;
+	int			(*get_image)(t_object *this, int dir);
+	void 		(*action)(t_object *this, t_game *game);
+};
+
+struct s_game
 {
     void		*mlx;
     void		*win;
 	t_imgbuffer	imgbuffer;
 
-	t_door      *door;
-	int 			door_count;
 	t_texture	texture;
 
 	int			minimap_toggle;	
 	t_vec2i		mapsize;
     t_vec2i		inv_mapsize;
 	char		**charmap;
+	t_object	***objmap;
+	t_object	*select;
 	t_plinfo	player;
-} t_game;
+};
 
 typedef struct s_elinfo
 {
@@ -200,8 +214,6 @@ int	      prep_game(t_settings *map_settings, t_plinfo player);
 int 			run_game(t_game *game);
 void load_textures(t_game *game, t_settings *map_settings);
 int load_rgb(char *value);
-void init_doors(t_game *game);
-int this_door_open(t_game *game, int x, int y);
 
 void load_minimap_image(t_game *game, t_vec2i player_pos);
 int				rgbtocolor(unsigned char r, unsigned char g, unsigned char b);
@@ -220,8 +232,9 @@ int	pixsquarecent(t_game *game, t_vec2f pos, size_t size, int color);
 void	squarecent_prop(t_game *game, t_vec2f pos, float size, int color);
 void	square_prop(t_game *game, t_vec2i pos, size_t size, int color);
 void	square_propf(t_game *game, t_vec2f pos, float size, int color);
-void door_action(t_game *game, int x, int y);
-
+void 	door_action(t_game *game, int x, int y);
+t_object *new_door(int x, int y);
+t_object *new_wall();
 int				draw_map(t_game *game);
 
 int				horline(t_game *game, t_vec2i pos, size_t size, int color);

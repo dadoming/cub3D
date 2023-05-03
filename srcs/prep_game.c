@@ -3,8 +3,6 @@
 void close_game(t_game *game)
 {
     charmapFree(game->charmap);
-	if (game->door)
-		free(game->door);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->imgbuffer.img)
@@ -41,17 +39,47 @@ void define_start_orientation(t_plinfo *player)
 		player->theta = M_PI;
 }
 
+t_object ***load_individual_map_tile(char **map)
+{
+	int i;
+	int j;
+	t_object ***obj;
+
+	obj = ft_calloc(sizeof(t_object **), (ft_mtrxlen((void **)map) + 1));
+	if (!obj)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (map[i])
+	{
+		obj[i] = ft_calloc(sizeof(t_object *), ft_strlen(map[i]) + 1);
+		if (!obj[i])
+			return (NULL);
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == DOOR)
+				obj[i][j] = new_door(j, i);
+			else if (map[i][j] == WALL)
+				obj[i][j] = new_wall();
+			j++;
+		}
+		i++;
+	}
+	return (obj);
+}
+
 int	prep_game(t_settings *map_settings, t_plinfo player)
 {
 	t_game	game;
 
 	game.charmap = map_settings->charmap;
+	game.objmap = load_individual_map_tile(map_settings->charmap);
 	game.player = player;
   	define_start_orientation(&game.player);
 
 	game.mlx = mlx_init();
 	load_textures(&game, map_settings);
-	init_doors(&game);
 	game.minimap_toggle = 0;
 
 	// init mapsize
