@@ -18,19 +18,23 @@
 
 #define SQUARESIZE 64
 
-#define WALKDIST 5 // pixels every move
 # define MOVESPEED 0.15
 # define ROTATESPEED 0.15
+
+#define WALKDIST 10 // pixels every move
 
 #define WINDOWSIZE_X 640
 #define WINDOWSIZE_Y 640
 
 #define MINIMAPSIZE_X 160
 #define MINIMAPSIZE_Y 160
-#define MINIMAPSCALE 16
+#define MINIMAPSCALE 1
 #define MINIMAPBORDER 8
 
-
+// #define MinimapLeftRightSquares 4
+// #define MinimapTopBotSquares 4
+// #define MinimapSquareSize 4
+// #define MinimapSquarePixelSize 8
 
 // Shortcuts
 #define ppos game->player.pos
@@ -254,8 +258,12 @@ int	      imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
 void	    myclearimg(t_game *game);
 int	      draw_player(t_game *game);
 
+void draw_checkerboard(t_game *game, t_vec2i start, size_t q, size_t pixelsize);
+
 void draw_minimap(t_game *game, t_vec2f pos);
-void	draw_ray(t_game *game);
+void draw_minimapSmooth(t_game *game);
+
+int	draw_ray(t_game *game);
 
 t_vec2f	vec2f(float x, float y);
 t_vec2i  vec2i(int x, int y);;

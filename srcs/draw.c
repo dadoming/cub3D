@@ -60,3 +60,23 @@ int	draw_player(t_game *game)
 	pixsquare(game, vec2i(px, py), 10, rgbtocolor(128,20,100));
 	return (1);
 }
+
+void draw_checkerboard(t_game *game, t_vec2i start, size_t q, size_t pixelsize)
+{
+	size_t	x;
+	size_t	y;
+
+	x = 0;
+	while (x <= q)
+	{
+		verline(game, vec2i(start.x + pixelsize*x, start.y), q*pixelsize, 0);
+		x += 1;
+	}
+	y = 0;
+	while (y <= q)
+	{
+		horline(game, vec2i(start.x, start.y + pixelsize*y), q*pixelsize, 0);
+		y += 1;
+	}
+
+}

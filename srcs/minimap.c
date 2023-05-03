@@ -150,15 +150,15 @@ void load_player(t_game *game)
     add_square(&game->imgbuffer, vec, 8, color);
 }
 
-void draw_minimap(t_game *game, t_vec2f player_pos)
-{
-    t_vec2i vec;
+// void draw_minimap(t_game *game, t_vec2f player_pos)
+// {
+//     t_vec2i vec;
     
-    vec.y = (int)(player_pos.x);
-    vec.x = (int)(player_pos.y);
-    load_minimap_border(game);
-    load_minimap_image(game, vec);
-    load_player(game);
-    //mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
-}
+//     vec.y = (int)(player_pos.y/64);
+//     vec.x = (int)(player_pos.x/64);
+//     load_minimap_border(game);
+//     load_minimap_image(game, vec);
+//     load_player(game);
+//     //mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
+// }
 
