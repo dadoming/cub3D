@@ -5,11 +5,16 @@ void close_game(t_game *game)
     charmapFree(game->charmap);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_image(game->mlx, game->imgbuffer.img);
-	mlx_destroy_image(game->mlx, game->texture.n.ptr);
-	mlx_destroy_image(game->mlx, game->texture.s.ptr);
-	mlx_destroy_image(game->mlx, game->texture.w.ptr);
-	mlx_destroy_image(game->mlx, game->texture.e.ptr);
+	if (game->imgbuffer.img)
+		mlx_destroy_image(game->mlx, game->imgbuffer.img);
+	if (game->texture.n.ptr)
+		mlx_destroy_image(game->mlx, game->texture.n.ptr);
+	if (game->texture.s.ptr)
+		mlx_destroy_image(game->mlx, game->texture.s.ptr);
+	if (game->texture.w.ptr)
+		mlx_destroy_image(game->mlx, game->texture.w.ptr);
+	if (game->texture.e.ptr)
+		mlx_destroy_image(game->mlx, game->texture.e.ptr);
     if (game->mlx)
 		mlx_destroy_display(game->mlx);
 	free(game->mlx);
@@ -22,34 +27,6 @@ int x_close_window(t_game *game)
     return (0);
 }
 
-int key_event(int key, t_game *game)
-{
-	if (key == ESC)
-	{
-		printf("ESC\n");
-        close_game(game);
-		// printf("%i\n", (int)(1.5f - 0.3f));
-	}
-	else if (key == A)
-	{
-		game->player.theta -= M_PI / RADJUMP;
-		printf("%f\n", game->player.theta);
-	}
-	else if (key == D)
-	{
-		game->player.theta += M_PI / RADJUMP;
-		printf("%f\n", game->player.theta);
-	}
-	else if (key == W)
-	{
-		p_move(game, 1, 1);
-	}
-	else if (key == S)
-	{
-		p_move(game, -1, -1);
-	}
-    return (0);
-}
 
 void define_start_orientation(t_plinfo *player)
 {
@@ -63,24 +40,69 @@ void define_start_orientation(t_plinfo *player)
 		player->theta = M_PI;
 }
 
+t_object ***load_individual_map_tile(char **map)
+{
+	int i;
+	int j;
+	t_object ***obj;
+
+	obj = ft_calloc(sizeof(t_object **), (ft_mtrxlen((void **)map) + 1));
+	if (!obj)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (map[i])
+	{
+		obj[i] = ft_calloc(sizeof(t_object *), ft_strlen(map[i]) + 1);
+		if (!obj[i])
+			return (NULL);
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == DOOR)
+				obj[i][j] = new_door(j, i);
+			else if (map[i][j] == WALL)
+				obj[i][j] = new_wall();
+			j++;
+		}
+		i++;
+	}
+	return (obj);
+}
+
 int	prep_game(t_settings *map_settings, t_plinfo player)
 {
 	t_game	game;
 
 	game.charmap = map_settings->charmap;
-
+	game.objmap = load_individual_map_tile(map_settings->charmap);
 	game.player = player;
   	define_start_orientation(&game.player);
 
 	game.mlx = mlx_init();
 	load_textures(&game, map_settings);
+	game.minimap_toggle = 0;
+
+	// init mapsize
+	game.mapsize.x = ft_strlen(game.charmap[0]);
+	game.mapsize.y = ft_mtrxlen((void **)game.charmap);
 	if (!game.mlx)
-		return 0; //TODO: gotta free and exit
+		close_game(&game);
     game.win = mlx_new_window(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y, "cub3D");
 
 	// Setup ImageBuffer
 	game.imgbuffer.img = mlx_new_image(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y);
 	game.imgbuffer.addr = mlx_get_data_addr(game.imgbuffer.img, &game.imgbuffer.bits_per_pixel, &game.imgbuffer.line_length, &game.imgbuffer.endian);
+    
+    game.player.inv_pos.x = player.pos.x;
+    game.player.inv_pos.y = player.pos.y;
+    game.inv_mapsize.x = game.mapsize.y;
+    game.inv_mapsize.y = game.mapsize.x;
+    game.player.dirX = -1;
+    game.player.dirY = 0;
+    game.player.planeX = 0;
+    game.player.planeY = 0.66;
+
 
 
 
@@ -88,5 +110,4 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);
 	
 	return (run_game(&game));
-	// return (1);
 }

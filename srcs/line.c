@@ -142,8 +142,11 @@ int	line_tf(t_game *game, t_vec2f origin, size_t size, int color)
 	tmp.x = origin.x;
 	tmp.y = origin.y;
 
-	dest.x = tmp.x + cos(game->player.theta) * size;
-	dest.y = tmp.y + sin(game->player.theta) * size;
+	// dest.x = tmp.x + cos(game->player.theta) * size;
+	// dest.y = tmp.y + sin(game->player.theta) * size;
+	dest.x = tmp.x + cos(prt) * size;
+	dest.y = tmp.y + sin(prt) * size;
+
 	line(game, tmp, dest, color);
 	return (1);
 }
@@ -153,4 +156,39 @@ int	line_prop(t_game *game, t_vec2f origin, size_t size, int color)
 	origin.x = origin.x * SQUARESIZE;
 	origin.y = origin.y * SQUARESIZE;
 	line_tf(game, origin, size * SQUARESIZE, color);
+}
+
+int	line_odprop(t_game *game, t_vec2f origin, t_vec2f dest, int color)
+{
+	int	adx;
+	int	ady;
+
+	origin.x *= SQUARESIZE;
+	origin.y *= SQUARESIZE;
+	dest.x *= SQUARESIZE;
+	dest.y *= SQUARESIZE;
+
+	adx = fabs(dest.x - origin.x);
+	ady = fabs(dest.y - origin.y);
+
+	if (adx <= APPROX)
+	{
+		if (origin.y <= dest.y)
+			origin.y += 0;
+		else
+			origin.y += -ady;
+		verline(game, vec2i(origin.x, origin.y), ady, color);
+	}
+	else if (ady <= APPROX)
+	{
+		if (origin.x <= dest.x)
+			origin.x += -0;
+		else
+			origin.x += -adx;
+		horline(game, vec2i(origin.x, origin.y), adx, color);
+	}
+	else if (origin.x <= dest.x)
+		lineNaive(game, vec2i(origin.x, origin.y), vec2i(dest.x, dest.y), color);
+	else
+		lineNaive(game, vec2i(dest.x, dest.y), vec2i(origin.x, origin.y), color);
 }

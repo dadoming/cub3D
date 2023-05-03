@@ -20,7 +20,7 @@ MAP_LIST = checksettings.c filextract.c initmapsettings.c player_orientation.c r
 MAP_DIRECTORY = map/
 MAP = $(addprefix $(MAP_DIRECTORY), $(MAP_LIST))
 
-SRCS_LIST = $(MAP) $(TEXTURES) main.c check_input.c color.c draw.c imgbuffer.c line.c movement.c prep_game.c rays.c run_game.c square.c vector.c
+SRCS_LIST = $(MAP) $(TEXTURES) main.c check_input.c color.c draw.c imgbuffer.c line.c movement.c prep_game.c rays.c run_game.c square.c vector.c door.c wall.c minimap.c
 SRCS_DIRECTORY = srcs/
 SRCS = $(addprefix $(SRCS_DIRECTORY), $(SRCS_LIST))
 
@@ -32,7 +32,7 @@ CC = cc
 CFLAGS = -g3 -Wall -Wextra #-fsanitize=address #-Werror
 
 LIBS = -L$(LIBFT_DIRECTORY) -lft $(MLX) -lXext -lX11 -lm -lz
-INCLUDES = -I $(HEADERS) -I $(LIBFT_HEADER) -I $(MLX_HEADER)
+INCLUDES = -I.$(HEADERS) -I.$(LIBFT_HEADER) -I.$(MLX_HEADER)
 
 all: $(NAME)
 

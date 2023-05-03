@@ -25,8 +25,8 @@ int	pixsquaref(t_game *game, t_vec2f pos, size_t size, int color)
 	i = 0;
 	while (i < size)
 	{
-		pos.y += 1;
 		horline(game, tmp, size, color);
+		tmp.y += 1;
 		i++;
 	}
 	return (1);
@@ -71,7 +71,7 @@ void	square_prop(t_game *game, t_vec2i pos, size_t size, int color)
  * Not centered Square that is "printed" with proportions.
  * That means it's real value is different from it's representation
 */
-void	square_propf(t_game *game, t_vec2f pos, size_t size, int color)
+void	square_propf(t_game *game, t_vec2f pos, float size, int color)
 {
 	size_t	i;
 
@@ -92,7 +92,7 @@ void	square_propf(t_game *game, t_vec2f pos, size_t size, int color)
  * Centered Square that is "printed" with proportions.
  * That means it's real value is different from it's representation
 */
-void	squarecent_prop(t_game *game, t_vec2f pos, size_t size, int color)
+void	squarecent_prop(t_game *game, t_vec2f pos, float size, int color)
 {
 	t_vec2i	tmp;
 	size_t	i;

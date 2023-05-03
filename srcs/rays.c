@@ -1,225 +1,104 @@
 # include "../includes/cub3D.h"
 
-/**
- * -2 <- -1.2 |0| 1.2 -> 2
-*/
-double	excenter(double x)//TODO: maybe return int
+void drawVertical(t_game *game, int x, t_vec2i y, t_object *ob);
+
+void	draw_ray(t_game *game)
 {
-	if (x >= 0)
-		return (ceil(x));
-	else
-		return (floor(x));
+    int x = 0;
+    while (x < WINDOWSIZE_X)
+    {
+        double cameraX = 2 * x / (double)WINDOWSIZE_X - 1;
+        double rayDirX = game->player.dirX  + game->player.planeX * cameraX;
+        double rayDirY = game->player.dirY + game->player.planeY * cameraX;
+
+        int mapX = (int)game->player.inv_pos.x;
+        int mapY = (int)game->player.inv_pos.y;
+
+        double sideDistX;
+        double sideDistY;
+
+        double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
+        double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
+
+        double perpWallDist;
+
+        int stepX;
+        int stepY;
+
+        int hit = 0;
+        int side;
+
+        if (rayDirX < 0)
+        {
+            stepX = -1;
+            sideDistX = (game->player.inv_pos.x - mapX) * deltaDistX;
+        }
+        else
+        {
+            stepX = 1;
+            sideDistX = (mapX + 1.0 - game->player.inv_pos.x) * deltaDistX;
+        }
+        if (rayDirY < 0)
+        {
+            stepY = -1;
+            sideDistY = (game->player.inv_pos.y - mapY) * deltaDistY;
+        }
+        else
+        {
+            stepY = 1;
+            sideDistY = (mapY + 1.0 - game->player.inv_pos.y) * deltaDistY;
+        }
+
+        while (hit == 0)
+        {
+            if (sideDistX < sideDistY)
+            {
+                sideDistX += deltaDistX;
+                mapX += stepX;
+                side = 0;
+            }
+            else
+            {
+                sideDistY += deltaDistY;
+                mapY += stepY;
+                side = 1;
+            }
+            if (game->objmap[mapX][mapY] && (game->objmap[mapX][mapY]->type == WALL || game->objmap[mapX][mapY]->type == DOOR))
+                hit = 1;
+        }
+
+        if (side == 0)
+            perpWallDist = (sideDistX - deltaDistX);
+        else
+            perpWallDist = (sideDistY - deltaDistY);
+        
+        int lineHeight = (int)(WINDOWSIZE_Y / perpWallDist);
+
+        int drawStart = -lineHeight / 2 + WINDOWSIZE_Y / 2;
+        if (drawStart < 0)
+            drawStart = 0;
+        int drawEnd = lineHeight / 2 + WINDOWSIZE_Y / 2;
+        if (drawEnd >= WINDOWSIZE_Y)
+            drawEnd = WINDOWSIZE_Y - 1;
+
+        //line (game, vec2i(game->player.inv_pos.y * SQUARESIZE, game->player.inv_pos.x* SQUARESIZE), vec2i(mapX* SQUARESIZE, mapY* SQUARESIZE), rgbtocolor(255, 0, 0));
+        drawVertical(game, x, vec2i(drawStart, drawEnd), game->objmap[mapX][mapY]);
+        x++;
+    }
 }
 
-float	XgridColl(t_game *game, double theta)
+void drawVertical(t_game *game, int x, t_vec2i y, t_object *ob)
 {
-	t_vec2f	tmp;
-	t_vec2f	pos;
-	char	chk;
-	float	tofirstX;
-	float	dist;
+    int i = y.x;
+    int color;
 
-
-	tmp.x = (int)(excenter(game->player.pos.x));
-	tofirstX = tmp.x - game->player.pos.x; //TODO: what if pos.x is less than game.x
-
-	dist = fabs(tan(theta) * tofirstX / sin(theta)); // hypothenuse
-
-	tmp.y = game->player.pos.y + tan(theta) * tofirstX;
-
-	pos.x = tmp.x;
-	pos.y = tmp.y;
-	while (1)
-	{
-		tmp.x += excenter(cos(theta));
-		tmp.y += tan(theta) * excenter(cos(theta));
-
-		chk = coordcheck(game, tmp.x, tmp.y);
-		if (chk == '1' || chk == 0)
-		{
-			squarecent_prop(game, pos, 2, rgbtocolor(128, 0, 128));				
-			return dist;
-		}
-		pos.x = tmp.x;
-		pos.y = tmp.y;
-
-		// dist += sqrt(1 + tan(theta)*tan(theta));
-		// dist += fabs(tan(theta) / sin(theta));
-		dist += fabs(1 / cos(theta));
-		// squarecent_prop(game, pos, 2, rgbtocolor(128, 128, 0));
-	}
-	printf("Shouldn't get here\n");
-}
-
-float	YgridColl(t_game *game, double theta)
-{
-	t_vec2f	tmp;
-	t_vec2f	pos;
-	char	chk;
-	float	tofirstY;
-	float	dist;
-
-
-	tmp.y = (int)(excenter(game->player.pos.y));
-	// pos.y = (int)floor(game->player.pos.y);
-	tofirstY = tmp.y - game->player.pos.y;
-
-	dist = fabs(tofirstY / tan(theta)); //TODO: can this be zero?
-
-	tmp.x = game->player.pos.x + tofirstY / tan(theta);
-
-	pos.x = tmp.x;
-	pos.y = tmp.y;
-
-	while (1)
-	{
-		tmp.y += excenter(sin(game->player.theta));
-		tmp.x += 1 / tan(theta) * excenter(sin(game->player.theta));
-
-		chk = coordcheck(game, tmp.x, tmp.y);
-		if (chk == '1' || chk == 0)
-		{
-			squarecent_prop(game, pos, 2, rgbtocolor(128, 0, 128));
-			return dist;
-		}
-		pos.x = tmp.x;
-		pos.y = tmp.y;
-
-		// dist += sqrt(1 + (1/tan(theta))*(1/tan(theta)));
-		dist += fabs(1 / sin(theta));
-		// squarecent_prop(game, pos, 2, rgbtocolor(128, 0, 128));
-	}
-	printf("Shouldn't get here\n");
-}
-
-t_vec2f	rayX(t_game *game, double theta)
-{
-	float	x;
-	float	y;
-	float	dx;
-	float	dy;
-	int		xstep;
-	float	yatXintercept;
-	float	yforXstep;
-	int		ystep;
-	float	xatYintercept;
-	float	xforYstep;
-
-	x = (int)game->player.pos.x;
-	y = (int)game->player.pos.y;
-
-	dy = game->player.pos.y - y;
-	dx = game->player.pos.x - x;
-
-	xstep = excenter(cos(theta));
-	yatXintercept = y + dy + dx * tan(theta);
-	yforXstep = tan(theta) * xstep;
-
-	ystep = excenter(sin(theta));
-	xatYintercept = x + dx + dy / tan(theta);
-	xforYstep = 1 / tan(theta) * ystep;
-
-	while (yatXintercept > y)
-	{
-		if (coordcheck(game, x, yatXintercept) == '1' || coordcheck(game, x, yatXintercept) == 0)
-		{
-			// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
-			return (vec2f(x, yatXintercept)); //TODO:
-		}
-		x += xstep; //TODO: 
-		yatXintercept += yforXstep;
-	}
-	// while (xatYintercept < x)
-	// {
-	// 	if (coordcheck(game, xatYintercept, y) == '1' || coordcheck(game, xatYintercept, y) == 0)
-	// 	{
-	// 		// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
-	// 		return (vec2f(xatYintercept, y)); //TODO:
-	// 	}
-	// 	y += ystep;
-	// 	xatYintercept += xforYstep;
-	// }
-}
-
-t_vec2f	rayY(t_game *game, double theta)
-{
-	float	x;
-	float	y;
-	float	dx;
-	float	dy;
-	int		xstep;
-	float	yatXintercept;
-	float	yforXstep;
-	int		ystep;
-	float	xatYintercept;
-	float	xforYstep;
-
-	x = (int)game->player.pos.x;
-	y = (int)game->player.pos.y;
-
-	dy = game->player.pos.y - y;
-	dx = game->player.pos.x - x;
-
-	xstep = excenter(cos(theta));
-	yatXintercept = y + dy + dx * tan(theta);
-	yforXstep = tan(theta) * xstep;
-
-	ystep = excenter(sin(theta));
-	xatYintercept = x + dx + dy / tan(theta);
-	xforYstep = 1 / tan(theta) * ystep;
-
-	// while (yatXintercept > y)
-	// {
-	// 	if (coordcheck(game, x, yatXintercept) == '1' || coordcheck(game, x, yatXintercept) == 0)
-	// 	{
-	// 		// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
-	// 		return (vec2f(x, yatXintercept)); //TODO:
-	// 	}
-	// 	x += xstep; //TODO: 
-	// 	yatXintercept += yforXstep;
-	// }
-	while (xatYintercept < x)
-	{
-		if (coordcheck(game, xatYintercept, y) == '1' || coordcheck(game, xatYintercept, y) == 0)
-		{
-			// squarecent_prop(game, vec2f(xatYintercept, yatXintercept), 4, rgbtocolor(128,0,128));
-			return (vec2f(xatYintercept, y)); //TODO:
-		}
-		y += ystep;
-		xatYintercept += xforYstep;
-	}
-}
-int	draw_ray(t_game *game)
-{
-	// float	distx;
-	// float	disty;
-	t_vec2f	x_pos;
-	t_vec2f	y_pos;
-
-	x_pos = rayX(game, game->player.theta);
-	squarecent_prop(game, x_pos, 40, rgbtocolor(128,0,128));
-
-	y_pos = rayY(game, game->player.theta);
-	squarecent_prop(game, y_pos, 40, rgbtocolor(128,0,128));
-
-	// if (distx <= disty)
-	// 	printf("X is nearest: %f\n", distx);
-	// else
-	// 	printf("Y is nearest: %f\n", disty);
-
-	// drawXgridColl(game);
-	// drawYgridColl(game);
-	// printf("%f\n", XgridColl(game, game->player.theta));
-	// printf("%f\n", YgridColl(game, game->player.theta));
-	// ray(game, game->player.theta);
-	// squarecent_prop(game, ray(game, game->player.theta), 4, rgbtocolor(128,0,128));
-	// t_vec2f	pos;
-	// pos.x = 65;
-	// pos.y = 1;
-	// squarecent_prop(game, pos, 4, rgbtocolor(128,0,128));
-	// pos.x = 71;
-	// pos.y = 15;
-	// squarecent_prop(game, pos, 4, rgbtocolor(128,0,128));
-	// printf("%f\n", ray(game, game->player.theta));
-	return (1);
+    if (ob == NULL)
+        return ;
+    if (x == (WINDOWSIZE_X / 2))
+        game->select = ob;
+    while (i < y.y)
+    {
+        mypixelput(&game->imgbuffer, x, i, ob->get_image(ob, 0));
+        i++;
+    }
 }

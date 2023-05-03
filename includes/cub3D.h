@@ -13,15 +13,33 @@
 #include <unistd.h>
 
 #define ELINFOLIMIT 6
-#define RADJUMP 32
+#define RADJUMP 64
 
-//Do Not Touch!
-#define SQUARESIZE 32
-// #define WALKDIST 1.0f
-// __
+#define SQUARESIZE 64
 
-#define WINDOWSIZE_X SQUARESIZE * 80
-#define WINDOWSIZE_Y SQUARESIZE * 40
+#define WALKDIST 5 // pixels every move
+# define MOVESPEED 0.15
+# define ROTATESPEED 0.15
+
+#define WINDOWSIZE_X 640
+#define WINDOWSIZE_Y 640
+
+#define MINIMAPSIZE_X 160
+#define MINIMAPSIZE_Y 160
+#define MINIMAPSCALE 16
+#define MINIMAPBORDER 8
+
+
+
+// Shortcuts
+#define ppos game->player.pos
+#define px game->player.pos.x
+#define py game->player.pos.y
+#define pt game->player.theta // Real theta
+#define prt 2*M_PI - game->player.theta // Reverse theta -> game_dev
+
+
+
 
 # define A 97
 # define S 115
@@ -38,6 +56,12 @@
 
 # define WALL '1'
 # define FLOOR '0'
+# define DOOR 'D'
+
+# define PI M_PI // works
+
+typedef struct s_object t_object;
+typedef struct s_game t_game;
 
 enum e_player_orientation
 {
@@ -67,11 +91,17 @@ typedef struct s_vec2f
 	float	y;
 }				t_vec2f;
 
+
 typedef struct s_plinfo
 {
 	t_vec2f	pos;
-	double	theta;
+    t_vec2f inv_pos;
 
+    float dirX;
+    float dirY;
+    float planeX;
+    float planeY;
+	double	theta;
 } t_plinfo;
 
 typedef struct s_map_check
@@ -110,16 +140,39 @@ typedef struct s_imgbuffer
 	int		endian;
 } t_imgbuffer;
 
-typedef struct s_game
+typedef struct s_door
+{
+	int		type;
+	int		(*get_image)(t_object *this, int dir);
+	void 	(*action)(t_object *this, t_game *game);
+	int     state;
+	int     x;
+	int     y;
+} t_door;
+
+struct s_object
+{
+	int			type;
+	int			(*get_image)(t_object *this, int dir);
+	void 		(*action)(t_object *this, t_game *game);
+};
+
+struct s_game
 {
     void		*mlx;
     void		*win;
 	t_imgbuffer	imgbuffer;
 
 	t_texture	texture;
+
+	int			minimap_toggle;	
+	t_vec2i		mapsize;
+    t_vec2i		inv_mapsize;
 	char		**charmap;
+	t_object	***objmap;
+	t_object	*select;
 	t_plinfo	player;
-} t_game;
+};
 
 typedef struct s_elinfo
 {
@@ -161,20 +214,26 @@ int 			run_game(t_game *game);
 void load_textures(t_game *game, t_settings *map_settings);
 int load_rgb(char *value);
 
+void load_minimap_image(t_game *game, t_vec2i player_pos);
 int				rgbtocolor(unsigned char r, unsigned char g, unsigned char b);
 int				line(t_game *game, t_vec2i origin, t_vec2i dest, int color);
 int				line_s(t_game *game, t_vec2i origin, size_t size, int color);
 int				line_tf(t_game *game, t_vec2f origin, size_t size, int color);
+int	line_odprop(t_game *game, t_vec2f origin, t_vec2f dest, int color);
+
 void	    mypixelput(t_imgbuffer *imgbuffer, int x, int y, int color);
+void add_square(t_imgbuffer *imgbuffer, t_vec2i vec, int size_square, int color);
+void load_minimap_border(t_game *game);
 
 int	pixsquare(t_game *game, t_vec2i pos, size_t size, int color);
 int	pixsquaref(t_game *game, t_vec2f pos, size_t size, int color);
 int	pixsquarecent(t_game *game, t_vec2f pos, size_t size, int color);
-void	squarecent_prop(t_game *game, t_vec2f pos, size_t size, int color);
+void	squarecent_prop(t_game *game, t_vec2f pos, float size, int color);
 void	square_prop(t_game *game, t_vec2i pos, size_t size, int color);
-void	square_propf(t_game *game, t_vec2f pos, size_t size, int color);
-
-
+void	square_propf(t_game *game, t_vec2f pos, float size, int color);
+void 	door_action(t_game *game, int x, int y);
+t_object *new_door(int x, int y);
+t_object *new_wall();
 int				draw_map(t_game *game);
 
 int				horline(t_game *game, t_vec2i pos, size_t size, int color);
@@ -183,18 +242,28 @@ int				verline(t_game *game, t_vec2i pos, size_t size, int color);
 int				line_t(t_game *game, t_vec2i origin, size_t size, int color);
 int	line_prop(t_game *game, t_vec2f origin, size_t size, int color);
 
-
+int key_event(int key, t_game *game);
 char	coordcheck(t_game *game, int x, int y);
+char	coordcheck_prop(t_game *game, int x, int y);
 int p_move(t_game *game, int ns, int ew);
+
+void draw_full_minimap(t_game *game);
+
 
 int	      imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
 
 void	    myclearimg(t_game *game);
 int	      draw_player(t_game *game);
 
-int	draw_ray(t_game *game);
+void draw_minimap(t_game *game, t_vec2f pos);
+void	draw_ray(t_game *game);
 
 t_vec2f	vec2f(float x, float y);
 t_vec2i  vec2i(int x, int y);;
 
+
+
+void close_game(t_game *game);
+
 # endif
+
