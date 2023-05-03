@@ -90,7 +90,6 @@ void	draw_ray(t_game *game)
 void drawVertical(t_game *game, int x, t_vec2i y, t_object *ob)
 {
     int i = y.x;
-    int color;
 
     if (ob == NULL)
         return ;

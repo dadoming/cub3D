@@ -46,8 +46,6 @@ void draw_minimapSmooth(t_game *game)
     //TODO(arc): will remove this when ppos is correct
     vec.x = px;
     vec.y = py;
-    px = px/64;
-    py = py/64;
     // px = 404.903931;
     // py = 392.975464;
     // minimap_background(game);

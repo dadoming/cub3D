@@ -263,7 +263,7 @@ void draw_checkerboard(t_game *game, t_vec2i start, size_t q, size_t pixelsize);
 void draw_minimap(t_game *game, t_vec2f pos);
 void draw_minimapSmooth(t_game *game);
 
-int	draw_ray(t_game *game);
+void	draw_ray(t_game *game);
 
 t_vec2f	vec2f(float x, float y);
 t_vec2i  vec2i(int x, int y);;

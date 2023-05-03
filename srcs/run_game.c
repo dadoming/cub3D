@@ -1,7 +1,5 @@
 # include "../includes/cub3D.h"
 
-
-
 int	theloop(t_game *game)
 {
     game->player.pos.y = game->player.inv_pos.x;
