@@ -17,20 +17,20 @@
 #define RADJUMP 64
 
 #define SQUARESIZE 64
-#define WALKDIST 5 // pixels every move
+#define WALKDIST 10 // pixels every move
 
 #define WINDOWSIZE_X SQUARESIZE * 30
 #define WINDOWSIZE_Y SQUARESIZE * 10
 
 #define MINIMAPSIZE_X 160
 #define MINIMAPSIZE_Y 160
-#define MINIMAPSCALE 16
+#define MINIMAPSCALE 1
 #define MINIMAPBORDER 8
 
-#define MinimapLeftRightSquares 4
-#define MinimapTopBotSquares 4
-#define MinimapSquareSize 4
-#define MinimapSquarePixelSize 32
+// #define MinimapLeftRightSquares 4
+// #define MinimapTopBotSquares 4
+// #define MinimapSquareSize 4
+// #define MinimapSquarePixelSize 8
 
 // Shortcuts
 #define ppos game->player.pos

@@ -103,5 +103,6 @@ int p_move(t_game *game, int ns, int ew)
 	}
 	else
     	ppos = newpos;
-	printf("(%f,%f)\n", px, py);
+	printf("(%f, %f)\n", px, py);
+	printf("(%f, %f)\n", px/64, py/64);
 }
