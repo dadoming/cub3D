@@ -74,7 +74,6 @@ static int too_many_player(t_player_check *l, t_plinfo *player)
     {
         player->start = NONE;
         printf("More than one player letter\n");
-        printf("%f\n", player->start);
         return (1);
     }
     return (0);

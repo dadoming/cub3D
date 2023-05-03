@@ -48,6 +48,7 @@ int	lineNaive(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 		mypixelput(&game->imgbuffer, x, y, color);
 		x++;
 	}
+	return (0);
 }
 
 #define APPROX 1
@@ -79,4 +80,5 @@ int	line(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 		lineNaive(game, origin, dest, color);
 	else
 		lineNaive(game, dest, origin, color);
+	return (0);
 }
