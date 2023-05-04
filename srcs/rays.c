@@ -86,6 +86,7 @@ void	draw_ray(t_game *game)
     }
 }
 
+// sky and floor drawing can be implemented here for better performance
 void drawVertical(t_game *game, int x, t_vec2i y, t_object *ob)
 {
     int i = y.x;
