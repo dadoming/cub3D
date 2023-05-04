@@ -1,16 +1,23 @@
 # include "../includes/cub3D.h"
 
-static int			get_image_wall(t_object *this, int dir)
+static t_game* game(void)
 {
-    if (dir == NORTH)
-        return (rgbtocolor(240,181,61));
-    if (dir == SOUTH)
-        return (rgbtocolor(148,71,21));
-    if (dir == EAST)
-        return (rgbtocolor(242,242,27));
-    if (dir == WEST)
-        return (rgbtocolor(238,108,88));
-    return (rgbtocolor(255,255,255));
+    static t_game game;
+
+    return (&game);
+}
+
+static void*    get_image_wall(t_object *this, int dir)
+{
+    if (dir == NORTH && game()->texture.n.img != NULL)
+        return (game()->texture.n.img);
+    if (dir == SOUTH && game()->texture.s.img != NULL)
+        return (game()->texture.s.img);
+    if (dir == EAST && game()->texture.e.img != NULL)
+        return (game()->texture.e.img);
+    if (dir == WEST && game()->texture.w.img != NULL)
+        return (game()->texture.w.img);
+    return ((void *)rgbtocolor(255,0,0));
 }
 
 t_object *new_wall()

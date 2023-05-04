@@ -81,7 +81,72 @@ void	draw_ray(t_game *game)
         if (drawEnd >= WINDOWSIZE_Y)
             drawEnd = WINDOWSIZE_Y - 1;
 
-        drawVertical(game, x, vec2i(drawStart, drawEnd), game->objmap[mapX][mapY]);
+        // new
+
+        double wallX;
+        if (side == 0)
+            wallX = game->player.inv_pos.y + perpWallDist * rayDirY;
+        else
+            wallX = game->player.inv_pos.x + perpWallDist * rayDirX;
+        wallX -= floor(wallX);
+
+        int texX = (int)(wallX * (double)SQUARESIZE);
+        if (side == 0 && rayDirX > 0)
+            texX = SQUARESIZE - texX - 1;
+        if (side == 1 && rayDirY < 0)
+            texX = SQUARESIZE - texX - 1;
+
+
+        double step = 1.0 * SQUARESIZE / lineHeight;
+        double texPos = (drawStart - WINDOWSIZE_Y / 2 + lineHeight / 2) * step;
+        int y = drawStart;
+        while (y < drawEnd)
+        {
+            int texY = (int)texPos & (SQUARESIZE - 1);
+            texPos += step;
+            int color = game->objmap[mapX][mapY]->get_image(game->objmap[mapX][mapY], SOUTH);
+            if (side == 1)
+                color = (color >> 1) & 8355711;
+                
+            mypixelput(&game->imgbuffer, x, y, color);
+            y++;
+        }
+
+
+
+
+        
+        if (x == (WINDOWSIZE_X / 2))
+        game->select = game->objmap[mapX][mapY];
+        
+        //int j = 0;
+        //int i = drawStart;
+        //while (j < drawStart)
+        //{
+        //    mypixelput(&game->imgbuffer, x, j, game->texture.ceil_color);
+        //    j++;
+        //}
+        //while (i < drawEnd)
+        //{
+        //    mypixelput(&game->imgbuffer, x, i, ob->get_image(ob, NORTH));
+        //    i++;
+        //    j++;
+        //}
+        //// print floor
+        //while (j < WINDOWSIZE_Y)
+        //{
+        //    mypixelput(&game->imgbuffer, x, j, game->texture.floor_color);
+        //    j++;
+        //}
+
+
+        
+        
+        
+        
+        
+        
+        //drawVertical(game, x, vec2i(drawStart, drawEnd), game->objmap[mapX][mapY]);
         x++;
     }
 }

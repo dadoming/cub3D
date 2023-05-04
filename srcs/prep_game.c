@@ -7,14 +7,14 @@ void close_game(t_game *game)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->imgbuffer.img)
 		mlx_destroy_image(game->mlx, game->imgbuffer.img);
-	if (game->texture.n.ptr)
-		mlx_destroy_image(game->mlx, game->texture.n.ptr);
-	if (game->texture.s.ptr)
-		mlx_destroy_image(game->mlx, game->texture.s.ptr);
-	if (game->texture.w.ptr)
-		mlx_destroy_image(game->mlx, game->texture.w.ptr);
-	if (game->texture.e.ptr)
-		mlx_destroy_image(game->mlx, game->texture.e.ptr);
+	if (game->texture.n.img)
+		mlx_destroy_image(game->mlx, game->texture.n.img);
+	if (game->texture.s.img)
+		mlx_destroy_image(game->mlx, game->texture.s.img);
+	if (game->texture.w.img)
+		mlx_destroy_image(game->mlx, game->texture.w.img);
+	if (game->texture.e.img)
+		mlx_destroy_image(game->mlx, game->texture.e.img);
     if (game->mlx)
 		mlx_destroy_display(game->mlx);
 	free(game->mlx);

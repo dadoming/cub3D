@@ -60,6 +60,8 @@
 
 typedef struct s_object t_object;
 typedef struct s_game t_game;
+typedef struct s_imgbuffer t_imgbuffer;
+
 
 enum e_player_orientation
 {
@@ -118,25 +120,27 @@ typedef struct s_player_check
     int west;
 } t_player_check;
 
-typedef struct s_texture
-{
-	t_img	n;
-	t_img	s;
-	t_img	w;
-	t_img	e;
-	int		ceil_color;
-	int		floor_color;
-
-} t_texture;
-
-typedef struct s_imgbuffer
+struct s_imgbuffer
 {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-} t_imgbuffer;
+	int    width;
+	int    height;
+};
+
+typedef struct s_texture
+{
+	t_imgbuffer	n;
+	t_imgbuffer	s;
+	t_imgbuffer	w;
+	t_imgbuffer	e;
+	int		ceil_color;
+	int		floor_color;
+
+} t_texture;
 
 typedef struct s_door
 {
@@ -151,7 +155,7 @@ typedef struct s_door
 struct s_object
 {
 	int			type;
-	int			(*get_image)(t_object *this, int dir);
+	void*		(*get_image)(t_object *this, int dir);
 	void 		(*action)(t_object *this, t_game *game);
 };
 
@@ -160,6 +164,7 @@ struct s_game
     void		*mlx;
     void		*win;
 	t_imgbuffer	imgbuffer;
+
 
 	t_texture	texture;
 

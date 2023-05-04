@@ -1,17 +1,26 @@
 # include "../../includes/cub3D.h"
 
+t_imgbuffer load_texture(t_game *game, char *path)
+{
+    t_imgbuffer texture;
+
+    texture.img = mlx_xpm_file_to_image(game->mlx, path, &(texture.width), &(texture.height));
+    texture.addr = mlx_get_data_addr(texture.img, &texture.bits_per_pixel, &texture.line_length, &texture.endian);
+    return (texture);
+}
+
 static int load_textures_to_mlx(t_game *game, t_settings *map_settings)
 {
-    game->texture.n.ptr = mlx_xpm_file_to_image(game->mlx, map_settings->Ntexpath, &(game->texture.n.width), &(game->texture.n.height));
-    game->texture.s.ptr = mlx_xpm_file_to_image(game->mlx, map_settings->Stexpath, &(game->texture.s.width), &(game->texture.s.height));
-    game->texture.w.ptr = mlx_xpm_file_to_image(game->mlx, map_settings->Wtexpath, &(game->texture.w.width), &(game->texture.w.height));
-    game->texture.e.ptr = mlx_xpm_file_to_image(game->mlx, map_settings->Etexpath, &(game->texture.e.width), &(game->texture.e.height));
-    if ((game->texture.n.ptr == NULL) \
-     || (game->texture.s.ptr == NULL) \
-     || (game->texture.w.ptr == NULL) \
-     || (game->texture.e.ptr == NULL))
+    game->texture.n = load_texture(game->mlx, map_settings->Ntexpath);
+    game->texture.s = load_texture(game->mlx, map_settings->Stexpath);
+    game->texture.w = load_texture(game->mlx, map_settings->Wtexpath);
+    game->texture.e = load_texture(game->mlx, map_settings->Etexpath);
+    if ((game->texture.n.img == NULL) \
+     || (game->texture.s.img == NULL) \
+     || (game->texture.w.img == NULL) \
+     || (game->texture.e.img == NULL))
     {
-        printf("%p %p %p %p\n", game->texture.n.ptr, game->texture.s.ptr, game->texture.w.ptr, game->texture.e.ptr);
+        printf("%p %p %p %p\n", game->texture.n.img, game->texture.s.img, game->texture.w.img, game->texture.e.img);
         printf("Error\nInvalid texture path\n");
         return (1);
     }
@@ -20,14 +29,14 @@ static int load_textures_to_mlx(t_game *game, t_settings *map_settings)
 
 static void free_textures(t_game *game)
 {
-    if (game->texture.n.ptr)
-        mlx_destroy_image(game->mlx, game->texture.n.ptr);
-    if (game->texture.s.ptr)
-        mlx_destroy_image(game->mlx, game->texture.s.ptr);
-    if (game->texture.w.ptr)
-        mlx_destroy_image(game->mlx, game->texture.w.ptr);
-    if (game->texture.e.ptr)
-        mlx_destroy_image(game->mlx, game->texture.e.ptr);
+    if (game->texture.n.img)
+        mlx_destroy_image(game->mlx, game->texture.n.img);
+    if (game->texture.s.img)
+        mlx_destroy_image(game->mlx, game->texture.s.img);
+    if (game->texture.w.img)
+        mlx_destroy_image(game->mlx, game->texture.w.img);
+    if (game->texture.e.img)
+        mlx_destroy_image(game->mlx, game->texture.e.img);
     if (game->mlx)
 		mlx_destroy_display(game->mlx);
 	free(game->mlx);
