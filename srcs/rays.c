@@ -100,7 +100,7 @@ void drawVertical(t_game *game, int x, t_vec2i y, t_object *ob)
     // print sky
     while (j < y.x)
     {
-        mypixelput(&game->imgbuffer, x, j, rgbtocolor(48, 138, 228));
+        mypixelput(&game->imgbuffer, x, j, game->texture.ceil_color);
         j++;
     }
     while (i < y.y)
@@ -112,7 +112,7 @@ void drawVertical(t_game *game, int x, t_vec2i y, t_object *ob)
     // print floor
     while (j < WINDOWSIZE_Y)
     {
-        mypixelput(&game->imgbuffer, x, j, rgbtocolor(9, 112, 12));
+        mypixelput(&game->imgbuffer, x, j, game->texture.floor_color);
         j++;
     }
 }
