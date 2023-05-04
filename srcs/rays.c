@@ -89,15 +89,30 @@ void	draw_ray(t_game *game)
 // sky and floor drawing can be implemented here for better performance
 void drawVertical(t_game *game, int x, t_vec2i y, t_object *ob)
 {
+    int j = 0;
     int i = y.x;
 
     if (ob == NULL)
         return ;
     if (x == (WINDOWSIZE_X / 2))
         game->select = ob;
+    
+    // print sky
+    while (j < y.x)
+    {
+        mypixelput(&game->imgbuffer, x, j, rgbtocolor(48, 138, 228));
+        j++;
+    }
     while (i < y.y)
     {
         mypixelput(&game->imgbuffer, x, i, ob->get_image(ob, NORTH));
         i++;
+        j++;
+    }
+    // print floor
+    while (j < WINDOWSIZE_Y)
+    {
+        mypixelput(&game->imgbuffer, x, j, rgbtocolor(9, 112, 12));
+        j++;
     }
 }
