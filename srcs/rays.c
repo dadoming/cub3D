@@ -96,7 +96,7 @@ void drawVertical(t_game *game, int x, t_vec2i y, t_object *ob)
         game->select = ob;
     while (i < y.y)
     {
-        mypixelput(&game->imgbuffer, x, i, ob->get_image(ob, 0));
+        mypixelput(&game->imgbuffer, x, i, ob->get_image(ob, NORTH));
         i++;
     }
 }
