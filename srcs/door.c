@@ -12,15 +12,19 @@ static void 		action_door(t_object *this, t_game *game)
 		door->state = !door->state;
 }
 
-static int			get_image_door(t_object *this, int dir)
+static t_imgbuffer	get_image_door(t_door *this, int dir)
 {
-	(void) dir; // this is gonna be the side of the door to print
-	if (((t_door *) this)->state == 1)
-		return (rgbtocolor(0, 255, 0));
-	return (rgbtocolor(0, 0, 255));
+    t_imgbuffer img;
+    (void)dir;
+
+    if (dir == 0)
+        img = *(this->texture_door_closed);
+    else
+        img = *(this->texture_door_opened);
+    return (img);
 }
 
-t_object *new_door(int x, int y)
+t_object *new_door(int x, int y, t_game *game)
 {
 	t_door *door;
 
@@ -31,5 +35,7 @@ t_object *new_door(int x, int y)
 	door->type = DOOR;
 	door->action = action_door;
 	door->get_image = get_image_door;
-	return ((t_object *) door);
+    door->texture_door_closed = &game->texture_door;
+    door->texture_door_opened = &game->texture_transparent;
+    return ((t_object *)door);
 }

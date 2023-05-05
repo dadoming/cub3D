@@ -18,8 +18,8 @@
 
 #define SQUARESIZE 64
 
-# define MOVESPEED 0.15
-# define ROTATESPEED 0.15
+# define MOVESPEED 0.20
+# define ROTATESPEED 0.20
 
 #define WALKDIST 10 // pixels every move
 
@@ -61,7 +61,7 @@
 typedef struct s_object t_object;
 typedef struct s_game t_game;
 typedef struct s_imgbuffer t_imgbuffer;
-
+typedef struct s_door t_door;
 
 enum e_player_orientation
 {
@@ -72,46 +72,6 @@ enum e_player_orientation
 	WEST
 };
 
-typedef struct s_img
-{
-	void	*ptr;
-	int		width;
-	int		height;
-} t_img;
-
-typedef struct s_vec2i
-{
-	int	x;
-	int	y;
-}				t_vec2i;
-
-typedef struct s_vec2f
-{
-	float	x;
-	float	y;
-}				t_vec2f;
-
-
-typedef struct s_plinfo
-{
-	int start;
-	t_vec2f	pos;
-    t_vec2f inv_pos;
-
-    float dirX;
-    float dirY;
-    float planeX;
-    float planeY;
-} t_plinfo;
-
-typedef struct s_map_check
-{
-	int top;
-	int right;
-	int left;
-	int bottom;
-} t_map_check;
-
 typedef struct s_player_check
 {
     int north;
@@ -120,62 +80,13 @@ typedef struct s_player_check
     int west;
 } t_player_check;
 
-struct s_imgbuffer
+typedef struct s_map_check
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int    width;
-	int    height;
-};
-
-typedef struct s_texture
-{
-	t_imgbuffer	n;
-	t_imgbuffer	s;
-	t_imgbuffer	w;
-	t_imgbuffer	e;
-	int		ceil_color;
-	int		floor_color;
-
-} t_texture;
-
-typedef struct s_door
-{
-	int		type;
-	int		(*get_image)(t_object *this, int dir);
-	void 	(*action)(t_object *this, t_game *game);
-	int     state;
-	int     x;
-	int     y;
-} t_door;
-
-struct s_object
-{
-	int			type;
-	void*		(*get_image)(t_object *this, int dir);
-	void 		(*action)(t_object *this, t_game *game);
-};
-
-struct s_game
-{
-    void		*mlx;
-    void		*win;
-	t_imgbuffer	imgbuffer;
-
-
-	t_texture	texture;
-
-	int			minimap_toggle;	
-	t_vec2i		mapsize;
-    t_vec2i		inv_mapsize;
-	char		**charmap;
-	t_object	***objmap;
-	t_object	*select;
-	t_plinfo	player;
-};
+	int top;
+	int right;
+	int left;
+	int bottom;
+} t_map_check;
 
 typedef struct s_elinfo
 {
@@ -194,6 +105,96 @@ typedef struct s_settings
 	char		*Ceilstr;
 	char		**charmap;
 } t_settings;
+
+typedef struct s_vec2i
+{
+	int	x;
+	int	y;
+}				t_vec2i;
+
+typedef struct s_vec2f
+{
+	float	x;
+	float	y;
+}				t_vec2f;
+
+typedef struct s_plinfo
+{
+	int start;
+	t_vec2f	pos;
+    t_vec2f inv_pos;
+
+    float dirX;
+    float dirY;
+    float planeX;
+    float planeY;
+} t_plinfo;
+
+struct s_imgbuffer
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int     width;
+	int     height;
+};
+
+typedef struct s_texture_sides
+{
+    t_imgbuffer n;
+    t_imgbuffer s;
+    t_imgbuffer w;
+    t_imgbuffer e;
+} t_texture_sides;
+
+struct s_door
+{
+	int		type;
+	t_imgbuffer	(*get_image)(t_door *this, int dir);
+	void 	(*action)(t_object *this, t_game *game);
+	int     state;
+	int     x;
+	int     y;
+    t_imgbuffer    *texture_door_opened;
+    t_imgbuffer    *texture_door_closed;
+    //t_texture_animation animation;
+};
+
+struct s_object
+{
+	int			    type;
+	t_imgbuffer		(*get_image)(t_object *this, int dir);
+	void 		    (*action)(t_object *this, t_game *game);
+    t_texture_sides	*texture;
+};
+
+struct s_game
+{
+    void		*mlx;
+    void		*win;
+	t_imgbuffer	imgbuffer;
+    
+    int		ceil_color;
+	int		floor_color;
+
+	int			minimap_toggle;	
+	t_vec2i		mapsize;
+    t_vec2i		inv_mapsize;
+	char		**charmap;
+	
+    t_object	***objmap;
+	t_object	*select;
+	t_plinfo	player;
+
+    t_texture_sides	texture_wall;
+    t_imgbuffer	texture_door;
+
+    t_imgbuffer	texture_transparent;
+};
+
+
 
 int             check_input(int argc, char **argv);
 int	            fileXtract(char *cubflpath);
@@ -242,8 +243,8 @@ void 			draw_ray(t_game *game);
 void	    	myclearimg(t_game *game);
 int	      		imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
 
-t_object 		*new_door(int x, int y);
-t_object 		*new_wall();
+t_object *new_door(int x, int y, t_game *game);
+t_object *new_wall(t_game *game);
 
 int 			key_event(int key, t_game *game);
 
