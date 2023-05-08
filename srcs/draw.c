@@ -26,8 +26,8 @@ void	mypixelput(t_imgbuffer *imgbuffer, int x, int y, int color)
 		return ;
 	if (x > WINDOWSIZE_X || y > WINDOWSIZE_Y)
 		return ;
-	pixel = imgbuffer->addr + imgbufferoffset(imgbuffer, x, y);
-	*(unsigned int*)pixel = color;
+    pixel = imgbuffer->addr + imgbufferoffset(imgbuffer, x, y);
+    *(unsigned int*)pixel = color;
 }
 
 int	draw_map(t_game *game)

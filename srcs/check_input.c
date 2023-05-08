@@ -16,12 +16,11 @@ int check_input(int argc, char **argv)
 {
     if (argc == 1)
     {
-        fileXtract("maps/5_works_small.cub");
-		// fileXtract("maps/")
+        fileXtract(select_map());
     }
-	else if (argc == 2)
+    else if (argc == 2)
 	{
-		fileXtract(argv[1]);
+		fileXtract(ft_strdup(argv[1]));
 	}
 	else
 	{

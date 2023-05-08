@@ -20,7 +20,15 @@ MAP_LIST = checksettings.c filextract.c initmapsettings.c player_orientation.c r
 MAP_DIRECTORY = map/
 MAP = $(addprefix $(MAP_DIRECTORY), $(MAP_LIST))
 
-SRCS_LIST = $(MAP) $(TEXTURES) main.c check_input.c color.c draw.c imgbuffer.c line.c movement.c prep_game.c rays.c run_game.c square.c vector.c door.c wall.c minimap.c crosshair.c
+RAYCAST_LIST = raycast.c draw_texture.c line_height.c ray_calculation.c
+RAYCAST_DIRECTORY = raycaster/
+RAYCAST = $(addprefix $(RAYCAST_DIRECTORY), $(RAYCAST_LIST))
+
+MENU_LIST = map_menu.c mlx_event.c circular_ll.c get_maps.c loop_utils.c
+MENU_DIRECTORY = menu/
+MENU = $(addprefix $(MENU_DIRECTORY), $(MENU_LIST))
+
+SRCS_LIST = $(MAP) $(TEXTURES) $(RAYCAST) $(MENU) main.c check_input.c color.c draw.c imgbuffer.c line.c movement.c prep_game.c run_game.c square.c vector.c door.c wall.c minimap.c crosshair.c
 SRCS_DIRECTORY = srcs/
 SRCS = $(addprefix $(SRCS_DIRECTORY), $(SRCS_LIST))
 
@@ -43,7 +51,8 @@ $(OBJECTS_DIRECTORY):
 	mkdir -p $(OBJECTS_DIRECTORY)
 	mkdir -p $(OBJECTS_DIRECTORY)$(MAP_DIRECTORY)
 	mkdir -p $(OBJECTS_DIRECTORY)$(TEXTURES_DIRECTORY)
-
+	mkdir -p $(OBJECTS_DIRECTORY)$(RAYCAST_DIRECTORY)
+	mkdir -p $(OBJECTS_DIRECTORY)$(MENU_DIRECTORY)
 
 $(OBJECTS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c
 	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@

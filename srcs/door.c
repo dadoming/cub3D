@@ -19,7 +19,7 @@ static t_imgbuffer	get_image_door(t_door *this, int dir)
 
     if (dir == 0)
         img = *(this->texture_door_closed);
-    else
+    else if (dir == 1)
         img = *(this->texture_door_opened);
     return (img);
 }

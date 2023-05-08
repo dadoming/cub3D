@@ -2,7 +2,6 @@
 # define CUB3D_H
 
 # include "../minilibx-linux/mlx.h"
-// #include <libft.h>
 #include "../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -170,6 +169,33 @@ struct s_object
     t_texture_sides	*texture;
 };
 
+typedef struct s_raycast
+{
+    int x;
+    double cameraX;
+    double rayDirX;
+    double rayDirY;
+    int mapX;
+    int mapY;
+    double sideDistX;
+    double sideDistY;
+    double deltaDistX;
+    double deltaDistY;
+    double perpWallDist;
+    int stepX;
+    int stepY;
+    int hit;
+    int side;
+    int lineHeight;
+    int drawStart;
+    int drawEnd;
+    double wallX;
+    int texX;
+    double step;
+    double texPos;
+    int texture_pixels[SQUARESIZE * SQUARESIZE];
+} t_raycast;
+
 struct s_game
 {
     void		*mlx;
@@ -194,8 +220,7 @@ struct s_game
     t_imgbuffer	texture_transparent;
 };
 
-
-
+char            *select_map(void);
 int             check_input(int argc, char **argv);
 int	            fileXtract(char *cubflpath);
 t_settings	    *read_settings(int openfd);
@@ -242,6 +267,16 @@ void 			draw_crosshair(t_game *game, int size, int color);
 void 			draw_ray(t_game *game);
 void	    	myclearimg(t_game *game);
 int	      		imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
+
+void object_selector(t_game *game, t_raycast *ray);
+void delta_dist(t_raycast *ray);
+void ray_direction(t_raycast *ray, t_game *game, int x);
+void get_draw_start_end(t_raycast *ray);
+void line_height(t_raycast *ray);
+void load_buffer_array(t_raycast *ray, t_game *game);
+void wall_texture_position(t_raycast *ray, t_game *game);
+void draw_vertical_stripe(t_game *game, t_raycast *ray);
+void perp_wall_dist(t_raycast *ray, t_game *game);
 
 t_object *new_door(int x, int y, t_game *game);
 t_object *new_wall(t_game *game);

@@ -25,16 +25,19 @@ int	fileXtract(char *cubflpath)
 	if (check_valid_filename(cubflpath) == 0)
 	{
 		printf("Invalid map filename!\nExiting program...\n");
-		exit(0);
+	    free(cubflpath);
+    	exit(0);
 	}
 	fd = open(cubflpath, O_RDONLY);
 	if (fd <= 0)
 	{
         printf("Could not open file!\nExiting program...\n");
+        free(cubflpath);
         exit(0);
     }
+    free(cubflpath);
     settings = read_settings(fd);
-	if (settings == NULL)
+    if (settings == NULL)
 	{
 		printf("Exiting program...\n");
         close(fd);
