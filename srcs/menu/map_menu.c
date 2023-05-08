@@ -66,11 +66,8 @@ char *select_map(void)
     
     print_map_list(&menu, menu.map_list);
     mlx_loop(menu.mlx);
-    mlx_destroy_window(menu.mlx, menu.win);
-    mlx_destroy_display(menu.mlx);
-    free(menu.mlx);
     ret = ft_strjoin("./maps/", menu.map_list->name);
-    delete_circular_list(&menu.map_list);
+    close_window(&menu);
     printf("Closing select window...\n");
     printf("Select window closed!\n");
     return (ret); // selected map

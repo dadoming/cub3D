@@ -55,6 +55,7 @@ void delete_circular_list(t_map_list **head);
 // mlx_event.c
 int input_event(int keycode, t_menu *menu);
 int x_close(t_menu *menu);
+void close_window(t_menu *menu);
 
 // map_menu.c
 t_map_list *get_available_maps(void);
