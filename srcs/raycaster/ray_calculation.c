@@ -34,7 +34,7 @@ static void hit_wall(t_raycast *ray, t_game *game)
             ray->side = 1;
         }
         if (ray->x == (WINDOWSIZE_X / 2) && ray->block == 0 && (game->objmap[ray->mapX][ray->mapY]) && \
-            (game->objmap[ray->mapX][ray->mapY]->type == DOOR))
+            (game->objmap[ray->mapX][ray->mapY]->type != WALL))
         {
             ray->block = 1;
             ray->first_obj_X = ray->mapX;
