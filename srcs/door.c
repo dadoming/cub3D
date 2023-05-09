@@ -15,8 +15,8 @@ static void 		action_door(t_object *this, t_game *game)
 static t_imgbuffer	get_image_door(t_door *this, int dir)
 {
     t_imgbuffer img;
-    (void)dir;
 
+	img = (t_imgbuffer){0};
     if (dir == 0)
         img = *(this->texture_door_closed);
     else if (dir == 1)
