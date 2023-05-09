@@ -97,7 +97,11 @@ static int check_valid_filename(const char *str)
 	while (i >= 0 && str[i] != '.')
 		i--;
 	str = str + i;
-	return (!ft_strncmp(str, ".cub", 5));
+    if (i < 0)
+    {
+        return (0);
+    }
+	return (ft_strncmp(str, ".cub", 5) == 0);
 }
 
 void free_on_invalid(t_settings *settings)

@@ -4,8 +4,20 @@ void open_select_window(t_menu *menu)
 {
     printf("Opening select window...\n");
     menu->mlx = mlx_init();
+    if (!menu->mlx)
+    {
+        printf("Error: could not initialize mlx!\n");
+        exit(0);
+    }
     menu->win = mlx_new_window(menu->mlx, WINDOWSIZE_X, WINDOWSIZE_Y, "Select map");
-	mlx_hook(menu->win, 2, 1L<<0, input_event, menu);
+    if (!menu->win)
+    {
+        printf("Error: could not create window!\n");
+        mlx_destroy_display(menu->mlx);
+        free(menu->mlx);
+        exit(0);
+    }
+    mlx_hook(menu->win, 2, 1L<<0, input_event, menu);
     mlx_hook(menu->win, 17, 1L<<2, x_close, menu);
 }
 
@@ -39,13 +51,13 @@ void draw_rectangles(t_menu *menu, int color)
 void print_map_list(t_menu *menu, t_map_list *map_list)
 {
     clear_img(menu);
+    draw_rectangles(menu, 0x00A020F0);
     mlx_put_image_to_window(menu->mlx, menu->win, menu->imgbuffer.img, 0, 0);
     mlx_string_put(menu->mlx, menu->win, 20, 30, 0x00FFFF00, "Press left or right arrow to choose the map:");
     mlx_string_put(menu->mlx, menu->win, 20, 100, 0x00FFFF00, "<");
     mlx_string_put(menu->mlx, menu->win, 50, 100, 0x00FFFFFF, map_list->name);
     mlx_string_put(menu->mlx, menu->win, 275, 100, 0x00FFFF00, ">");
     mlx_string_put(menu->mlx, menu->win, 20, 170, 0x00FF0000, "Press space to select map");
-    draw_rectangles(menu, 0x00A020F0);
 }
 
 char *select_map(void)
@@ -53,6 +65,7 @@ char *select_map(void)
     t_menu menu;
     char *ret;
 
+    ft_memset(&menu, 0, sizeof(t_menu));
     menu.map_list = get_available_maps();
     if (!menu.map_list)
         return (NULL);

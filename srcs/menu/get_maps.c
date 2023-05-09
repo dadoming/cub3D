@@ -51,7 +51,11 @@ static int check_valid_filename(const char *str)
 	while (i >= 0 && str[i] != '.')
 		i--;
 	str = str + i;
-	return (!ft_strncmp(str, ".cub", 5));
+    if (i < 0)
+    {
+        return (0);
+    }
+	return (ft_strncmp(str, ".cub", 5) == 0);
 }
 
 static void remove_invalid_maps(t_map_list **map_list)
@@ -64,8 +68,9 @@ static void remove_invalid_maps(t_map_list **map_list)
     tmp = *map_list;
     while (tmp != (*map_list)->prev)
     {
+        printf("Checking map: %s\n", tmp->name);
         next = tmp->next;
-        if (!check_valid_filename(tmp->name))
+        if (check_valid_filename(tmp->name) == 0)
         {
             printf("Removing invalid map: %s\n", tmp->name);
             delete_node(map_list, tmp);

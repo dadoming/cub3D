@@ -27,11 +27,23 @@ static int load_textures_to_mlx(t_game *game, t_settings *map_settings)
     game->texture_door.img = mlx_xpm_file_to_image(game->mlx, "./textures/capybara.xpm", &game->texture_door.width, &game->texture_door.height);
     game->texture_door.addr = mlx_get_data_addr(game->texture_door.img, &game->texture_door.bits_per_pixel, &game->texture_door.line_length, &game->texture_door.endian);
     
+    game->texture_transparent.img = mlx_xpm_file_to_image(game->mlx, "./textures/black.xpm", &game->texture_transparent.width, &game->texture_transparent.height);
+    game->texture_transparent.addr = mlx_get_data_addr(game->texture_transparent.img, &game->texture_transparent.bits_per_pixel, &game->texture_transparent.line_length, &game->texture_transparent.endian);
+    unsigned int color = 0xFF000000;
+    for (int i = 0; i < game->texture_transparent.height; i++) 
+    {
+        for (int j = 0; j < game->texture_transparent.width; j++) {
+            int offset = (i * game->texture_transparent.line_length) + (j * (game->texture_transparent.bits_per_pixel / 8));
+            *(unsigned int *)(game->texture_transparent.addr + offset) = color;
+        }
+    }
     if ((game->texture_wall.n.img == NULL) \
      || (game->texture_wall.s.img == NULL) \
      || (game->texture_wall.w.img == NULL) \
      || (game->texture_wall.e.img == NULL) \
-     || (game->texture_door.img == NULL))
+     || (game->texture_door.img == NULL)   \
+     || (game->texture_transparent.img == NULL))
+    
     {
         printf("%p %p %p %p\n", game->texture_wall.n.img, game->texture_wall.s.img, game->texture_wall.w.img, game->texture_wall.e.img);
         printf("Error\nInvalid texture path\n");
@@ -50,6 +62,10 @@ static void free_textures(t_game *game)
         mlx_destroy_image(game->mlx, game->texture_wall.w.img);
     if (game->texture_wall.e.img)
         mlx_destroy_image(game->mlx, game->texture_wall.e.img);
+    if (game->texture_door.img)
+        mlx_destroy_image(game->mlx, game->texture_door.img);
+    if (game->texture_transparent.img)
+        mlx_destroy_image(game->mlx, game->texture_transparent.img);
     if (game->mlx)
 		mlx_destroy_display(game->mlx);
 	free(game->mlx);

@@ -1,7 +1,32 @@
 # include "../includes/cub3D.h"
 
+void free_objmap(char **map, t_object ***obj)
+{
+    int i = 0;
+    int j = 0;
+
+    while (map[i])
+    {
+        j = 0;
+        while (map[i][j])
+        {
+            if (map[i][j] == DOOR)
+                free(obj[i][j]);
+            else if (map[i][j] == WALL)
+                free(obj[i][j]);
+            j++;
+        }
+        free(obj[i]);
+        i++;
+    }
+    free(obj);
+}
+
+
 void close_game(t_game *game)
 {
+    if (game->objmap)
+        free_objmap(game->charmap, game->objmap);
     charmapFree(game->charmap);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
@@ -15,10 +40,14 @@ void close_game(t_game *game)
 		mlx_destroy_image(game->mlx, game->texture_wall.w.img);
 	if (game->texture_wall.e.img)
 		mlx_destroy_image(game->mlx, game->texture_wall.e.img);
+    if (game->texture_door.img)
+        mlx_destroy_image(game->mlx, game->texture_door.img);
+    if (game->texture_transparent.img)
+        mlx_destroy_image(game->mlx, game->texture_transparent.img);
     if (game->mlx)
 		mlx_destroy_display(game->mlx);
-	free(game->mlx);
-	exit(0);
+    free(game->mlx);
+    exit(0);
 }
 
 int x_close_window(t_game *game)
@@ -98,6 +127,7 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	t_game	game;
 
 	game.charmap = map_settings->charmap;
+    game.objmap = NULL;
 	game.objmap = load_individual_map_tile(map_settings->charmap, &game);
 	game.player = player;
   	define_start_orientation(&game.player);
@@ -113,27 +143,7 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 		close_game(&game);
     game.win = mlx_new_window(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y, "cub3D");
 
-    // trying to implement transparency
-    //game.texture_transparent.img = mlx_xpm_file_to_image(game.mlx, "./textures/capybara.xpm", &game.texture_transparent.width, &game.texture_transparent.height);
     
-    game.texture_transparent.img = mlx_xpm_file_to_image(game.mlx, "./textures/black.xpm", &game.texture_transparent.width, &game.texture_transparent.height);
-    game.texture_transparent.addr = mlx_get_data_addr(game.texture_transparent.img, &game.texture_transparent.bits_per_pixel, &game.texture_transparent.line_length, &game.texture_transparent.endian);
-    if (!game.texture_transparent.img)
-        close_game(&game);
-
-    unsigned int color = 0xFF000000;
-    for (int i = 0; i < game.texture_transparent.height; i++) 
-    {
-        for (int j = 0; j < game.texture_transparent.width; j++) {
-            int offset = (i * game.texture_transparent.line_length) + (j * (game.texture_transparent.bits_per_pixel / 8));
-            *(unsigned int *)(game.texture_transparent.addr + offset) = color;
-        }
-    }
-
-    printf("%d\n", game.texture_transparent.width);
-    printf("%d\n", game.texture_transparent.height);
-    printf("%d\n", game.texture_transparent.bits_per_pixel);
-    printf("%d\n", game.texture_transparent.line_length);
     
 	// Setup ImageBuffer
 	game.imgbuffer.img = mlx_new_image(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y);
