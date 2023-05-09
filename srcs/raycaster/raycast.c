@@ -24,7 +24,7 @@ void object_selector(t_game *game, t_raycast *ray)
     if (game->objmap[ray->mapX][ray->mapY] == NULL)
         return ;
     if (ray->x == (WINDOWSIZE_X / 2))
-        game->select = game->objmap[ray->mapX][ray->mapY];
+        game->select = game->objmap[ray->first_obj_X][ray->first_obj_Y];
 }
 
 

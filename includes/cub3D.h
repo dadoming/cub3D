@@ -22,8 +22,8 @@
 
 #define WALKDIST 10 // pixels every move
 
-#define WINDOWSIZE_X 640
-#define WINDOWSIZE_Y 640
+#define WINDOWSIZE_X 1280
+#define WINDOWSIZE_Y 860
 
 #define MINIMAPSIZE_X 160
 #define MINIMAPSIZE_Y 160
@@ -69,6 +69,12 @@ enum e_player_orientation
 	SOUTH,
 	EAST,
 	WEST
+};
+
+enum e_door_state
+{
+    CLOSED,
+    OPEN
 };
 
 typedef struct s_player_check
@@ -171,6 +177,10 @@ struct s_object
 
 typedef struct s_raycast
 {
+    int first_obj_X;
+    int first_obj_Y;
+    int block;
+
     int x;
     double cameraX;
     double rayDirX;
