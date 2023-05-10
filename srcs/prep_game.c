@@ -161,7 +161,7 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 
 	/* Mouse Captures */
 	mlx_mouse_hide(game.mlx, game.win);
-	// mlx_hook(game.win, 6, 1L << 6, mousemove_capture, &game);
+	mlx_hook(game.win, 6, 1L << 6, mousemove_capture, &game);
 	mlx_hook(game.win, 4, 1L << 6, mousedown_capture, &game);
 	// mlx_mouse_hook(game.win, mousedown_capture, &game);
 
