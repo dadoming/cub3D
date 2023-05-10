@@ -64,13 +64,14 @@ int key_event(int key, t_game *game)
 	}
     else if (key == SHIFT)
     {
-        if (game->player_animation.trigger == 1)
-            return (0);
-        else
-        {
-            game->player_animation.trigger = 1;
-            game->player_animation.current_frame = game->player_animation.frames;
-        }
+        animate(&game->player_animation);
+        // if (game->player_animation.trigger == 1)
+        //     return (0);
+        // else
+        // {
+        //     game->player_animation.trigger = 1;
+        //     game->player_animation.current_frame = game->player_animation.frames;
+        // }
     }
     return (0);
 }

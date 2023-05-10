@@ -309,7 +309,8 @@ void perp_wall_dist(t_raycast *ray, t_game *game);
 t_object *new_door(int x, int y, t_game *game);
 t_object *new_wall(t_game *game);
 
-int 			key_event(int key, t_game *game);
+void rotate_direction(t_game *game, double angle_x, double angle_y);
+int key_event(int key, t_game *game);
 
 char			coordcheck(t_game *game, int x, int y);
 char			coordcheck_prop(t_game *game, int x, int y);
@@ -318,10 +319,13 @@ t_anim_list *load_n_images(t_game *game, char *imagename, int number_of_images);
 t_anim_list *create_frame_node(t_imgbuffer frame);
 void insert_frame(t_anim_list **head, t_imgbuffer frame);
 void free_anim_list(t_game *game, t_anim_list **head);
+void animate(t_animation *animation);
 
 t_vec2f vec2f(float x, float y);
 t_vec2i  		vec2i(int x, int y);;
 
 void 			close_game(t_game *game);
 
-# endif
+int mousemove_capture(int x, int y, void *param);
+int mousedown_capture(int button, int x, int y, void *param);
+#endif
