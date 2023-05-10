@@ -34,8 +34,6 @@ void load_buffer_array(t_raycast *ray, t_game *game)
         img = game->objmap[ray->mapX][ray->mapY]->get_image((t_object*)(game->objmap[ray->mapX][ray->mapY]), 0);
     else
         img = game->texture_transparent;
-        //else if (game->objmap[mapX][mapY]->type == DOOR && ((t_door *)game->objmap[mapX][mapY])->state == 1)
-        //    img = game->objmap[mapX][mapY]->get_image((t_object*)(game->objmap[mapX][mapY]), 1);
     extract_texture_pixels(&img, ray->texture_pixels);
 }
 

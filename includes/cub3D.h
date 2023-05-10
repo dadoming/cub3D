@@ -22,8 +22,8 @@
 
 #define WALKDIST 10 // pixels every move
 
-#define WINDOWSIZE_X 1280
-#define WINDOWSIZE_Y 860
+#define WINDOWSIZE_X 640
+#define WINDOWSIZE_Y 640
 
 #define MINIMAPSIZE_X 160
 #define MINIMAPSIZE_Y 160
@@ -206,6 +206,21 @@ typedef struct s_raycast
     int texture_pixels[SQUARESIZE * SQUARESIZE];
 } t_raycast;
 
+typedef struct s_anim_list
+{
+    t_imgbuffer img;
+    struct s_anim_list *next;
+} t_anim_list;
+
+typedef struct s_animation
+{
+    int trigger; // on or off 
+    int frameCount; // present frame
+    int frameNum; // number of frames
+    t_anim_list *frames;
+    t_anim_list *current_frame;
+} t_animation;
+
 struct s_game
 {
     void		*mlx;
@@ -219,15 +234,18 @@ struct s_game
 	t_vec2i		mapsize;
     t_vec2i		inv_mapsize;
 	char		**charmap;
+
 	
     t_object	***objmap;
 	t_object	*select;
 	t_plinfo	player;
 
     t_texture_sides	texture_wall;
+    
     t_imgbuffer	texture_door;
-
     t_imgbuffer	texture_transparent;
+
+    t_animation player_animation;
 };
 
 char            *select_map(void);
@@ -296,8 +314,12 @@ int 			key_event(int key, t_game *game);
 char			coordcheck(t_game *game, int x, int y);
 char			coordcheck_prop(t_game *game, int x, int y);
 
+t_anim_list *load_n_images(t_game *game, char *imagename, int number_of_images);
+t_anim_list *create_frame_node(t_imgbuffer frame);
+void insert_frame(t_anim_list **head, t_imgbuffer frame);
+void free_anim_list(t_game *game, t_anim_list **head);
 
-t_vec2f			vec2f(float x, float y);
+t_vec2f vec2f(float x, float y);
 t_vec2i  		vec2i(int x, int y);;
 
 void 			close_game(t_game *game);

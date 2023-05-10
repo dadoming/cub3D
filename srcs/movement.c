@@ -1,6 +1,5 @@
 # include "../includes/cub3D.h"
 
-
 int collision(t_game *game, int x, int y)
 {
     t_object *obj;
@@ -34,7 +33,6 @@ void press_forward(t_game *game)
             game->player.inv_pos.y += game->player.dirY * MOVESPEED;
 }
 
-
 void press_back(t_game *game)
 {
     if (collision(game, floor(game->player.inv_pos.x - game->player.dirX * MOVESPEED), floor(game->player.inv_pos.y)))
@@ -64,6 +62,16 @@ int key_event(int key, t_game *game)
 		else
 			game->minimap_toggle = 1;
 	}
+    else if (key == SHIFT)
+    {
+        if (game->player_animation.trigger == 1)
+            return (0);
+        else
+        {
+            game->player_animation.trigger = 1;
+            game->player_animation.current_frame = game->player_animation.frames;
+        }
+    }
     return (0);
 }
 

@@ -28,7 +28,11 @@ MENU_LIST = map_menu.c mlx_event.c circular_ll.c get_maps.c loop_utils.c
 MENU_DIRECTORY = menu/
 MENU = $(addprefix $(MENU_DIRECTORY), $(MENU_LIST))
 
-SRCS_LIST = $(MAP) $(TEXTURES) $(RAYCAST) $(MENU) main.c check_input.c color.c draw.c imgbuffer.c line.c movement.c prep_game.c run_game.c square.c vector.c door.c wall.c minimap.c crosshair.c
+ANIMATIONS_LIST = anim_list.c
+ANIMATIONS_DIRECTORY = animations/
+ANIMATIONS = $(addprefix $(ANIMATIONS_DIRECTORY), $(ANIMATIONS_LIST))
+
+SRCS_LIST = $(MAP) $(TEXTURES) $(RAYCAST) $(MENU) $(ANIMATIONS) main.c check_input.c color.c draw.c imgbuffer.c line.c movement.c prep_game.c run_game.c square.c vector.c door.c wall.c minimap.c crosshair.c
 SRCS_DIRECTORY = srcs/
 SRCS = $(addprefix $(SRCS_DIRECTORY), $(SRCS_LIST))
 
@@ -53,6 +57,7 @@ $(OBJECTS_DIRECTORY):
 	mkdir -p $(OBJECTS_DIRECTORY)$(TEXTURES_DIRECTORY)
 	mkdir -p $(OBJECTS_DIRECTORY)$(RAYCAST_DIRECTORY)
 	mkdir -p $(OBJECTS_DIRECTORY)$(MENU_DIRECTORY)
+	mkdir -p $(OBJECTS_DIRECTORY)$(ANIMATIONS_DIRECTORY)
 
 $(OBJECTS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c
 	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@

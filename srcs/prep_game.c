@@ -44,6 +44,8 @@ void close_game(t_game *game)
         mlx_destroy_image(game->mlx, game->texture_door.img);
     if (game->texture_transparent.img)
         mlx_destroy_image(game->mlx, game->texture_transparent.img);
+    if (game->player_animation.frames)
+        free_anim_list(game, &game->player_animation.frames);
     if (game->mlx)
 		mlx_destroy_display(game->mlx);
     free(game->mlx);
@@ -142,29 +144,20 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	if (!game.mlx)
 		close_game(&game);
     game.win = mlx_new_window(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y, "cub3D");
-
-    
     
 	// Setup ImageBuffer
 	game.imgbuffer.img = mlx_new_image(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y);
 	game.imgbuffer.addr = mlx_get_data_addr(game.imgbuffer.img, &game.imgbuffer.bits_per_pixel, &game.imgbuffer.line_length, &game.imgbuffer.endian);
     if (!game.imgbuffer.img)
         close_game(&game);
-    
-
 
     game.player.inv_pos.x = player.pos.x;
     game.player.inv_pos.y = player.pos.y;
     game.inv_mapsize.x = game.mapsize.y;
     game.inv_mapsize.y = game.mapsize.x;
-	
-	// game.player.dirX = -1;
-	// game.player.dirY = 0;
-    // game.player.planeX = 0;
-    // game.player.planeY = 0.66;
 
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);
-	
-	return (run_game(&game));
+
+    return (run_game(&game));
 }
