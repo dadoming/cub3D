@@ -57,21 +57,11 @@ int key_event(int key, t_game *game)
 		game->select->action(game->select, game);
 	else if (key == CTRL)
 	{
-		if (game->minimap_toggle == 1)
-			game->minimap_toggle = 0;
-		else
-			game->minimap_toggle = 1;
+        game->minimap_toggle = !game->minimap_toggle;
 	}
     else if (key == SHIFT)
     {
         animate(&game->player_animation);
-        // if (game->player_animation.trigger == 1)
-        //     return (0);
-        // else
-        // {
-        //     game->player_animation.trigger = 1;
-        //     game->player_animation.current_frame = game->player_animation.frames;
-        // }
     }
     return (0);
 }

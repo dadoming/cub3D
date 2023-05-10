@@ -3,7 +3,6 @@
 int	mousemove_capture(int x, int y, void *param)
 {
 	static int oldx = 0;
-	// static int oldy = 0;
 	t_game *game;
 
 	game = param;
@@ -14,7 +13,6 @@ int	mousemove_capture(int x, int y, void *param)
 	if (x < oldx)
 		rotate_direction(game, cos(ROTATESPEED/10), sin(ROTATESPEED/10));
 	oldx = x;
-	// oldy = y;
 	(void)param;
 	return (1);
 }
