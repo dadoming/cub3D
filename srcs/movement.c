@@ -41,6 +41,22 @@ void press_back(t_game *game)
         game->player.inv_pos.y -= game->player.dirY * MOVESPEED;
 }
 
+void press_left(t_game *game)
+{
+    if (collision(game, floor(game->player.inv_pos.x - game->player.planeX * MOVESPEED), floor(game->player.inv_pos.y)))
+        game->player.inv_pos.x -= game->player.planeX * MOVESPEED;
+    if (collision(game, floor(game->player.inv_pos.x), floor(game->player.inv_pos.y - game->player.planeY * MOVESPEED)))
+        game->player.inv_pos.y -= game->player.planeY * MOVESPEED;
+}
+
+void press_right(t_game *game)
+{
+    if (collision(game, floor(game->player.inv_pos.x + game->player.planeX * MOVESPEED), floor(game->player.inv_pos.y)))
+        game->player.inv_pos.x += game->player.planeX * MOVESPEED;
+    if (collision(game, floor(game->player.inv_pos.x), floor(game->player.inv_pos.y + game->player.planeY * MOVESPEED)))
+        game->player.inv_pos.y += game->player.planeY * MOVESPEED;
+}
+
 int key_event(int key, t_game *game)
 {
     if      (key == ESC)
@@ -48,11 +64,17 @@ int key_event(int key, t_game *game)
 	else if (key == W)
         press_forward(game);
 	else if (key == A)
-        rotate_direction(game, cos(ROTATESPEED), sin(ROTATESPEED));
+    {
+        press_left(game); // make this permanent and comment rotate_direction for evaluation(?)
+        //rotate_direction(game, cos(ROTATESPEED), sin(ROTATESPEED));
+    }
 	else if (key == S)
         press_back(game);
 	else if (key == D)
-        rotate_direction(game, cos(-ROTATESPEED), sin(-ROTATESPEED));
+    {
+        press_right(game); // make this permanent and comment rotate_direction for evaluation(?)
+        //rotate_direction(game, cos(-ROTATESPEED), sin(-ROTATESPEED));
+    }
 	else if (key == SPACE && game->select && game->select->action)
 		game->select->action(game->select, game);
 	else if (key == CTRL)

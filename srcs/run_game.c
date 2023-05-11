@@ -70,6 +70,7 @@ int	theloop(t_game *game)
         i++;
         return (0);
     }
+    mlx_mouse_move(game->mlx, game->win, WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
     i = 0;
     update(game);
     game->player.pos.y = game->player.inv_pos.x;

@@ -9,9 +9,9 @@ int	mousemove_capture(int x, int y, void *param)
 	printf("%d__%d\n", x, y);
 
 	if (x > oldx)
-		rotate_direction(game, cos(-ROTATESPEED/10), sin(-ROTATESPEED/10));
+		rotate_direction(game, cos(-ROTATESPEED/8), sin(-ROTATESPEED/8));
 	if (x < oldx)
-		rotate_direction(game, cos(ROTATESPEED/10), sin(ROTATESPEED/10));
+		rotate_direction(game, cos(ROTATESPEED/8), sin(ROTATESPEED/8));
 	oldx = x;
 	(void)param;
 	return (1);
