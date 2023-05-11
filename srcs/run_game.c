@@ -36,7 +36,7 @@ void draw_weapon(t_game *game)
     }
 }
 
-void update(t_game *game)
+void update_gun(t_game *game)
 {
     static t_anim_list *current_frame = NULL;
 
@@ -60,18 +60,21 @@ void update(t_game *game)
     }
 }
 
-
+void update(t_game *game)
+{
+    update_gun(game);
+}
 
 int	theloop(t_game *game)
 {
-    static int i = 0;
-    if (i != 1500)
+    static int refresh_rate = 0;
+    if (refresh_rate != 500)
     {
-        i++;
+        refresh_rate++;
         return (0);
     }
+    refresh_rate = 0;
     mlx_mouse_move(game->mlx, game->win, WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
-    i = 0;
     update(game);
     game->player.pos.y = game->player.inv_pos.x;
     game->player.pos.x = game->player.inv_pos.y;
