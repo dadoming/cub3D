@@ -11,6 +11,7 @@
 #include <math.h>
 # include <limits.h>
 #include <unistd.h>
+# include <sys/time.h>
 
 #define ELINFOLIMIT 6
 #define RADJUMP 64
@@ -246,6 +247,9 @@ struct s_game
     t_imgbuffer	texture_transparent;
 
     t_animation player_animation;
+
+    struct timeval now_time;
+    struct timeval old_time;
 };
 
 char            *select_map(void);

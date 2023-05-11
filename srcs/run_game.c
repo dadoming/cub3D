@@ -36,27 +36,40 @@ void draw_weapon(t_game *game)
     }
 }
 
+    
+
 void update_gun(t_game *game)
 {
     static t_anim_list *current_frame = NULL;
+    int time_now;
+    int time_old;
 
     if (current_frame == NULL)
         current_frame = game->player_animation.frames;
     if (game->player_animation.trigger == 1)
     {
-        if (game->player_animation.frameCount > 0)
+        gettimeofday(&game->now_time, NULL);
+        time_now = game->now_time.tv_sec * 1000 + game->now_time.tv_usec / 1000;
+        time_old = game->old_time.tv_sec * 1000 + game->old_time.tv_usec / 1000;
+        if (time_now - time_old > 60)
         {
-            game->player_animation.current_frame = current_frame;
-            current_frame = current_frame->next;
-            game->player_animation.frameCount--;
+            game->old_time = game->now_time;
+            printf("time: %d\n", time_now - time_old);
+            if (game->player_animation.frameCount > 0)
+            {
+                game->player_animation.current_frame = current_frame;
+                current_frame = current_frame->next;
+                game->player_animation.frameCount--;
+            }
+            if (game->player_animation.frameCount == 0)
+            {
+                game->player_animation.trigger = 0;
+                game->player_animation.frameCount = game->player_animation.frameNum;
+                current_frame = NULL;
+                game->player_animation.current_frame = game->player_animation.frames;
+            }
         }
-        if (game->player_animation.frameCount == 0)
-        {
-            game->player_animation.trigger = 0;
-            game->player_animation.frameCount = game->player_animation.frameNum;
-            current_frame = NULL;
-            game->player_animation.current_frame = game->player_animation.frames;
-        }
+        
     }
 }
 
@@ -67,13 +80,15 @@ void update(t_game *game)
 
 int	theloop(t_game *game)
 {
-    static int refresh_rate = 0;
-    if (refresh_rate != 500)
-    {
-        refresh_rate++;
-        return (0);
-    }
-    refresh_rate = 0;
+    //static int refresh_rate = 0;
+    //if (refresh_rate != 500)
+    //{
+    //    refresh_rate++;
+    //    return (0);
+    //}
+    //refresh_rate = 0;
+    
+    
     mlx_mouse_move(game->mlx, game->win, WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
     update(game);
     game->player.pos.y = game->player.inv_pos.x;
