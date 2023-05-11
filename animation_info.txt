@@ -1,0 +1,87 @@
+ANIMATIONS:
+
+1o: Arranjar a sequencia de XPM's a colocar no projeto.
+    O nome dos ficheiros devera ser do tipo: (comecando do 1)
+        - gun1.xpm
+        - gun2.xpm
+        - gun(...).xpm
+        - gun16.xpm
+    
+2o: Para fazer o load das animacoes e necessario:
+    - Criar uma variavel na struct t_animation com o nome gun_animation(por exemplo)
+    - na funcao load_textures_to_mlx():
+        - load_gun(game);
+    - Na funcao load_gun(t_game *game):
+        - game->gun_animation.frameNum      = Numero total de ficheiros xpm (neste caso 16);
+        - game->gun_animation.frames        = load_n_images(game, "gun", 16);
+                -->colocar a string com apenas o nome chave dos ficheiros xpm
+                    neste caso, gun1.xpm, etc... ficaria apenas "gun"  
+        - game->gun_animation.current_frame = game->gun_animation.frames; // current_frame to print
+        - game->gun_animation.trigger       = 0; // 1 for animation active
+        - game->gun_animation.frameCount    = frameNum; // which frame it is on. 16 means 0, 15 means 1, etc...
+
+3o: Esta parte do codigo que se encontra no inicio do loop e o que define a refresh_rate
+
+    static int refresh_rate = 0;
+    if (refresh_rate != 1500)
+    {
+        refresh_rate++;
+        return (0);
+    }
+    refresh_rate = 0;
+
+4o: A funcao update trata de executar a animacao:
+
+    update --> update_gun(game):
+
+        void update_gun(t_game *game)
+        {
+            static t_anim_list *current_frame = NULL;                            // init current_frame to no frame
+
+            if (current_frame == NULL)                                           // first initialization
+                current_frame = game->player_animation.frames;                      
+            if (game->player_animation.trigger == 1)                             // if animation is triggered in event_hook
+            {                       
+                if (game->player_animation.frameCount > 0)                       // if frameCount is not 0, print current frame
+                {
+                    game->player_animation.current_frame = current_frame;        // current_frame is the frame to print
+                    current_frame = current_frame->next;                         
+                    game->player_animation.frameCount--;                         // iterate to next frame
+                }
+                if (game->player_animation.frameCount == 0)                      // if no frames left 
+                {
+                    game->player_animation.trigger = 0;                                     // shutdown animation
+                    game->player_animation.frameCount = game->player_animation.frameNum;    // reset frameCount
+                    current_frame = NULL;                                                   // reset current_frame
+                    game->player_animation.current_frame = game->player_animation.frames;   // reset current_frame to first frame
+                }
+            }
+        }
+
+5o: A funcao draw_gun() trata de desenhar a animacao segundo a current_frame:
+
+    void draw_weapon(t_game *game)
+    {
+        int i;
+        int j;
+        int spot_x;
+        int spot_y;
+        int color;
+
+
+        spot_x = WINDOWSIZE_X / 2 - game->player_animation.current_frame->img.width / 2;
+        spot_y = WINDOWSIZE_Y - game->player_animation.current_frame->img.height;
+        i = 0;
+        while (i < game->player_animation.current_frame->img.height)
+        {
+            j = 0;
+            while (j < game->player_animation.current_frame->img.width)
+            {
+                color = mypixelget(&game->player_animation.current_frame->img, j, i);
+                if ((color & 0x00FFFFFF) != 0)
+                    mypixelput(&game->imgbuffer, spot_x + j, spot_y + i, color);
+                j++;
+            }
+            i++;
+        }
+    }
