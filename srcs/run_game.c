@@ -89,7 +89,7 @@ int	theloop(t_game *game)
     //refresh_rate = 0;
     
     
-    mlx_mouse_move(game->mlx, game->win, WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
+    
     update(game);
     game->player.pos.y = game->player.inv_pos.x;
     game->player.pos.x = game->player.inv_pos.y;

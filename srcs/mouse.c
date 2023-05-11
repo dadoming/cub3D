@@ -8,15 +8,15 @@ int	mousemove_capture(int x, int y, void *param)
 	int distance;
 
 	game = param;
-	distance = sqrt(x * x + y * y);
-	if (distance <= DEADZONE)
-		return (1);
+	// distance = sqrt(x * x + y * y);
+	// if (distance <= DEADZONE)
+	// 	return (1);
 	if (x > oldx)
 		rotate_direction(game, cos(-ROTATESPEED/8), sin(-ROTATESPEED/8));
 	if (x < oldx)
 		rotate_direction(game, cos(ROTATESPEED/8), sin(ROTATESPEED/8));
 	oldx = x;
-	(void)param;
+	// mlx_mouse_move(game->mlx, game->win, WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
 	return (1);
 }
 
