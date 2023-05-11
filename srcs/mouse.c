@@ -1,13 +1,16 @@
 # include "../includes/cub3D.h"
 
+# define DEADZONE 370
 int	mousemove_capture(int x, int y, void *param)
 {
 	static int oldx = 0;
 	t_game *game;
+	int distance;
 
 	game = param;
-	printf("%d__%d\n", x, y);
-
+	distance = sqrt(x * x + y * y);
+	if (distance <= DEADZONE)
+		return (1);
 	if (x > oldx)
 		rotate_direction(game, cos(-ROTATESPEED/8), sin(-ROTATESPEED/8));
 	if (x < oldx)
@@ -21,7 +24,6 @@ int	mousedown_capture(int button, int x, int y, void *param)
 {
 	t_game *game;
 
-	printf("Button: %d\n", button);
 	game = param;
 	if (button == 1)
 		animate(&game->player_animation);
