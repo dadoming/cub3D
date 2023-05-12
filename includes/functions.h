@@ -83,6 +83,7 @@ int mousedown_capture(int button, int x, int y, void *param);
 
 suseconds_t timediff(struct timeval old);
 
-void update_gun(t_game *game);
+void draw_weapon(t_game *game);
+void update_gun(t_animation *gun);
 
-
+int mypixelget(t_imgbuffer *imgbuffer, int x, int y);

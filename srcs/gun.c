@@ -28,16 +28,37 @@ void draw_weapon(t_game *game)
 
     
 
-void update_gun(t_game *game)
+void update_gun(t_animation *gun)
 {
-    static t_anim_list *current_frame = NULL;
-    int time_now;
-    int time_old;
+	if (gun->trigger == 0)
+		return;
+	else if (gun->trigger == 1 && gun->frameCount == 1)
+	{
+		gettimeofday(&gun->startTime, NULL);
+	}
+	if (timediff(gun->startTime) > gun->frameTime * gun->frameCount) // animation time has passed
+	{
+		gun->frameCount++;
+		printf("AnimationFrame_%d\n", gun->frameCount);
+		gun->current_frame = gun->current_frame->next;
+		if (gun->current_frame->next == NULL)
+		{
+			gun->trigger = 0; // Stops animation and resets
+			gun->current_frame = gun->frames;
+			gun->frameCount = 1;
+		}
+		return;
+	}
+	// printf("timediff: %d\n", timediff(gun->startTime));
 
-    if (current_frame == NULL)
-        current_frame = game->player_animation.frames;
-    if (game->player_animation.trigger == 1)
-    {
+	// static t_anim_list *current_frame = NULL;
+	// int time_now;
+	// int time_old;
+
+	// if (current_frame == NULL)
+    //     current_frame = game->player_animation.frames;
+    // if (game->player_animation.trigger == 1)
+    // {
         // gettimeofday(&game->now_time, NULL);
         // time_now = game->now_time.tv_sec * 1000 + game->now_time.tv_usec / 1000;
         // time_old = game->old_time.tv_sec * 1000 + game->old_time.tv_usec / 1000;
@@ -45,20 +66,20 @@ void update_gun(t_game *game)
         // {
             // game->old_time = game->now_time;
             // printf("time: %d\n", time_now - time_old);
-            if (game->player_animation.frameCount > 0)
-            {
-                game->player_animation.current_frame = current_frame;
-                current_frame = current_frame->next;
-                game->player_animation.frameCount--;
-            }
-            if (game->player_animation.frameCount == 0)
-            {
-                game->player_animation.trigger = 0;
-                game->player_animation.frameCount = game->player_animation.frameNum;
-                current_frame = NULL;
-                game->player_animation.current_frame = game->player_animation.frames;
-            }
+            // if (game->player_animation.frameCount > 0)
+            // {
+            //     game->player_animation.current_frame = current_frame;
+            //     current_frame = current_frame->next;
+            //     game->player_animation.frameCount--;
+            // }
+            // if (game->player_animation.frameCount == 0)
+            // {
+            //     game->player_animation.trigger = 0;
+            //     game->player_animation.frameCount = game->player_animation.frameNum;
+            //     current_frame = NULL;
+            //     game->player_animation.current_frame = game->player_animation.frames;
+            // }
         // }
         
-    }
+    // }
 }

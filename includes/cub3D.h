@@ -219,8 +219,8 @@ typedef struct s_animation
     int frameCount; // present frame
     int frameNum; // number of frames
 
-    unsigned int frameTime; // how many frames the animation takes
-    struct timeval lastanimchng; // time of last animation change
+    int frameTime; // how many frames the animation takes
+    struct timeval startTime; // time of last animation change
 
     t_anim_list *frames;
     t_anim_list *current_frame;
