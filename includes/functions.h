@@ -81,7 +81,8 @@ void 			close_game(t_game *game);
 int mousemove_capture(int x, int y, void *param);
 int mousedown_capture(int button, int x, int y, void *param);
 
-suseconds_t timediff(struct timeval old);
+microSeconds timediff(struct timespec old);
+microSeconds timestamp(struct timespec clock);
 
 void draw_weapon(t_game *game);
 void update_gun(t_animation *gun);

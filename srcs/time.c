@@ -1,13 +1,15 @@
 # include "../includes/cub3D.h"
 #include <time.h>
 
-suseconds_t	timediff(struct timeval old)
+microSeconds	timestamp(struct timespec clock)
 {
-	struct timeval now;
-	// struct timespec	now;
+ 	return (clock.tv_sec * 1000000 + clock.tv_nsec / 1000);
+}
 
-	gettimeofday(&now, NULL);
-	return (now.tv_sec * 1000 + now.tv_usec / 1000 - old.tv_sec * 1000 + old.tv_usec / 1000);
-	// clock_gettime(CLOCK_MONOTONIC, &now);
-	// return (now.tv_sec * 1000 + now.tv_nsec / 1000 - old.tv_sec * 1000 + old.tv_usec / 1000);}
+microSeconds	timediff(struct timespec old)
+{
+	struct timespec	now;
+
+	clock_gettime(CLOCK_MONOTONIC, &now);
+	return (timestamp(now) - timestamp(old));
 }

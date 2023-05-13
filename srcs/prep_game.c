@@ -166,10 +166,9 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	mlx_hook(game.win, 4, 1L << 6, mousedown_capture, &game);
 	// mlx_mouse_hook(game.win, mousedown_capture, &game);
 
-	gettimeofday(&game.now_time, NULL);
+	// gettimeofday(&game.now_time, NULL);
+	clock_gettime(CLOCK_MONOTONIC, &game.now_time);
 	game.old_time = game.now_time;
-
-
 
 	return (run_game(&game));
 }

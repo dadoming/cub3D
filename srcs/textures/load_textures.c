@@ -21,9 +21,9 @@ void load_player(t_game *game)
     //game->player_animation.frames.img = mlx_xpm_file_to_image(game->mlx, "./textures/gun1.xpm", &game->player_animation.frames.width, &game->player_animation.frames.height);    
     //game->player_animation.frames.addr = mlx_get_data_addr(game->player_animation.frames.img, &game->player_animation.frames.bits_per_pixel, &game->player_animation.frames.line_length, &game->player_animation.frames.endian);
 
-    game->player_animation.frameTime = 200;
+    game->player_animation.frameTime = 200000;
     game->player_animation.startTime.tv_sec = 0;
-    game->player_animation.startTime.tv_usec = 0;
+    game->player_animation.startTime.tv_nsec = 0;
 }
 
 static int load_textures_to_mlx(t_game *game, t_settings *map_settings)

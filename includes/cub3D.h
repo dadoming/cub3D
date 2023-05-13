@@ -63,6 +63,8 @@ typedef struct s_game t_game;
 typedef struct s_imgbuffer t_imgbuffer;
 typedef struct s_door t_door;
 
+typedef long microSeconds;
+
 enum e_player_orientation
 {
 	NONE,
@@ -219,8 +221,8 @@ typedef struct s_animation
     int frameCount; // present frame
     int frameNum; // number of frames
 
-    int frameTime; // how many frames the animation takes
-    struct timeval startTime; // time of last animation change
+    int frameTime; // how many frames the animation takes in microSeconds
+    struct timespec startTime; // time of last animation change
 
     t_anim_list *frames;
     t_anim_list *current_frame;
@@ -252,8 +254,8 @@ struct s_game
 
     t_animation player_animation;
 
-    struct timeval now_time;
-    struct timeval old_time;
+    struct timespec now_time;
+    struct timespec old_time;
 };
 
 #include "functions.h"

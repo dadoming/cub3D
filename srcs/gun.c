@@ -30,16 +30,21 @@ void draw_weapon(t_game *game)
 
 void update_gun(t_animation *gun)
 {
-	if (gun->trigger == 0)
-		return;
+    microSeconds td;
+    if (gun->trigger == 0)
+        return;
 	else if (gun->trigger == 1 && gun->frameCount == 1)
 	{
-		gettimeofday(&gun->startTime, NULL);
-	}
-	if (timediff(gun->startTime) > gun->frameTime * gun->frameCount) // animation time has passed
-	{
+		// gettimeofday(&gun->startTime, NULL);
+        clock_gettime(CLOCK_MONOTONIC, &gun->startTime);
+        // printf("AnimationFrame_%d: %ld\n", gun->frameCount, timestamp(gun->startTime));
+        gun->frameCount++;
+        return;
+    }
+    td = timediff(gun->startTime);
+    if (td > gun->frameTime * (gun->frameCount - 1)) // animation time has passed
+    {
 		gun->frameCount++;
-		printf("AnimationFrame_%d\n", gun->frameCount);
 		gun->current_frame = gun->current_frame->next;
 		if (gun->current_frame->next == NULL)
 		{
@@ -47,8 +52,11 @@ void update_gun(t_animation *gun)
 			gun->current_frame = gun->frames;
 			gun->frameCount = 1;
 		}
+		printf("AnimationFrame_%d: %ld\n", gun->frameCount, td);
 		return;
 	}
+    printf("AnimationFrame_%d: %ld\n", gun->frameCount, td);
+
 	// printf("timediff: %d\n", timediff(gun->startTime));
 
 	// static t_anim_list *current_frame = NULL;

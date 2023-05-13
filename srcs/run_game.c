@@ -22,7 +22,8 @@ int	theloop(t_game *game)
     update(game);
     mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
 
-    gettimeofday(&game->old_time, NULL);
+    // gettimeofday(&game->old_time, NULL);
+    clock_gettime(CLOCK_MONOTONIC, &game->old_time);
     return (1);
 }
 
