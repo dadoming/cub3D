@@ -88,7 +88,7 @@ int key_event(int key, t_game *game)
     else if (key == E)
     {
         //TODO(amc): Dynamite code!
-        // Pseudo-free((*(game->select)));
+        // Pseudo-free(*(game->select));
         // if ((*(game->select))->type == COLUMN && != WALL)
         *(game->select) = new_dynamite(game);
     }

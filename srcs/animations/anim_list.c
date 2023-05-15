@@ -10,7 +10,7 @@ t_anim_list *load_n_images(t_game *game, char *imagename, int number_of_images)
 
     list = NULL;
     i = 1;
-    while (i <= number_of_images)
+    while (i < number_of_images)
     {
         sprintf(filename, "textures/%s%d.xpm", imagename, i);
 

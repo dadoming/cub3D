@@ -161,6 +161,25 @@ typedef struct s_texture_sides
     t_imgbuffer e;
 } t_texture_sides;
 
+typedef struct s_anim_list
+{
+    t_imgbuffer img;
+    struct s_anim_list *next;
+} t_anim_list;
+
+typedef struct s_animation
+{
+    int trigger; // on or off 
+    int frameCount; // present frame
+    int frameNum; // number of frames
+
+    microSeconds frameTime; // how many frames the animation takes in microSeconds
+    struct timespec startTime; // time of last animation change
+
+    t_anim_list *frames;
+    t_anim_list *current_frame;
+} t_animation;
+
 typedef struct s_dynamite t_dynamite;
 struct s_dynamite
 {
@@ -168,6 +187,7 @@ struct s_dynamite
 	t_imgbuffer		(*get_image)(t_dynamite *this, int dir);
 	void 		    (*action)(t_object **this, t_game *game);
     t_imgbuffer     *texture;
+    t_animation     *animation;
 };
 
 struct s_door
@@ -222,25 +242,6 @@ typedef struct s_raycast
     int texture_pixels[SQUARESIZE * SQUARESIZE];
 } t_raycast;
 
-typedef struct s_anim_list
-{
-    t_imgbuffer img;
-    struct s_anim_list *next;
-} t_anim_list;
-
-typedef struct s_animation
-{
-    int trigger; // on or off 
-    int frameCount; // present frame
-    int frameNum; // number of frames
-
-    microSeconds frameTime; // how many frames the animation takes in microSeconds
-    struct timespec startTime; // time of last animation change
-
-    t_anim_list *frames;
-    t_anim_list *current_frame;
-} t_animation;
-
 typedef struct s_statTextures
 {
     t_texture_sides	texture_wall;
@@ -276,6 +277,7 @@ struct s_game
     t_imgbuffer texture_dynamite;
 
     t_animation player_shoot;
+    t_animation explosion;
 
     struct timespec now_time;
     struct timespec old_time;

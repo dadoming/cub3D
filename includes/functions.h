@@ -89,5 +89,11 @@ void update_gun(t_animation *gun);
 int mypixelget(t_imgbuffer *imgbuffer, int x, int y);
 
 t_object *new_dynamite(t_game *game);
+void update_dynamite(t_animation *explosion);
+void load_explosion(t_game *game);
+
+void action_nothing(t_object **this, t_game *game);
+
+
 
 
