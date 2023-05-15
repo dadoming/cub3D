@@ -221,7 +221,7 @@ typedef struct s_animation
     int frameCount; // present frame
     int frameNum; // number of frames
 
-    int frameTime; // how many frames the animation takes in microSeconds
+    microSeconds frameTime; // how many frames the animation takes in microSeconds
     struct timespec startTime; // time of last animation change
 
     t_anim_list *frames;
