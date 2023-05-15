@@ -45,7 +45,7 @@ void update_gun(t_animation *gun)
     {
 		gun->frameCount++;
 		gun->current_frame = gun->current_frame->next;
-		if (gun->current_frame->next == NULL)
+		if (gun->current_frame == NULL)
 		{
 			gun->trigger = 0; // Stops animation and resets
 			gun->current_frame = gun->frames;
