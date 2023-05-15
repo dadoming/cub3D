@@ -41,12 +41,14 @@ static int load_textures_to_mlx(t_game *game, t_settings *map_settings)
     // game->texture_wall.e.img = mlx_xpm_file_to_image(game->mlx, map_settings->Etexpath, &game->texture_wall.e.width, &game->texture_wall.e.height);
     // game->texture_wall.e.addr = mlx_get_data_addr(game->texture_wall.e.img, &game->texture_wall.e.bits_per_pixel, &game->texture_wall.e.line_length, &game->texture_wall.e.endian);
     
-    game->texture_door.img = mlx_xpm_file_to_image(game->mlx, "./textures/capybara.xpm", &game->texture_door.width, &game->texture_door.height);
-    game->texture_door.addr = mlx_get_data_addr(game->texture_door.img, &game->texture_door.bits_per_pixel, &game->texture_door.line_length, &game->texture_door.endian);
-    
-    game->texture_transparent.img = mlx_xpm_file_to_image(game->mlx, "./textures/black.xpm", &game->texture_transparent.width, &game->texture_transparent.height);
-    game->texture_transparent.addr = mlx_get_data_addr(game->texture_transparent.img, &game->texture_transparent.bits_per_pixel, &game->texture_transparent.line_length, &game->texture_transparent.endian);
-    
+    // game->texture_door.img = mlx_xpm_file_to_image(game->mlx, "./textures/capybara.xpm", &game->texture_door.width, &game->texture_door.height);
+    // game->texture_door.addr = mlx_get_data_addr(game->texture_door.img, &game->texture_door.bits_per_pixel, &game->texture_door.line_length, &game->texture_door.endian);
+    game->texture_door = load_texture(game, "./textures/capybara.xpm");
+
+    // game->texture_transparent.img = mlx_xpm_file_to_image(game->mlx, "./textures/black.xpm", &game->texture_transparent.width, &game->texture_transparent.height);
+    // game->texture_transparent.addr = mlx_get_data_addr(game->texture_transparent.img, &game->texture_transparent.bits_per_pixel, &game->texture_transparent.line_length, &game->texture_transparent.endian);
+    game->texture_transparent = load_texture(game, "./textures/black.xpm");
+
     load_player(game);
     if ((game->texture_wall.n.img == NULL) || (game->texture_wall.s.img == NULL) || (game->texture_wall.w.img == NULL) || (game->texture_wall.e.img == NULL) || (game->texture_door.img == NULL) || (game->texture_transparent.img == NULL))
 
