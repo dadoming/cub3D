@@ -55,6 +55,8 @@
 # define SHIFT 65505
 # define ESC 65307
 
+# define E 101
+
 # define WALL '1'
 # define FLOOR '0'
 # define DOOR 'D'

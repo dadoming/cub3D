@@ -85,6 +85,14 @@ int key_event(int key, t_game *game)
     {
         game->player_shoot.trigger = 1;
     }
+    else if (key == E)
+    {
+        //TODO(amc): Dynamite code!
+    }
+    else
+    {
+        printf("Unregistered keycode:%d\n", key);
+    }
     return (0);
 }
 
