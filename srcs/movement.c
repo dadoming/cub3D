@@ -78,7 +78,7 @@ int key_event(int key, t_game *game)
 	else if (key == SPACE && (*(game->select)) && (*(game->select))->action)
 		(*(game->select))->action(game->select, game);
 	else if (key == CTRL)
-	{
+	{ 
         game->minimap_toggle = !game->minimap_toggle;
 	}
     else if (key == SHIFT)

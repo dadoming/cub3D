@@ -9,8 +9,14 @@ static void extract_texture_pixels(t_imgbuffer *texture, int *pixels)
     {
         for (x = 0; x < texture->width; x++)
         {
+            if (y * texture->width + x > SQUARESIZE*SQUARESIZE)
+            {
+                printf("Extract texture error\n");
+                return;
+            }
             // extract color value at (x, y) in RGB format
-            color = *(int *)(texture->addr + (y * texture->line_length) + (x * (texture->bits_per_pixel / 8)));
+            // color = *(int *)(texture->addr + (y * texture->line_length) + (x * (texture->bits_per_pixel / 8)));
+            color = mypixelget(texture, x, y);
             if ((color & 0x00FFFFFF) != 0) // if color is full transparent
                 // store color value in pixels array
                 pixels[(y * texture->width) + x] = color;
@@ -22,13 +28,18 @@ void load_buffer_array(t_raycast *ray, t_game *game)
 {
     t_imgbuffer img;
 
-    if (ray->side == 0 && ray->rayDirX > 0 && (game->objmap[ray->mapX][ray->mapY]->type != DOOR))
+    if (game->objmap[ray->mapX][ray->mapY]->type == DYNAMITE)
+    {
+        img = game->objmap[ray->mapX][ray->mapY]->get_image(game->objmap[ray->mapX][ray->mapY], 0);
+    }
+
+         if (ray->side == 0 && ray->rayDirX > 0 && (game->objmap[ray->mapX][ray->mapY]->type != DOOR))
         img = game->objmap[ray->mapX][ray->mapY]->get_image(game->objmap[ray->mapX][ray->mapY], WEST);
-    else if (ray->side == 0 && ray->rayDirX < 0&& (game->objmap[ray->mapX][ray->mapY]->type != DOOR))
+    else if (ray->side == 0 && ray->rayDirX < 0 && (game->objmap[ray->mapX][ray->mapY]->type != DOOR))
         img = game->objmap[ray->mapX][ray->mapY]->get_image(game->objmap[ray->mapX][ray->mapY], EAST);
-    else if (ray->side == 1 && ray->rayDirY > 0&& (game->objmap[ray->mapX][ray->mapY]->type != DOOR))
+    else if (ray->side == 1 && ray->rayDirY > 0 && (game->objmap[ray->mapX][ray->mapY]->type != DOOR))
         img = game->objmap[ray->mapX][ray->mapY]->get_image(game->objmap[ray->mapX][ray->mapY], SOUTH);
-    else if (ray->side == 1 && ray->rayDirY < 0&& (game->objmap[ray->mapX][ray->mapY]->type != DOOR))
+    else if (ray->side == 1 && ray->rayDirY < 0 && (game->objmap[ray->mapX][ray->mapY]->type != DOOR))
         img = game->objmap[ray->mapX][ray->mapY]->get_image(game->objmap[ray->mapX][ray->mapY], NORTH);
     else if (game->objmap[ray->mapX][ray->mapY]->type == DOOR && ((t_door *)game->objmap[ray->mapX][ray->mapY])->state == 0)
         img = game->objmap[ray->mapX][ray->mapY]->get_image((t_object*)(game->objmap[ray->mapX][ray->mapY]), 0);

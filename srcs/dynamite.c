@@ -17,14 +17,13 @@ static t_imgbuffer  get_image_dynamite(t_dynamite *this, int dir)
 {
     (void)dir;
     return (*this->texture);
-    // this->texture = &this->animation->current_frame->img;
     // return (this->animation->current_frame->img);
 }
 
 static void action_dynamite(t_object **this, t_game *game)
 {
-    // *this = NULL;
-    game->explosion.trigger = 1;
+    *this = NULL;
+    // game->explosion.trigger = 1;
 }
 
 t_object *new_dynamite(t_game *game)
@@ -36,7 +35,9 @@ t_object *new_dynamite(t_game *game)
     dynamite->get_image = get_image_dynamite;
     dynamite->action = action_dynamite; // TODO: activates the explosion...
     // Time based explosion cant be done because we dont iterate through all objects
+    // dynamite->texture = &game->explosion.frames->img;
     dynamite->texture = &game->texture_dynamite;
+
     dynamite->animation = &game->explosion;
 
     return ((t_object *)dynamite);
