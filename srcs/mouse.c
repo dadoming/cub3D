@@ -3,7 +3,7 @@
 # define DEADZONE 370
 int	mousemove_capture(int x, int y, void *param)
 {
-	static int oldx = 0;
+	// static int oldx = 0;
 	t_game *game;
 	int distance;
 
@@ -11,12 +11,12 @@ int	mousemove_capture(int x, int y, void *param)
 	// distance = sqrt(x * x + y * y);
 	// if (distance <= DEADZONE)
 	// 	return (1);
-	if (x > oldx)
+	if (x > WINDOWSIZE_X / 2)
 		rotate_direction(game, cos(-ROTATESPEED/8), sin(-ROTATESPEED/8));
-	if (x < oldx)
+	if (x < WINDOWSIZE_X / 2)
 		rotate_direction(game, cos(ROTATESPEED/8), sin(ROTATESPEED/8));
-	oldx = x;
-	// mlx_mouse_move(game->mlx, game->win, WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
+	// oldx = x;
+	mlx_mouse_move(game->mlx, game->win, WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
 	return (1);
 }
 
