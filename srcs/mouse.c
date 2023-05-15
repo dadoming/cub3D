@@ -26,8 +26,7 @@ int	mousedown_capture(int button, int x, int y, void *param)
 
 	game = param;
 	if (button == 1)
-		game->player_animation.trigger = 1;
-		// animate(&game->player_animation);
+		game->player_shoot.trigger = 1;
 	else if (button == 3)
 	{
 		if (game->select && game->select->action)

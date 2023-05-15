@@ -253,7 +253,7 @@ struct s_game
     t_imgbuffer	texture_door;
     t_imgbuffer	texture_transparent;
 
-    t_animation player_animation;
+    t_animation player_shoot;
 
     struct timespec now_time;
     struct timespec old_time;

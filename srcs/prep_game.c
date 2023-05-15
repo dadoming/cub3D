@@ -44,8 +44,8 @@ void close_game(t_game *game)
         mlx_destroy_image(game->mlx, game->texture_door.img);
     if (game->texture_transparent.img)
         mlx_destroy_image(game->mlx, game->texture_transparent.img);
-    if (game->player_animation.frames)
-        free_anim_list(game, &game->player_animation.frames);
+    if (game->player_shoot.frames)
+        free_anim_list(game, &game->player_shoot.frames);
     if (game->mlx)
 		mlx_destroy_display(game->mlx);
     free(game->mlx);
@@ -166,7 +166,6 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	mlx_hook(game.win, 4, 1L << 6, mousedown_capture, &game);
 	// mlx_mouse_hook(game.win, mousedown_capture, &game); //This is the same as previous line
 
-	// gettimeofday(&game.now_time, NULL);
 	clock_gettime(CLOCK_MONOTONIC, &game.now_time);
 	game.old_time = game.now_time;
 

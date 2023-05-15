@@ -4,7 +4,7 @@ void update(t_game *game)
 {
 	if (game->minimap_toggle == 0)
 		draw_minimap(game);
-    update_gun(&game->player_animation);
+    update_gun(&game->player_shoot);
     draw_weapon(game);
 	draw_crosshair(game, 5, rgbtocolor(153, 0, 153));
 }
@@ -22,7 +22,6 @@ int	theloop(t_game *game)
     update(game);
     mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
 
-    // gettimeofday(&game->old_time, NULL);
     clock_gettime(CLOCK_MONOTONIC, &game->old_time);
     return (1);
 }

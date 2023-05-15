@@ -9,15 +9,15 @@ void draw_weapon(t_game *game)
     int color;
 
 
-    spot_x = WINDOWSIZE_X / 2 - game->player_animation.current_frame->img.width / 2;
-    spot_y = WINDOWSIZE_Y - game->player_animation.current_frame->img.height;
+    spot_x = WINDOWSIZE_X / 2 - game->player_shoot.current_frame->img.width / 2;
+    spot_y = WINDOWSIZE_Y - game->player_shoot.current_frame->img.height;
     i = 0;
-    while (i < game->player_animation.current_frame->img.height)
+    while (i < game->player_shoot.current_frame->img.height)
     {
         j = 0;
-        while (j < game->player_animation.current_frame->img.width)
+        while (j < game->player_shoot.current_frame->img.width)
         {
-            color = mypixelget(&game->player_animation.current_frame->img, j, i);
+            color = mypixelget(&game->player_shoot.current_frame->img, j, i);
             if ((color & 0x00FFFFFF) != 0)
                 mypixelput(&game->imgbuffer, spot_x + j, spot_y + i, color);
             j++;
@@ -35,7 +35,6 @@ void update_gun(t_animation *gun)
         return;
 	else if (gun->trigger == 1 && gun->frameCount == 1)
 	{
-		// gettimeofday(&gun->startTime, NULL);
         clock_gettime(CLOCK_MONOTONIC, &gun->startTime);
         // printf("AnimationFrame_%d: %ld\n", gun->frameCount, timestamp(gun->startTime));
         gun->frameCount++;
@@ -64,8 +63,8 @@ void update_gun(t_animation *gun)
 	// int time_old;
 
 	// if (current_frame == NULL)
-    //     current_frame = game->player_animation.frames;
-    // if (game->player_animation.trigger == 1)
+    //     current_frame = game->player_shoot.frames;
+    // if (game->player_shoot.trigger == 1)
     // {
         // gettimeofday(&game->now_time, NULL);
         // time_now = game->now_time.tv_sec * 1000 + game->now_time.tv_usec / 1000;
@@ -74,18 +73,18 @@ void update_gun(t_animation *gun)
         // {
             // game->old_time = game->now_time;
             // printf("time: %d\n", time_now - time_old);
-            // if (game->player_animation.frameCount > 0)
+            // if (game->player_shoot.frameCount > 0)
             // {
-            //     game->player_animation.current_frame = current_frame;
+            //     game->player_shoot.current_frame = current_frame;
             //     current_frame = current_frame->next;
-            //     game->player_animation.frameCount--;
+            //     game->player_shoot.frameCount--;
             // }
-            // if (game->player_animation.frameCount == 0)
+            // if (game->player_shoot.frameCount == 0)
             // {
-            //     game->player_animation.trigger = 0;
-            //     game->player_animation.frameCount = game->player_animation.frameNum;
+            //     game->player_shoot.trigger = 0;
+            //     game->player_shoot.frameCount = game->player_shoot.frameNum;
             //     current_frame = NULL;
-            //     game->player_animation.current_frame = game->player_animation.frames;
+            //     game->player_shoot.current_frame = game->player_shoot.frames;
             // }
         // }
         

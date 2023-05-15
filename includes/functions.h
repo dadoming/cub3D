@@ -71,7 +71,6 @@ t_anim_list *load_n_images(t_game *game, char *imagename, int number_of_images);
 t_anim_list *create_frame_node(t_imgbuffer frame);
 void insert_frame(t_anim_list **head, t_imgbuffer frame);
 void free_anim_list(t_game *game, t_anim_list **head);
-void animate(t_animation *animation);
 
 t_vec2f vec2f(float x, float y);
 t_vec2i  		vec2i(int x, int y);;
