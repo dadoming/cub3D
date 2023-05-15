@@ -83,7 +83,8 @@ int key_event(int key, t_game *game)
 	}
     else if (key == SHIFT)
     {
-        animate(&game->player_animation);
+        game->player_animation.trigger = 1;
+        // animate(&game->player_animation);
     }
     return (0);
 }

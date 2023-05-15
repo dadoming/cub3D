@@ -78,18 +78,18 @@ void free_anim_list(t_game *game, t_anim_list **head)
     *head = NULL;
 }
 
-void    animate(t_animation *animation)
-{
-    if (animation == NULL)
-    {
-        printf("Animation request is NULL\n");
-        return;
-    }
-    if (animation->trigger == 1)
-        return;
-    else
-    {
-        animation->trigger = 1;
-        animation->current_frame = animation->frames;
-    }
-}
+// void    animate(t_animation *animation)
+// {
+//     if (animation == NULL)
+//     {
+//         printf("Animation request is NULL\n");
+//         return;
+//     }
+//     if (animation->trigger == 1)
+//         return;
+//     else
+//     {
+//         animation->trigger = 1;
+//         animation->current_frame = animation->frames;
+//     }
+// }

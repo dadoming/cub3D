@@ -12,6 +12,7 @@
 # include <limits.h>
 #include <unistd.h>
 # include <sys/time.h>
+# include <time.h>
 
 #define ELINFOLIMIT 6
 #define RADJUMP 64
