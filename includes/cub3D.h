@@ -60,6 +60,7 @@
 # define WALL '1'
 # define FLOOR '0'
 # define DOOR 'D'
+# define DYNAMITE 'Y'
 
 typedef struct s_object t_object;
 typedef struct s_game t_game;
@@ -160,6 +161,15 @@ typedef struct s_texture_sides
     t_imgbuffer e;
 } t_texture_sides;
 
+typedef struct s_dynamite t_dynamite;
+struct s_dynamite
+{
+	int			    type;
+	t_imgbuffer		(*get_image)(t_dynamite *this, int dir);
+	void 		    (*action)(t_object *this, t_game *game);
+    t_imgbuffer     *texture;
+};
+
 struct s_door
 {
 	int		type;
@@ -231,6 +241,15 @@ typedef struct s_animation
     t_anim_list *current_frame;
 } t_animation;
 
+typedef struct s_statTextures
+{
+    t_texture_sides	texture_wall;
+    
+    t_imgbuffer	texture_door;
+    t_imgbuffer	texture_transparent;
+    t_imgbuffer dynamite;
+} t_statTextures;
+
 struct s_game
 {
     void		*mlx;
@@ -247,13 +266,14 @@ struct s_game
 
 	
     t_object	***objmap;
-	t_object	*select;
+	t_object	**select;
 	t_plinfo	player;
 
     t_texture_sides	texture_wall;
     
     t_imgbuffer	texture_door;
     t_imgbuffer	texture_transparent;
+    t_imgbuffer texture_dynamite;
 
     t_animation player_shoot;
 

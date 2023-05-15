@@ -29,12 +29,13 @@ t_object *new_door(int x, int y, t_game *game)
 	t_door *door;
 
 	door = ft_calloc(sizeof(t_door), 1);
+	door->type = DOOR;
+	door->get_image = get_image_door;
+	door->action = action_door;
 	door->x = x;
 	door->y = y;
 	door->state = 0;
 	door->type = DOOR;
-	door->action = action_door;
-	door->get_image = get_image_door;
     door->texture_door_closed = &game->texture_door;
     door->texture_door_opened = &game->texture_transparent;
     return ((t_object *)door);

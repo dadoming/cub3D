@@ -75,8 +75,8 @@ int key_event(int key, t_game *game)
         press_right(game); // make this permanent and comment rotate_direction for evaluation(?)
         //rotate_direction(game, cos(-ROTATESPEED), sin(-ROTATESPEED));
     }
-	else if (key == SPACE && game->select && game->select->action)
-		game->select->action(game->select, game);
+	else if (key == SPACE && (*(game->select)) && (*(game->select))->action)
+		(*(game->select))->action((*(game->select)), game);
 	else if (key == CTRL)
 	{
         game->minimap_toggle = !game->minimap_toggle;
@@ -88,6 +88,9 @@ int key_event(int key, t_game *game)
     else if (key == E)
     {
         //TODO(amc): Dynamite code!
+        // Pseudo-free((*(game->select)));
+        // if ((*(game->select))->type == COLUMN && != WALL)
+        *(game->select) = new_dynamite(game);
     }
     else
     {

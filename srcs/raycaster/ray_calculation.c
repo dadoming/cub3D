@@ -40,7 +40,8 @@ static void hit_wall(t_raycast *ray, t_game *game)
             ray->first_obj_Y = ray->mapY;
         }
         if (game->objmap[ray->mapX][ray->mapY] && (game->objmap[ray->mapX][ray->mapY]->type == WALL || \
-            (game->objmap[ray->mapX][ray->mapY]->type == DOOR && ((t_door*)game->objmap[ray->mapX][ray->mapY])->state == CLOSED)))
+            (game->objmap[ray->mapX][ray->mapY]->type == DOOR && ((t_door*)game->objmap[ray->mapX][ray->mapY])->state == CLOSED) || \
+            game->objmap[ray->mapX][ray->mapY]->type == DYNAMITE))
             ray->hit = 1;
     }
 }

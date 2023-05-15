@@ -87,3 +87,7 @@ void draw_weapon(t_game *game);
 void update_gun(t_animation *gun);
 
 int mypixelget(t_imgbuffer *imgbuffer, int x, int y);
+
+t_object *new_dynamite(t_game *game);
+
+
