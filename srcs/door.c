@@ -1,11 +1,11 @@
 # include "../includes/cub3D.h"
 
-static void 		action_door(t_object *this, t_game *game)
+static void 		action_door(t_object **this, t_game *game)
 {
 	t_door *door;
 	float dist;
 
-	door = (t_door *) this;
+	door = (t_door *)(*this);
 	dist = sqrt(pow(game->player.pos.x - door->x, 2) + pow(game->player.pos.y - door->y, 2));
 	printf("dist: %f\n", dist); // it looks like it has different values for different positions
 	if (dist <= 2)

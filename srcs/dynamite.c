@@ -6,6 +6,10 @@ static t_imgbuffer  get_image_dynamite(t_dynamite *this, int dir)
     return (*this->texture);
 }
 
+static void action_dynamite(t_object **this, t_game *game)
+{
+}
+
 t_object *new_dynamite(t_game *game)
 {
     t_dynamite *dynamite;

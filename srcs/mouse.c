@@ -30,7 +30,7 @@ int	mousedown_capture(int button, int x, int y, void *param)
 	else if (button == 3)
 	{
 		if ((*(game->select)) && (*(game->select))->action)
-			(*(game->select))->action((*(game->select)), game);
+			(*(game->select))->action(game->select, game);
 	}
 	else if (button == 4)
 		game->minimap_toggle = 0;

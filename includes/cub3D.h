@@ -166,7 +166,7 @@ struct s_dynamite
 {
 	int			    type;
 	t_imgbuffer		(*get_image)(t_dynamite *this, int dir);
-	void 		    (*action)(t_object *this, t_game *game);
+	void 		    (*action)(t_object **this, t_game *game);
     t_imgbuffer     *texture;
 };
 
@@ -174,7 +174,7 @@ struct s_door
 {
 	int		type;
 	t_imgbuffer	(*get_image)(t_door *this, int dir);
-	void 	(*action)(t_object *this, t_game *game);
+	void 	(*action)(t_object **this, t_game *game);
 	int     state;
 	int     x;
 	int     y;
@@ -187,7 +187,7 @@ struct s_object
 {
 	int			    type;
 	t_imgbuffer		(*get_image)(t_object *this, int dir);
-	void 		    (*action)(t_object *this, t_game *game);
+	void 		    (*action)(t_object **this, t_game *game);
     t_texture_sides	*texture;
 };
 

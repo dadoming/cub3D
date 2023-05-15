@@ -76,7 +76,7 @@ int key_event(int key, t_game *game)
         //rotate_direction(game, cos(-ROTATESPEED), sin(-ROTATESPEED));
     }
 	else if (key == SPACE && (*(game->select)) && (*(game->select))->action)
-		(*(game->select))->action((*(game->select)), game);
+		(*(game->select))->action(game->select, game);
 	else if (key == CTRL)
 	{
         game->minimap_toggle = !game->minimap_toggle;
