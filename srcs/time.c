@@ -13,3 +13,8 @@ microSeconds	timediff(struct timespec old)
 	clock_gettime(CLOCK_MONOTONIC, &now);
 	return (timestamp(now) - timestamp(old));
 }
+
+microSeconds	timestampdiff(struct timespec new, struct timespec old)
+{
+	return (timestamp(new) - timestamp(old));
+}

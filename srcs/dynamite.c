@@ -2,8 +2,8 @@
 
 void    load_explosion(t_game *game)
 {
-    game->explosion.frameNum = 19;
-    game->explosion.frames = load_n_images(game, "./explosionFrames/explosion", game->explosion.frameNum);
+    game->explosion.frameNum = 20;
+    game->explosion.frames = load_n_images(game, "./64explosion/tile", game->explosion.frameNum);
     game->explosion.current_frame = game->explosion.frames;
     game->explosion.trigger = 0;
     game->explosion.frameCount = 1;

@@ -80,8 +80,9 @@ void 			close_game(t_game *game);
 int mousemove_capture(int x, int y, void *param);
 int mousedown_capture(int button, int x, int y, void *param);
 
-microSeconds timediff(struct timespec old);
 microSeconds timestamp(struct timespec clock);
+microSeconds timestampdiff(struct timespec new, struct timespec old);
+microSeconds timediff(struct timespec old);
 
 void draw_weapon(t_game *game);
 void update_gun(t_animation *gun);
@@ -94,6 +95,8 @@ void load_explosion(t_game *game);
 
 void action_nothing(t_object **this, t_game *game);
 
-void update(t_game *game);
+void update(t_game *game, microSeconds now);
+
+void load_door_idle(t_game *game);
 
 

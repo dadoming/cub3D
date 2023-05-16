@@ -200,7 +200,9 @@ struct s_door
 	int     y;
     t_imgbuffer    *texture_door_opened;
     t_imgbuffer    *texture_door_closed;
-    //t_texture_animation animation;
+
+    // t_imgbuffer *texture;
+    t_animation *animation;
 };
 
 struct s_object
@@ -278,6 +280,7 @@ struct s_game
 
     t_animation player_shoot;
     t_animation explosion;
+    t_animation door_idle;
 
     struct timespec now_time;
     struct timespec old_time;

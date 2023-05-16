@@ -21,7 +21,9 @@
         "string_view": "c",
         "time.h": "c",
         "_limits.h": "c",
-        "_select.h": "c"
+        "_select.h": "c",
+        "__hash_table": "c",
+        "functions.h": "c"
     },
 	"C_Cpp.errorSquiggles": "Disabled",
 	"makefile.launchConfigurations": [

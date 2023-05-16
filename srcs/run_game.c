@@ -2,15 +2,21 @@
 
 int	theloop(t_game *game)
 {
-    // if (timediff(game->old_time) < 17) // 30fps
-    //     return (0);
+    struct timespec now;
+    microSeconds delta;
+
+	clock_gettime(CLOCK_MONOTONIC, &now);
+
+    delta = timestampdiff(now, game->old_time);
+    if (delta < 17000) // 60fps
+        return (0);
 
     game->player.pos.y = game->player.inv_pos.x;
     game->player.pos.x = game->player.inv_pos.y;
 
 	myclearimg(game);
 	draw_ray(game);
-    update(game);
+    update(game, timestamp(now));
     mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
 
     clock_gettime(CLOCK_MONOTONIC, &game->old_time);
