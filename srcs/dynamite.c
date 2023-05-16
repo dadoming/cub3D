@@ -22,7 +22,7 @@ static t_imgbuffer  get_image_dynamite(t_dynamite *this, int dir)
 
 static void action_dynamite(t_object **this, t_game *game)
 {
-    *this = NULL;
+    // *this = NULL;
     // game->explosion.trigger = 1;
 }
 

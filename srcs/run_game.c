@@ -1,15 +1,5 @@
 # include "../includes/cub3D.h"
 
-void update(t_game *game)
-{
-	if (game->minimap_toggle == 0)
-		draw_minimap(game);
-    // update_dynamite(&game->explosion);
-    update_gun(&game->player_shoot);
-    draw_weapon(game);
-	draw_crosshair(game, 5, rgbtocolor(153, 0, 153));
-}
-
 int	theloop(t_game *game)
 {
     // if (timediff(game->old_time) < 17) // 30fps

@@ -94,6 +94,6 @@ void load_explosion(t_game *game);
 
 void action_nothing(t_object **this, t_game *game);
 
-
+void update(t_game *game);
 
 

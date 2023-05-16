@@ -28,12 +28,11 @@ void load_buffer_array(t_raycast *ray, t_game *game)
 {
     t_imgbuffer img;
 
-    if (game->objmap[ray->mapX][ray->mapY]->type == DYNAMITE)
+         if (game->objmap[ray->mapX][ray->mapY]->type == DYNAMITE)
     {
         img = game->objmap[ray->mapX][ray->mapY]->get_image(game->objmap[ray->mapX][ray->mapY], 0);
     }
-
-         if (ray->side == 0 && ray->rayDirX > 0 && (game->objmap[ray->mapX][ray->mapY]->type != DOOR))
+    else if (ray->side == 0 && ray->rayDirX > 0 && (game->objmap[ray->mapX][ray->mapY]->type != DOOR))
         img = game->objmap[ray->mapX][ray->mapY]->get_image(game->objmap[ray->mapX][ray->mapY], WEST);
     else if (ray->side == 0 && ray->rayDirX < 0 && (game->objmap[ray->mapX][ray->mapY]->type != DOOR))
         img = game->objmap[ray->mapX][ray->mapY]->get_image(game->objmap[ray->mapX][ray->mapY], EAST);
