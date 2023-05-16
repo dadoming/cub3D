@@ -13,11 +13,17 @@ void	objiter(t_game *game)
 		while (game->objmap[j][i] && game->objmap[j][i]->type != 0)
 		{
 			obj = game->objmap[j][i];
-			//TODO(amc): do stuff
-			if (obj->type == WALL)
+			if (obj->type == WALL) //TODO: should be DOOR
 			{
-				update_gun(&game->door_idle);
-				game->door_idle.trigger = 1; // constant animate
+				update_gun(&game->capy_idle);
+				update_gun(&game->capy_walk);
+				game->capy_idle.trigger = 1;
+				game->capy_walk.trigger = 1; // constant animate
+				//TODO: this code should work but isnt because
+				// this func is not iterating on doors
+				// for unknown reasons
+				// update_gun(((t_door *)obj)->animation);
+				// ((t_door *)obj)->animation->trigger = 1;
 			}
 			i++;
 		}

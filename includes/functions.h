@@ -97,6 +97,7 @@ void action_nothing(t_object **this, t_game *game);
 
 void update(t_game *game, microSeconds now);
 
-void load_door_idle(t_game *game);
+void load_capy_idle(t_game *game);
+void load_capy_walk(t_game *game);
 
 

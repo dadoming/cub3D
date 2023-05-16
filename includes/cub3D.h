@@ -280,7 +280,9 @@ struct s_game
 
     t_animation player_shoot;
     t_animation explosion;
-    t_animation door_idle;
+
+    t_animation capy_idle;
+    t_animation capy_walk;
 
     struct timespec now_time;
     struct timespec old_time;
