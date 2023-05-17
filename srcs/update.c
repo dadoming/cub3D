@@ -7,7 +7,7 @@ void	objiter(t_game *game)
 	t_object *obj;
 
 	j = 1;
-	while (game->objmap[j])
+	while (game->objmap[j] != NULL)
 	{
 		i = 1;
 		while (game->objmap[j][i] != NULL)
@@ -27,6 +27,9 @@ void	objiter(t_game *game)
 
 void update(t_game *game, microSeconds now)
 {
+	//TODO(amc): stop update function from calling gettime
+	// update will receive the now time and everything should be
+	// calculated from that
 	if (game->minimap_toggle == 0)
 		draw_minimap(game);
 	objiter(game);
