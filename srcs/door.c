@@ -11,7 +11,7 @@ static void 		action_door(t_object **this, t_game *game)
 	// if (dist <= 2)
 	// 	door->state = !door->state;
 	// door->animation->trigger = 1;
-	door->animation = &game->capy_walk;
+	door->animation = game->capy_walk;
 }
 
 static t_imgbuffer	get_image_door(t_door *this, int dir)
@@ -28,7 +28,7 @@ static t_imgbuffer	get_image_door(t_door *this, int dir)
 	// if (this->animation->trigger == 0)
 	// 	return (*this->texture_door_closed);
 	// else
-		return (this->animation->current_frame->img);
+		return (this->animation.current_frame->img);
 }
 
 t_object *new_door(int x, int y, t_game *game)
@@ -46,7 +46,7 @@ t_object *new_door(int x, int y, t_game *game)
     door->texture_door_opened = &game->texture_transparent;
 
 	// door->animation = &game->capy_walk;
-	door->animation = &game->capy_idle;
+	door->animation = game->capy_idle;
 	// door->texture = &door->animation->current_frame->img;
 	// door->texture = &game->texture_door;
 

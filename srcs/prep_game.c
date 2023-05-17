@@ -130,14 +130,15 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 {
 	t_game	game;
 
+	game.mlx = mlx_init();
+	load_textures(&game, map_settings);
+	
 	game.charmap = map_settings->charmap;
     game.objmap = NULL;
 	game.objmap = load_individual_map_tile(map_settings->charmap, &game);
 	game.player = player;
   	define_start_orientation(&game.player);
 
-	game.mlx = mlx_init();
-	load_textures(&game, map_settings);
 	game.minimap_toggle = 0;
 
 	// init mapsize

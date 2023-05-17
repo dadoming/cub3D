@@ -13,20 +13,12 @@ void	objiter(t_game *game)
 		while (game->objmap[j][i] != NULL)
 		{
 			obj = game->objmap[j][i];
-			if (obj->type == WALL) //TODO: should be DOOR
+			if (obj->type == DOOR)
 			{
-				update_gun(&game->capy_idle);
-				update_gun(&game->capy_walk);
-				game->capy_idle.trigger = 1;
-				game->capy_walk.trigger = 1; // constant animate
-				//TODO: this code should work but isnt because
-				// this func is not iterating on doors
-				// for unknown reasons
-				// update_gun(((t_door *)obj)->animation);
-				// ((t_door *)obj)->animation->trigger = 1;
+				// printf("Found a door\n");
+				update_gun(&((t_door *)obj)->animation);
+				((t_door *)obj)->animation.trigger = 1;
 			}
-			else if (obj->type == DOOR)
-				printf("Found a door\n");
 			i++;
 		}
 		j++;

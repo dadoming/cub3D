@@ -202,7 +202,7 @@ struct s_door
     t_imgbuffer    *texture_door_closed;
 
     // t_imgbuffer *texture;
-    t_animation *animation;
+    t_animation animation;
 };
 
 struct s_object
