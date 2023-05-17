@@ -65,15 +65,19 @@ int key_event(int key, t_game *game)
         press_forward(game);
 	else if (key == A)
     {
-        press_left(game); // make this permanent and comment rotate_direction for evaluation(?)
-        //rotate_direction(game, cos(ROTATESPEED), sin(ROTATESPEED));
+        if (game->mouse_selected)
+            press_left(game);
+        else 
+            rotate_direction(game, cos(ROTATESPEED), sin(ROTATESPEED));
     }
 	else if (key == S)
         press_back(game);
 	else if (key == D)
     {
-        press_right(game); // make this permanent and comment rotate_direction for evaluation(?)
-        //rotate_direction(game, cos(-ROTATESPEED), sin(-ROTATESPEED));
+        if (game->mouse_selected)
+            press_right(game);
+        else 
+            rotate_direction(game, cos(-ROTATESPEED), sin(-ROTATESPEED));
     }
 	else if (key == SPACE && game->select && game->select->action)
 		game->select->action(game->select, game);

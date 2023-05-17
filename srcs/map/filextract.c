@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 13:26:31 by dadoming          #+#    #+#             */
-/*   Updated: 2023/04/18 21:01:48 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:16:10 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,27 @@ static char     *elmapGet(t_elinfo *elmap ,char *elmapKey);
 t_settings      *settingsSet(t_settings *map_settings);
 static int      check_valid_filename(const char *str);
 
-int	fileXtract(char *cubflpath)
+int	fileXtract(t_start_values ret)
 {
 	int	fd;
 	t_settings	*settings;
 
-	printf("----------------------------------------\nExtracting content from: %s\n", cubflpath);
-	if (check_valid_filename(cubflpath) == 0)
+	printf("%s %d\n", ret.map_name, ret.mouse_selected);
+	printf("----------------------------------------\nExtracting content from: %s\n", ret.map_name);
+	if (check_valid_filename(ret.map_name) == 0)
 	{
 		printf("Invalid map filename!\nExiting program...\n");
-	    free(cubflpath);
+	    free(ret.map_name);
     	exit(0);
 	}
-	fd = open(cubflpath, O_RDONLY);
+	fd = open(ret.map_name, O_RDONLY);
 	if (fd <= 0)
 	{
         printf("Could not open file!\nExiting program...\n");
-        free(cubflpath);
+        free(ret.map_name);
         exit(0);
     }
-    free(cubflpath);
+    free(ret.map_name);
     settings = read_settings(fd);
     if (settings == NULL)
 	{
@@ -45,7 +46,7 @@ int	fileXtract(char *cubflpath)
 	}
     close(fd);
     settings = settingsSet(settings);
-    return (prep_game(settings, prepare_map(settings)));    
+    return (prep_game(settings, prepare_map(settings), ret.mouse_selected));    
 }
 
 t_settings *settingsSet(t_settings *map_settings)

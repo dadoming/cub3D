@@ -62,6 +62,12 @@ typedef struct s_game t_game;
 typedef struct s_imgbuffer t_imgbuffer;
 typedef struct s_door t_door;
 
+typedef struct s_start_values
+{
+    char *map_name;
+    int mouse_selected;
+} t_start_values;
+
 enum e_player_orientation
 {
 	NONE,
@@ -226,6 +232,7 @@ struct s_game
     void		*mlx;
     void		*win;
 	t_imgbuffer	imgbuffer;
+    int mouse_selected;
     
     int		ceil_color;
 	int		floor_color;
@@ -248,9 +255,9 @@ struct s_game
     t_animation player_animation;
 };
 
-char            *select_map(void);
+t_start_values            select_map(void);
 int             check_input(int argc, char **argv);
-int	            fileXtract(char *cubflpath);
+int	            fileXtract(t_start_values ret);
 t_settings	    *read_settings(int openfd);
 t_settings      *init_map_settings(int list_size);
 int             treat_caught_info(t_elinfo *elinfo, t_list **file_list, int *i);
@@ -268,7 +275,7 @@ void      		free_list(t_list **list);
 void      		free_evaluation(t_settings **map_settings);
 void 			free_on_invalid(t_settings *settings);
 
-int	      		prep_game(t_settings *map_settings, t_plinfo player);
+int	      		prep_game(t_settings *map_settings, t_plinfo player, int mouse_selected);
 int 			run_game(t_game *game);
 
 void 			load_textures(t_game *game, t_settings *map_settings);

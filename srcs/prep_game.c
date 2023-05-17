@@ -124,7 +124,7 @@ t_object ***load_individual_map_tile(char **map, t_game *game)
 	return (obj);
 }
 
-int	prep_game(t_settings *map_settings, t_plinfo player)
+int	prep_game(t_settings *map_settings, t_plinfo player, int mouse_selected)
 {
 	t_game	game;
 
@@ -137,6 +137,7 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	game.mlx = mlx_init();
 	load_textures(&game, map_settings);
 	game.minimap_toggle = 0;
+	game.mouse_selected = mouse_selected;
 
 	// init mapsize
 	game.mapsize.x = ft_strlen(game.charmap[0]);
@@ -159,11 +160,15 @@ int	prep_game(t_settings *map_settings, t_plinfo player)
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);
 
-	/* Mouse Captures */
-	mlx_mouse_hide(game.mlx, game.win); // this gives mlx leaks
-	mlx_hook(game.win, 6, 1L << 6, mousemove_capture, &game);
-	mlx_hook(game.win, 4, 1L << 6, mousedown_capture, &game);
-	// mlx_mouse_hook(game.win, mousedown_capture, &game);
+	if (mouse_selected)
+	{
+		/* Mouse Captures */
+		mlx_mouse_hide(game.mlx, game.win); // this gives mlx leaks
+		mlx_hook(game.win, 6, 1L << 6, mousemove_capture, &game);
+		mlx_hook(game.win, 4, 1L << 6, mousedown_capture, &game);
+		// mlx_mouse_hook(game.win, mousedown_capture, &game);
+
+	}
 
 
 	return (run_game(&game));

@@ -16,6 +16,12 @@
 # define RIGHT 65363
 # define SPACE 32
 
+# define PURPLE 0x00A020F0
+# define YELLOW 0x00FFFF00
+# define RED 0x00FF0000
+# define WHITE 0x00FFFFFF
+
+
 // circular doubly linked list
 typedef struct s_map_list
 {
@@ -35,6 +41,12 @@ typedef struct s_img
     int height;
 } t_img;
 
+typedef struct s_start_values
+{
+    char *map_name;
+    int mouse_selected;
+} t_start_values;
+
 typedef struct s_menu
 {
     void *mlx;
@@ -42,7 +54,7 @@ typedef struct s_menu
     t_img imgbuffer;
     t_map_list *map_list;
     int current; // from 0 to 2 -> meaning 0 - < , 1 - center, 2 - >
-
+    int mouse_selected;
 } t_menu;
 
 // doubly_ll.c
@@ -61,7 +73,7 @@ void close_window(t_menu *menu);
 t_map_list *get_available_maps(void);
 t_map_list *load_map_list();
 
-char *select_map(void);
+t_start_values select_map(void);
 void print_map_list(t_menu *menu, t_map_list *map_list);
 void my_pput(t_img *imgbuffer, int x, int y, int color);
 void clear_img(t_menu *menu);
