@@ -12,7 +12,6 @@ t_settings *init_map_settings(int list_size)
     init_map_settings_2(&map_settings);
     if (list_size < ELINFOLIMIT)
     {
-        free(map_settings->elmap);
         free(map_settings);
         printf("Error: Invalid map content\n");
         return (NULL);

@@ -51,7 +51,6 @@ void navigate_bottom_layer(int keycode, t_menu *menu)
 
 int input_event(int keycode, t_menu *menu)
 {
-    printf("%d\n", menu->current);
     if (keycode == 65307)
     {
         close_window(menu);
