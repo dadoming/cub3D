@@ -61,6 +61,9 @@
 # define FLOOR '0'
 # define DOOR 'D'
 # define DYNAMITE 'Y'
+# define STATICENEMY 'T'
+
+#define VALIDSTRING "10NSWEDXKT"
 
 typedef struct s_object t_object;
 typedef struct s_game t_game;
@@ -190,6 +193,17 @@ struct s_dynamite
     t_animation     *animation;
 };
 
+typedef struct s_staticenemy t_staticenemy;
+struct s_staticenemy
+{
+	int		type;
+	t_imgbuffer	(*get_image)(t_staticenemy *this, int dir);
+	void 	(*action)(t_object **this, t_game *game);
+
+	int     state;
+    t_animation animation;
+};
+
 struct s_door
 {
 	int		type;
@@ -283,6 +297,7 @@ struct s_game
 
     t_animation capy_idle;
     t_animation capy_walk;
+    t_animation capy_munch;
 
     struct timespec now_time;
     struct timespec old_time;

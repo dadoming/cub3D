@@ -26,6 +26,8 @@ void    minimap_show(t_game *game)
                 pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MINIMAPSCALE, 0x00D27D2D);
             else if (coordcheck(game,x,y) == DOOR)
                 pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MINIMAPSCALE, 0x00FFD700);
+            else if (coordcheck(game,x,y) == STATICENEMY)
+                pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MINIMAPSCALE, 0x00AAD300);
             else
                 pixsquare(game, vec2i(pixeldrawx,pixeldrawy), MINIMAPSCALE, rgbtocolor(255,0,0));
             x += 0.1;

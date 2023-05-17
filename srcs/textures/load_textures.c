@@ -54,7 +54,8 @@ static int load_textures_to_mlx(t_game *game, t_settings *map_settings)
     // load_explosion(game);
     load_capy_idle(game);
     load_capy_walk(game);
-    
+    load_capy_munch(game);
+
     load_player(game);
     if ((game->texture_wall.n.img == NULL) || (game->texture_wall.s.img == NULL) || (game->texture_wall.w.img == NULL) || (game->texture_wall.e.img == NULL) || (game->texture_door.img == NULL) || (game->texture_transparent.img == NULL))
 

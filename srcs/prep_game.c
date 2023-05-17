@@ -117,6 +117,8 @@ t_object ***load_individual_map_tile(char **map, t_game *game)
 				obj[i][j] = new_door(j, i, game);
 			else if (map[i][j] == WALL)
 				obj[i][j] = new_wall(game);
+			else if (map[i][j] == STATICENEMY)
+				obj[i][j] = new_staticenemy(game);
 			else
 				obj[i][j] = new_empty(game);
 			j++;

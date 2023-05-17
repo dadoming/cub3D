@@ -25,3 +25,16 @@ void	load_capy_walk(t_game *game)
     game->capy_walk.startTime.tv_sec = 0;
     game->capy_walk.startTime.tv_nsec = 0;
 }
+
+void    load_capy_munch(t_game *game)
+{
+    game->capy_munch.frameNum = 8;
+    game->capy_munch.frames = load_n_images(game, "CapyMunch/capyMunch", game->capy_munch.frameNum);
+    game->capy_munch.current_frame = game->capy_munch.frames;
+    game->capy_munch.trigger = 0;
+    game->capy_munch.frameCount = 1;
+
+    game->capy_munch.frameTime = 100000;
+    game->capy_munch.startTime.tv_sec = 0;
+    game->capy_munch.startTime.tv_nsec = 0;
+}

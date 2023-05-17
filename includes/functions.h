@@ -94,12 +94,16 @@ void update_dynamite(t_animation *explosion);
 void load_explosion(t_game *game);
 
 void action_nothing(t_object **this, t_game *game);
+t_imgbuffer image_nothing(t_object *this, int dir);
 
 void update(t_game *game, microSeconds now);
 
 void load_capy_idle(t_game *game);
 void load_capy_walk(t_game *game);
+void load_capy_munch(t_game *game);
 
 t_object *new_empty(t_game *game);
+
+t_object *new_staticenemy(t_game *game);
 
 
