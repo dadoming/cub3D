@@ -10,7 +10,7 @@ void	objiter(t_game *game)
 	while (game->objmap[j])
 	{
 		i = 1;
-		while (game->objmap[j][i] && game->objmap[j][i]->type != 0)
+		while (game->objmap[j][i] != NULL)
 		{
 			obj = game->objmap[j][i];
 			if (obj->type == WALL) //TODO: should be DOOR
@@ -25,6 +25,8 @@ void	objiter(t_game *game)
 				// update_gun(((t_door *)obj)->animation);
 				// ((t_door *)obj)->animation->trigger = 1;
 			}
+			else if (obj->type == DOOR)
+				printf("Found a door\n");
 			i++;
 		}
 		j++;

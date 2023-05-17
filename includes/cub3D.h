@@ -210,7 +210,7 @@ struct s_object
 	int			    type;
 	t_imgbuffer		(*get_image)(t_object *this, int dir);
 	void 		    (*action)(t_object **this, t_game *game);
-    t_texture_sides	*texture;
+    t_texture_sides	*textures;
 };
 
 typedef struct s_raycast

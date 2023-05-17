@@ -5,7 +5,7 @@ int collision(t_game *game, int x, int y)
     t_object *obj;
 
     obj = game->objmap[x][y];
-    if (obj == NULL)
+    if (obj == NULL || obj->type == 0)
         return (1);
     if (obj->type == DOOR && ((t_door *) obj)->state)
         return (1);

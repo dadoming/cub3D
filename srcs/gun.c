@@ -51,10 +51,10 @@ void update_gun(t_animation *gun)
 			gun->current_frame = gun->frames;
 			gun->frameCount = 1;
 		}
-		printf("AnimationFrame_%d: %ld\n", gun->frameCount, td);
+		// printf("AnimationFrame_%d: %ld\n", gun->frameCount, td);
 		return;
 	}
-    printf("AnimationFrame_%d: %ld\n", gun->frameCount, td);
+    // printf("AnimationFrame_%d: %ld\n", gun->frameCount, td);
 
 	// printf("timediff: %d\n", timediff(gun->startTime));
 

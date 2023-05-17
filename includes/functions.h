@@ -100,4 +100,6 @@ void update(t_game *game, microSeconds now);
 void load_capy_idle(t_game *game);
 void load_capy_walk(t_game *game);
 
+t_object *new_empty(t_game *game);
+
 
