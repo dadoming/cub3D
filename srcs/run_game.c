@@ -16,12 +16,12 @@ int	theloop(t_game *game)
 
 
     delta = timestampdiff(now, game->old_time);
-    if (delta > 17000) // 60fps
-    {
+    // if (delta > 5000) // 60fps
+    // {
         mlx_put_image_to_window(game->mlx, game->win, game->imgbuffer.img, 0, 0);
         clock_gettime(CLOCK_MONOTONIC, &game->old_time);
         return (0);
-    }
+    // }
     // printf("NoFrameDrawn\n");
     return (1);
 }
