@@ -34,24 +34,18 @@ int	lineNaive(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 	int	x;
 	int	y;
 
-	// if (dest.x < origin.x)
-	// 	return (line(game, dest, origin, color));
-
 	dx = dest.x - origin.x;
 	dy = dest.y - origin.y;
-
 	x = origin.x;
 	while (x < dest.x)
 	{
 		y = origin.y + dy * (x - origin.x) / dx;
-		// y = origin.y + dy / dx;
 		mypixelput(&game->imgbuffer, x, y, color);
 		x++;
 	}
 	return (0);
 }
 
-#define APPROX 1
 int	line(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 {
 	int	adx;
@@ -60,7 +54,7 @@ int	line(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 	adx = abs(dest.x - origin.x);
 	ady = abs(dest.y - origin.y);
 
-	if (adx <= APPROX)
+	if (adx <= 1)
 	{
 		if (origin.y <= dest.y)
 			origin.y += 0;
@@ -68,7 +62,7 @@ int	line(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 			origin.y += -ady;
 		verline(game, origin, ady, color);
 	}
-	else if (ady <= APPROX)
+	else if (ady <= 1)
 	{
 		if (origin.x <= dest.x)
 			origin.x += -0;

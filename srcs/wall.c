@@ -1,5 +1,11 @@
 # include "../includes/cub3D.h"
 
+static void action_nothing(t_object **this, t_game *game)
+{
+    (void)this;
+    (void)game;
+}
+
 static t_imgbuffer    get_image_wall(t_object *this, int dir)
 {
     t_imgbuffer img;

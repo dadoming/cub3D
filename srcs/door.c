@@ -7,7 +7,7 @@ static void 		action_door(t_object **this, t_game *game)
 
 	door = (t_door *)(*this);
 	dist = sqrt(pow(game->player.pos.x - door->x, 2) + pow(game->player.pos.y - door->y, 2));
-	printf("dist: %f\n", dist); // it looks like it has different values for different positions
+	printf("dist: %f\n", dist);
 	if (dist <= 2)
 		door->state = !door->state;
 	door->animation = game->capy_walk;

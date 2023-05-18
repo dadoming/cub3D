@@ -21,6 +21,7 @@
 
 # define MOVESPEED 0.20
 # define ROTATESPEED 0.20
+# define ROTDIVIDER 8
 
 #define WALKDIST 10 // pixels every move
 
@@ -71,7 +72,7 @@ typedef struct s_imgbuffer t_imgbuffer;
 typedef struct s_door t_door;
 typedef struct s_wall t_wall;
 
-typedef long microSeconds;
+typedef long microseconds;
 
 typedef struct s_start_values
 {
@@ -184,7 +185,7 @@ typedef struct s_animation
     int frameCount; // present frame
     int frameNum; // number of frames
 
-    microSeconds frameTime; // how many frames the animation takes in microSeconds
+    microseconds frameTime; // how many frames the animation takes in microSeconds
     struct timespec startTime; // time of last animation change
 
     t_anim_list *frames;

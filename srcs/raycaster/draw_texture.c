@@ -14,11 +14,8 @@ static void extract_texture_pixels(t_imgbuffer *texture, int *pixels)
                 printf("Extract texture error\n");
                 return;
             }
-            // extract color value at (x, y) in RGB format
-            // color = *(int *)(texture->addr + (y * texture->line_length) + (x * (texture->bits_per_pixel / 8)));
             color = mypixelget(texture, x, y);
-            if ((color & 0x00FFFFFF) != 0) // if color is full transparent
-                // store color value in pixels array
+            if ((color & 0x00FFFFFF) != 0)
                 pixels[(y * texture->width) + x] = color;
         }
     }

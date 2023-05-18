@@ -119,14 +119,13 @@ t_object ***load_individual_map_tile(char **map, t_game *game)
 				obj[i][j] = new_wall(game);
 			else if (map[i][j] == STATICENEMY)
 				obj[i][j] = new_staticenemy(game);
-			//else
-			//	obj[i][j] = new_empty(game);
 			j++;
 		}
 		i++;
 	}
 	return (obj);
 }
+
 
 int	prep_game(t_settings *map_settings, t_plinfo player, int mouse_selected)
 {
@@ -151,7 +150,8 @@ int	prep_game(t_settings *map_settings, t_plinfo player, int mouse_selected)
 		close_game(&game);
     game.win = mlx_new_window(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y, "cub3D");
     
-	// Setup ImageBuffer
+
+
 	game.imgbuffer.img = mlx_new_image(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y);
 	game.imgbuffer.addr = mlx_get_data_addr(game.imgbuffer.img, &game.imgbuffer.bits_per_pixel, &game.imgbuffer.line_length, &game.imgbuffer.endian);
     if (!game.imgbuffer.img)
@@ -165,18 +165,15 @@ int	prep_game(t_settings *map_settings, t_plinfo player, int mouse_selected)
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);
 
-	/* Mouse Captures */
 	if (mouse_selected)
 	{
 		mlx_mouse_move(game.mlx, game.win, WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
 		mlx_mouse_hide(game.mlx, game.win); // this gives mlx leaks
 		mlx_hook(game.win, 6, 1L << 6, mousemove_capture, &game);
 		mlx_hook(game.win, 4, 1L << 6, mousedown_capture, &game);
-		// mlx_mouse_hook(game.win, mousedown_capture, &game); //This is the same as previous line
 	}
 
-	clock_gettime(CLOCK_MONOTONIC, &game.now_time);
-	game.old_time = game.now_time;
+	clock_gettime(CLOCK_MONOTONIC, &game.old_time);
 
 	return (run_game(&game));
 }

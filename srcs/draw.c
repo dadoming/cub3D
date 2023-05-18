@@ -30,37 +30,6 @@ void	mypixelput(t_imgbuffer *imgbuffer, int x, int y, int color)
     *(unsigned int*)pixel = color;
 }
 
-int	draw_map(t_game *game)
-{
-	t_vec2i	vec;
-	
-	vec.y = 0;
-	while (game->charmap[vec.y] != NULL)
-	{
-		vec.x = 0;
-		while (game->charmap[vec.y][vec.x] != '\0')
-		{
-			if (game->charmap[vec.y][vec.x] == WALL)
-				square_prop(game, vec, 1, rgbtocolor(255, 255, 255));
-			else if (game->charmap[vec.y][vec.x] == DOOR)
-				square_prop(game, vec, 1, rgbtocolor(255, 255, 0));
-			else if (ft_charinside(game->charmap[vec.y][vec.x], "NSWE"))
-				square_prop(game, vec, 1, rgbtocolor(255, 0, 0));
-			vec.x += 1;
-		}
-		vec.y += 1;
-	}
-	return (1);
-}
-
-int	draw_player(t_game *game)
-{
-    game->player.pos.x = game->player.inv_pos.y * SQUARESIZE;
-    game->player.pos.y = game->player.inv_pos.x * SQUARESIZE;
-	pixsquare(game, vec2i(px, py), 10, rgbtocolor(128,20,100));
-	return (1);
-}
-
 void draw_checkerboard(t_game *game, t_vec2i start, size_t q, size_t pixelsize)
 {
 	size_t	x;

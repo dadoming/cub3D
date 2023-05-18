@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preparemap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amc <amc@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 13:41:46 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/17 11:55:08 by amc              ###   ########.fr       */
+/*   Updated: 2023/05/18 18:40:08 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,7 @@ int map_playable(char **map)
             {
                 if (check_surrounding(map, i, j))
                 {
-                    printf("\nmap[%d] = %s\n", i - 1, map[i - 1]);
-                    printf("map[%d] = %s\n", i, map[i]);
-                    printf("map[%d] = %s\n", i + 1, map[i + 1]);
-                    printf("map[%d][%d] = %c\n", i, j + 1, map[i][j + 1]);
-                    printf("map[%d][%d] = %c\n", i, j - 1, map[i][j - 1]);
-                    printf("map[%d][%d] = %c\n", i + 1, j, map[i + 1][j]);
-                    printf("map[%d][%d] = %c\n", i - 1, j, map[i - 1][j]);
-                    printf("map[%d][%d] = %c\n", i, j, map[i][j]);
-                    printf("Map is open\n");
+                    ft_putstr_fd("Error\nMap not playable\n", 2);
                     return (1);
                 }
             }

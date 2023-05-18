@@ -59,7 +59,7 @@ void press_right(t_game *game)
 
 int key_event(int key, t_game *game)
 {
-    if      (key == ESC)
+    if (key == ESC)
         close_game(game);
 	else if (key == W)
         press_forward(game);

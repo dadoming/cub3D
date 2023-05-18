@@ -1,10 +1,5 @@
 # include "../includes/cub3D.h"
 
-void    minimap_background(t_game *game)
-{
-    pixsquare(game, vec2i(0,0), 5*MINIMAPSCALE, rgbtocolor(255,0,0));
-}
-
 void    minimap_show(t_game *game)
 {
     float y;
@@ -43,17 +38,10 @@ void draw_minimap(t_game *game)
 {
     t_vec2i vec;
     
-    // vec.y = (int)(py/64);
-    // vec.x = (int)(px/64);
-    //TODO(arc): will remove this when ppos is correct
     vec.x = px;
     vec.y = py;
-    // px = 404.903931;
-    // py = 392.975464;
-    // minimap_background(game);
     minimap_show(game);
     pixsquare(game, vec2i(35*MINIMAPSCALE, 35*MINIMAPSCALE), 5, 0);
-    // draw_checkerboard(game, vec2i(-MINIMAPSCALE,-MINIMAPSCALE), 8, 10);
     px = vec.x;
     py = vec.y;
 }

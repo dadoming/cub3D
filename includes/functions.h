@@ -1,7 +1,6 @@
 #pragma once
 
 t_start_values select_map(void);
-int check_input(int argc, char **argv);
 int	fileXtract(t_start_values ret);
 t_settings	    *read_settings(int openfd);
 t_settings      *init_map_settings(int list_size);
@@ -33,14 +32,7 @@ int				verline(t_game *game, t_vec2i pos, size_t size, int color);
 
 void	    	mypixelput(t_imgbuffer *imgbuffer, int x, int y, int color);
 int				pixsquare(t_game *game, t_vec2i pos, size_t size, int color);
-int				pixsquaref(t_game *game, t_vec2f pos, size_t size, int color);
-int				pixsquarecent(t_game *game, t_vec2f pos, size_t size, int color);
-void			squarecent_prop(t_game *game, t_vec2f pos, float size, int color);
-void			square_prop(t_game *game, t_vec2i pos, size_t size, int color);
-void			square_propf(t_game *game, t_vec2f pos, float size, int color);
 
-int				draw_map(t_game *game);
-int	      		draw_player(t_game *game);
 void 			draw_checkerboard(t_game *game, t_vec2i start, size_t q, size_t pixelsize);
 void 			draw_minimap(t_game *game);
 void 			draw_crosshair(t_game *game, int size, int color);
@@ -80,25 +72,18 @@ void 			close_game(t_game *game);
 int mousemove_capture(int x, int y, void *param);
 int mousedown_capture(int button, int x, int y, void *param);
 
-microSeconds timestamp(struct timespec clock);
-microSeconds timestampdiff(struct timespec new, struct timespec old);
-microSeconds timediff(struct timespec old);
+microseconds timestamp(struct timespec clock);
+microseconds timestampdiff(struct timespec new, struct timespec old);
+microseconds timediff(struct timespec old);
 
 void draw_weapon(t_game *game);
 void update_gun(t_animation *gun);
 
-void update_anim(t_animation *anim, microSeconds tmstmpnow);
+void update_anim(t_animation *anim, microseconds tmstmpnow);
 
 int mypixelget(t_imgbuffer *imgbuffer, int x, int y);
 
-t_object *new_dynamite(t_game *game);
-void update_dynamite(t_animation *explosion);
-void load_explosion(t_game *game);
-
-void action_nothing(t_object **this, t_game *game);
-t_imgbuffer image_nothing(t_object *this, int dir);
-
-void update(t_game *game, microSeconds tmstmpnow);
+void update(t_game *game, microseconds tmstmpnow);
 
 void load_capy_idle(t_game *game);
 void load_capy_walk(t_game *game);

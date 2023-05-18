@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 13:26:31 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/17 16:16:10 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:37:19 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	fileXtract(t_start_values ret)
 	int	fd;
 	t_settings	*settings;
 
-	printf("%s %d\n", ret.map_name, ret.mouse_selected);
 	printf("----------------------------------------\nExtracting content from: %s\n", ret.map_name);
 	if (check_valid_filename(ret.map_name) == 0)
 	{

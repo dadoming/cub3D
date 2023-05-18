@@ -15,12 +15,7 @@ void load_player(t_game *game)
     game->player_shoot.frames = load_n_images(game, "gun", game->player_shoot.frameNum);
     game->player_shoot.current_frame = game->player_shoot.frames;
     game->player_shoot.trigger = 0;
-    // game->player_shoot.frameCount = game->player_shoot.frameNum;
     game->player_shoot.frameCount = 1;
-
-    //game->player_shoot.frames.img = mlx_xpm_file_to_image(game->mlx, "./textures/gun1.xpm", &game->player_shoot.frames.width, &game->player_shoot.frames.height);    
-    //game->player_shoot.frames.addr = mlx_get_data_addr(game->player_shoot.frames.img, &game->player_shoot.frames.bits_per_pixel, &game->player_shoot.frames.line_length, &game->player_shoot.frames.endian);
-
     game->player_shoot.frameTime = 100000;
     game->player_shoot.startTime.tv_sec = 0;
     game->player_shoot.startTime.tv_nsec = 0;
