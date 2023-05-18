@@ -40,6 +40,7 @@ void 			draw_crosshair(t_game *game, int size, int color);
 void 			draw_ray(t_game *game);
 void	    	myclearimg(t_game *game);
 int	      		imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y);
+int rgb_norm(char *str, char **rgb, int *rgbi, int i);
 
 void object_selector(t_game *game, t_raycast *ray);
 void delta_dist(t_raycast *ray);

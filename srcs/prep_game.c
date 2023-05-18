@@ -62,10 +62,10 @@ void load_pov(t_plinfo *player, float planeX, float planeY)
 	player->planeY = planeY;
 }
 
-void load_orientation(t_plinfo *player, int dirX, int dirY)
+void load_orientation(t_plinfo *player, int dir_x, int dir_y)
 {
-	player->dirX = dirX;
-	player->dirY = dirY;
+	player->dir_x = dir_x;
+	player->dir_y = dir_y;
 }
 
 void define_start_orientation(t_plinfo *player)

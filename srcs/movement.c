@@ -14,31 +14,31 @@ int collision(t_game *game, int x, int y)
 
 void rotate_direction(t_game *game, double angle_x, double angle_y)
 {
-    double oldDirX;
-    double oldPlaneX;
+    double old_dir_x;
+    double old_plane_x;
 
-    oldDirX = game->player.dirX;
-    game->player.dirX = game->player.dirX * angle_x - game->player.dirY * angle_y;
-    game->player.dirY = oldDirX * angle_y + game->player.dirY * angle_x;
-    oldPlaneX = game->player.planeX;
+    old_dir_x = game->player.dir_x;
+    game->player.dir_x = game->player.dir_x * angle_x - game->player.dir_y * angle_y;
+    game->player.dir_y = old_dir_x * angle_y + game->player.dir_y * angle_x;
+    old_plane_x = game->player.planeX;
     game->player.planeX = game->player.planeX * angle_x - game->player.planeY * angle_y;
-    game->player.planeY = oldPlaneX * angle_y + game->player.planeY * angle_x;
+    game->player.planeY = old_plane_x * angle_y + game->player.planeY * angle_x;
 }
 
 void press_forward(t_game *game)
 {
-    if (collision(game, floor(game->player.inv_pos.x + game->player.dirX * MOVESPEED), floor(game->player.inv_pos.y)))
-            game->player.inv_pos.x += game->player.dirX * MOVESPEED;
-    if (collision(game, floor(game->player.inv_pos.x), floor(game->player.inv_pos.y + game->player.dirY * MOVESPEED)))
-            game->player.inv_pos.y += game->player.dirY * MOVESPEED;
+    if (collision(game, floor(game->player.inv_pos.x + game->player.dir_x * MOVESPEED), floor(game->player.inv_pos.y)))
+            game->player.inv_pos.x += game->player.dir_x * MOVESPEED;
+    if (collision(game, floor(game->player.inv_pos.x), floor(game->player.inv_pos.y + game->player.dir_y * MOVESPEED)))
+            game->player.inv_pos.y += game->player.dir_y * MOVESPEED;
 }
 
 void press_back(t_game *game)
 {
-    if (collision(game, floor(game->player.inv_pos.x - game->player.dirX * MOVESPEED), floor(game->player.inv_pos.y)))
-        game->player.inv_pos.x -= game->player.dirX * MOVESPEED;
-    if (collision(game, floor(game->player.inv_pos.x), floor(game->player.inv_pos.y - game->player.dirY * MOVESPEED)))
-        game->player.inv_pos.y -= game->player.dirY * MOVESPEED;
+    if (collision(game, floor(game->player.inv_pos.x - game->player.dir_x * MOVESPEED), floor(game->player.inv_pos.y)))
+        game->player.inv_pos.x -= game->player.dir_x * MOVESPEED;
+    if (collision(game, floor(game->player.inv_pos.x), floor(game->player.inv_pos.y - game->player.dir_y * MOVESPEED)))
+        game->player.inv_pos.y -= game->player.dir_y * MOVESPEED;
 }
 
 void press_left(t_game *game)

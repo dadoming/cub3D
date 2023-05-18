@@ -148,8 +148,8 @@ typedef struct s_plinfo
 	t_vec2f	pos;
     t_vec2f inv_pos;
 
-    float dirX;
-    float dirY;
+    float dir_x;
+    float dir_y;
     float planeX;
     float planeY;
 } t_plinfo;
@@ -237,32 +237,32 @@ struct s_object
 
 typedef struct s_raycast
 {
-    int first_obj_X;
-    int first_obj_Y;
+    int first_obj_x;
+    int first_obj_y;
     int block;
 
     int x;
-    double cameraX;
+    double camera_x;
     double ray_dir_x;
     double ray_dir_y;
-    int mapX;
-    int mapY;
+    int map_x;
+    int map_y;
     double side_dist_x;
     double side_dist_y;
     double delta_dist_x;
     double delta_dist_y;
-    double perpWallDist;
-    int stepX;
-    int stepY;
+    double perp_wall_dist;
+    int step_x;
+    int step_y;
     int hit;
     int side;
-    int lineHeight;
-    int drawStart;
-    int drawEnd;
-    double wallX;
-    int texX;
+    int line_height;
+    int draw_start;
+    int draw_end;
+    double wall_x;
+    int tex_x;
     double step;
-    double texPos;
+    double tex_pos;
     int texture_pixels[SQUARESIZE * SQUARESIZE];
 } t_raycast;
 

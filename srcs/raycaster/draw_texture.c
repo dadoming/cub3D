@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:52:43 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 22:37:40 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:45:33 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,47 +40,49 @@ static void	extract_texture_pixels(t_imgbuffer *texture, int *pixels)
 
 void	load_buffer_array(t_raycast *ray, t_game *game, t_imgbuffer img)
 {
-	if (game->objmap[ray->mapX][ray->mapY]->type == STATICENEMY)
-		img = game->objmap[ray->mapX][ray->mapY]->get_image \
-			(game->objmap[ray->mapX][ray->mapY], 0);
+	if (game->objmap[ray->map_x][ray->map_y]->type == STATICENEMY)
+		img = game->objmap[ray->map_x][ray->map_y]->get_image \
+			(game->objmap[ray->map_x][ray->map_y], 0);
 	else if (ray->side == 0 && ray->ray_dir_x > 0 && \
-		(game->objmap[ray->mapX][ray->mapY]->type != DOOR))
-		img = game->objmap[ray->mapX][ray->mapY]->get_image \
-			(game->objmap[ray->mapX][ray->mapY], WEST);
+		(game->objmap[ray->map_x][ray->map_y]->type != DOOR))
+		img = game->objmap[ray->map_x][ray->map_y]->get_image \
+			(game->objmap[ray->map_x][ray->map_y], WEST);
 	else if (ray->side == 0 && ray->ray_dir_x < 0 && \
-		(game->objmap[ray->mapX][ray->mapY]->type != DOOR))
-		img = game->objmap[ray->mapX][ray->mapY]->get_image \
-			(game->objmap[ray->mapX][ray->mapY], EAST);
+		(game->objmap[ray->map_x][ray->map_y]->type != DOOR))
+		img = game->objmap[ray->map_x][ray->map_y]->get_image \
+			(game->objmap[ray->map_x][ray->map_y], EAST);
 	else if (ray->side == 1 && ray->ray_dir_y > 0 && \
-		(game->objmap[ray->mapX][ray->mapY]->type != DOOR))
-		img = game->objmap[ray->mapX][ray->mapY]->get_image \
-			(game->objmap[ray->mapX][ray->mapY], SOUTH);
+		(game->objmap[ray->map_x][ray->map_y]->type != DOOR))
+		img = game->objmap[ray->map_x][ray->map_y]->get_image \
+			(game->objmap[ray->map_x][ray->map_y], SOUTH);
 	else if (ray->side == 1 && ray->ray_dir_y < 0 && \
-		(game->objmap[ray->mapX][ray->mapY]->type != DOOR))
-		img = game->objmap[ray->mapX][ray->mapY]->get_image \
-			(game->objmap[ray->mapX][ray->mapY], NORTH);
-	else if (game->objmap[ray->mapX][ray->mapY]->type == DOOR \
-		&& ((t_door *)game->objmap[ray->mapX][ray->mapY])->state == 0)
-		img = game->objmap[ray->mapX][ray->mapY]->get_image \
-			((t_object *)(game->objmap[ray->mapX][ray->mapY]), 0);
+		(game->objmap[ray->map_x][ray->map_y]->type != DOOR))
+		img = game->objmap[ray->map_x][ray->map_y]->get_image \
+			(game->objmap[ray->map_x][ray->map_y], NORTH);
+	else if (game->objmap[ray->map_x][ray->map_y]->type == DOOR \
+		&& ((t_door *)game->objmap[ray->map_x][ray->map_y])->state == 0)
+		img = game->objmap[ray->map_x][ray->map_y]->get_image \
+			((t_object *)(game->objmap[ray->map_x][ray->map_y]), 0);
 	extract_texture_pixels(&img, ray->texture_pixels);
 }
 
 void	wall_texture_position(t_raycast *ray, t_game *game)
 {
 	if (ray->side == 0)
-		ray->wallX = game->player.inv_pos.y + ray->perpWallDist * ray->ray_dir_y;
+		ray->wall_x = game->player.inv_pos.y + \
+			ray->perp_wall_dist * ray->ray_dir_y;
 	else
-		ray->wallX = game->player.inv_pos.x + ray->perpWallDist * ray->ray_dir_x;
-	ray->wallX -= floor(ray->wallX);
-	ray->texX = (int)(ray->wallX * (double)SQUARESIZE);
+		ray->wall_x = game->player.inv_pos.x + \
+			ray->perp_wall_dist * ray->ray_dir_x;
+	ray->wall_x -= floor(ray->wall_x);
+	ray->tex_x = (int)(ray->wall_x * (double)SQUARESIZE);
 	if (ray->side == 0 && ray->ray_dir_x > 0)
-		ray->texX = SQUARESIZE - ray->texX - 1;
+		ray->tex_x = SQUARESIZE - ray->tex_x - 1;
 	if (ray->side == 1 && ray->ray_dir_y < 0)
-		ray->texX = SQUARESIZE - ray->texX - 1;
-	ray->step = 1.0 * SQUARESIZE / ray->lineHeight;
-	ray->texPos = (ray->drawStart - WINDOWSIZE_Y / 2 \
-		+ ray->lineHeight / 2) * ray->step;
+		ray->tex_x = SQUARESIZE - ray->tex_x - 1;
+	ray->step = 1.0 * SQUARESIZE / ray->line_height;
+	ray->tex_pos = (ray->draw_start - WINDOWSIZE_Y / 2 \
+		+ ray->line_height / 2) * ray->step;
 	load_buffer_array(ray, game, (t_imgbuffer){0});
 }
 
@@ -89,7 +91,7 @@ int	draw_sky(t_game *game, t_raycast *ray)
 	int	j;
 
 	j = 0;
-	while (j < ray->drawStart)
+	while (j < ray->draw_start)
 	{
 		mypixelput(&game->imgbuffer, ray->x, j, game->ceil_color);
 		j++;
@@ -104,13 +106,13 @@ void	draw_vertical_stripe(t_game *game, t_raycast *ray)
 	int	tex_y;
 	int	color;
 
-	y = ray->drawStart;
+	y = ray->draw_start;
 	j = draw_sky(game, ray);
-	while (y < ray->drawEnd)
+	while (y < ray->draw_end)
 	{
-		tex_y = (int)ray->texPos & (SQUARESIZE - 1);
-		ray->texPos += ray->step;
-		color = ray->texture_pixels[SQUARESIZE * tex_y + ray->texX];
+		tex_y = (int)ray->tex_pos & (SQUARESIZE - 1);
+		ray->tex_pos += ray->step;
+		color = ray->texture_pixels[SQUARESIZE * tex_y + ray->tex_x];
 		if (ray->side == 1)
 			color = (color >> 1) & 8355711;
 		mypixelput(&game->imgbuffer, ray->x, y, color);

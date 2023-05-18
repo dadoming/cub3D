@@ -12,7 +12,7 @@ HEADERS_LIST = cub3D.h
 HEADERS_DIRECTORY = includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-TEXTURES_LIST = load_textures.c rgb_convert.c
+TEXTURES_LIST = load_textures.c rgb_convert.c rgb_norm.c
 TEXTURES_DIRECTORY = textures/
 TEXTURES = $(addprefix $(TEXTURES_DIRECTORY), $(TEXTURES_LIST))
 
