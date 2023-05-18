@@ -122,7 +122,7 @@ t_start_values select_map(void)
         return (ret);
     clear_img(&menu);
     menu.current = 1;
-    menu.mouse_selected = 0;
+    menu.mouse_selected = 1;
 
     print_map_list(&menu, menu.map_list);
     mlx_loop(menu.mlx);
