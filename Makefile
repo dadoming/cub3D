@@ -16,7 +16,7 @@ TEXTURES_LIST = load_textures.c rgb_convert.c
 TEXTURES_DIRECTORY = textures/
 TEXTURES = $(addprefix $(TEXTURES_DIRECTORY), $(TEXTURES_LIST))
 
-MAP_LIST = checksettings.c filextract.c initmapsettings.c player_orientation.c readsettings.c create_borders.c get_map_sizes.c invalid_chars.c preparemap.c residualcleaning.c
+MAP_LIST = checksettings.c filextract.c initmapsettings.c player_orientation.c player_orientation2.c readsettings.c create_borders.c get_map_sizes.c invalid_chars.c preparemap.c residualcleaning.c free_on_invalid.c
 MAP_DIRECTORY = map/
 MAP = $(addprefix $(MAP_DIRECTORY), $(MAP_LIST))
 
@@ -24,7 +24,7 @@ RAYCAST_LIST = raycast.c draw_texture.c line_height.c ray_calculation.c
 RAYCAST_DIRECTORY = raycaster/
 RAYCAST = $(addprefix $(RAYCAST_DIRECTORY), $(RAYCAST_LIST))
 
-MENU_LIST = map_menu.c mlx_event.c circular_ll.c get_maps.c loop_utils.c
+MENU_LIST = map_menu.c mlx_event.c circular_ll.c get_maps.c loop_utils.c draw_menu.c
 MENU_DIRECTORY = menu/
 MENU = $(addprefix $(MENU_DIRECTORY), $(MENU_LIST))
 
@@ -41,7 +41,7 @@ OBJECTS_DIRECTORY = objects/
 OBJECTS = $(addprefix $(OBJECTS_DIRECTORY), $(OBJECT_LIST))
 
 CC = cc
-CFLAGS = -g3 -Wall -Wextra#-fsanitize=address #-Werror
+CFLAGS = -g3 -Wall -Werror -Wextra #-fsanitize=address 
 
 LIBS = -L$(LIBFT_DIRECTORY) -lft $(MLX) -lXext -lX11 -lm -lz
 INCLUDES = -I.$(HEADERS) -I.$(LIBFT_HEADER) -I.$(MLX_HEADER)

@@ -31,7 +31,6 @@ t_object *new_door(int x, int y, t_game *game)
 	door->y = y;
 	door->state = 0;
     door->texture_door_closed = &game->texture_door;
-    door->texture_door_opened = &game->texture_transparent;
 
 	door->animation = game->capy_idle;
 

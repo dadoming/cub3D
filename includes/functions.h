@@ -1,7 +1,7 @@
 #pragma once
 
 t_start_values select_map(void);
-int	fileXtract(t_start_values ret);
+int	file_extract(t_start_values ret);
 t_settings	    *read_settings(int openfd);
 t_settings      *init_map_settings(int list_size);
 int             treat_caught_info(t_elinfo *elinfo, t_list **file_list, int *i);
@@ -13,11 +13,12 @@ char      		**cut_and_define_border(char **map);
 
 void      		get_player(char **map, t_plinfo *player);
 
-int	      		charmapFree(char **charmap);
-void      		elmapFree(t_elinfo *map_settings);
+int	      		charmap_free(char **charmap);
+void      		elmap_free(t_elinfo *map_settings);
 void      		free_list(t_list **list);
 void      		free_evaluation(t_settings **map_settings);
 void 			free_on_invalid(t_settings *settings);
+void		player_pos(t_plinfo *player, int x, int y);
 
 int prep_game(t_settings *map_settings, t_plinfo player, int mouse_selected);
 int run_game(t_game *game);
@@ -45,7 +46,7 @@ void delta_dist(t_raycast *ray);
 void ray_direction(t_raycast *ray, t_game *game, int x);
 void get_draw_start_end(t_raycast *ray);
 void line_height(t_raycast *ray);
-void load_buffer_array(t_raycast *ray, t_game *game);
+void load_buffer_array(t_raycast *ray, t_game *game, t_imgbuffer img);
 void wall_texture_position(t_raycast *ray, t_game *game);
 void draw_vertical_stripe(t_game *game, t_raycast *ray);
 void perp_wall_dist(t_raycast *ray, t_game *game);

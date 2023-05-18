@@ -27,7 +27,7 @@ void close_game(t_game *game)
 {
     if (game->objmap)
         free_objmap(game->charmap, game->objmap);
-    charmapFree(game->charmap);
+    charmap_free(game->charmap);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->imgbuffer.img)
@@ -42,8 +42,6 @@ void close_game(t_game *game)
 		mlx_destroy_image(game->mlx, game->texture_wall.e.img);
     if (game->texture_door.img)
         mlx_destroy_image(game->mlx, game->texture_door.img);
-    if (game->texture_transparent.img)
-        mlx_destroy_image(game->mlx, game->texture_transparent.img);
     if (game->player_shoot.frames)
         free_anim_list(game, &game->player_shoot.frames);
     if (game->mlx)

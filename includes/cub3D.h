@@ -243,14 +243,14 @@ typedef struct s_raycast
 
     int x;
     double cameraX;
-    double rayDirX;
-    double rayDirY;
+    double ray_dir_x;
+    double ray_dir_y;
     int mapX;
     int mapY;
-    double sideDistX;
-    double sideDistY;
-    double deltaDistX;
-    double deltaDistY;
+    double side_dist_x;
+    double side_dist_y;
+    double delta_dist_x;
+    double delta_dist_y;
     double perpWallDist;
     int stepX;
     int stepY;
@@ -271,7 +271,6 @@ typedef struct s_statTextures
     t_texture_sides	texture_wall;
     
     t_imgbuffer	texture_door;
-    t_imgbuffer	texture_transparent;
     t_imgbuffer dynamite;
 } t_statTextures;
 
@@ -298,7 +297,6 @@ struct s_game
     t_texture_sides	texture_wall;
     
     t_imgbuffer	texture_door;
-    t_imgbuffer	texture_transparent;
     t_imgbuffer texture_dynamite;
 
     t_animation player_shoot;

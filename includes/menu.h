@@ -67,11 +67,14 @@ void delete_circular_list(t_map_list **head);
 // mlx_event.c
 int input_event(int keycode, t_menu *menu);
 int x_close(t_menu *menu);
-void close_window(t_menu *menu);
 
 // map_menu.c
 t_map_list *get_available_maps(void);
 t_map_list *load_map_list();
+
+// mlx_event.c
+void close_window(t_menu *menu);
+int		x_close(t_menu *menu);
 
 t_start_values select_map(void);
 void print_map_list(t_menu *menu, t_map_list *map_list);
@@ -79,4 +82,8 @@ void my_pput(t_img *imgbuffer, int x, int y, int color);
 void clear_img(t_menu *menu);
 int imgbuf_offset(t_img *imgbuffer, int x, int y);
 
-# endif
+// draw_menu.c
+void draw_rectangle(t_menu *menu, int x_one, int x_two, int y_min);
+void draw_rectangle_mouse(t_menu *menu, int x_one, int x_two, int y_min);
+void draw_rectangles(t_menu *menu);
+#endif

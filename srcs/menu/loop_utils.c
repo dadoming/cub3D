@@ -1,4 +1,16 @@
-# include "../../includes/menu.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loop_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/18 21:24:43 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/18 21:27:02 by dadoming         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/menu.h"
 
 void	clear_img(t_menu *menu)
 {
@@ -31,6 +43,6 @@ void	my_pput(t_img *imgbuffer, int x, int y, int color)
 		return ;
 	if (x > WINDOWSIZE_X || y > WINDOWSIZE_Y)
 		return ;
-    pixel = imgbuffer->addr + imgbuf_offset(imgbuffer, x, y);
-    *(unsigned int*)pixel = color;
+	pixel = imgbuffer->addr + imgbuf_offset(imgbuffer, x, y);
+	*(unsigned int *)pixel = color;
 }
