@@ -1,6 +1,6 @@
 # include "../includes/cub3D.h"
 
-void	objiter(t_game *game)
+void	objiter(t_game *game, microSeconds tmstmpnow)
 {
 	int j;
 	int i;
@@ -16,7 +16,7 @@ void	objiter(t_game *game)
 			if (obj->type == DOOR)
 			{
 				// printf("Found a door\n");
-				update_gun(&((t_door *)obj)->animation);
+				update_anim(&((t_door *)obj)->animation, tmstmpnow);
 				((t_door *)obj)->animation.trigger = 1;
 			}
 			// if (obj->type == STATICENEMY)
@@ -31,16 +31,14 @@ void	objiter(t_game *game)
 	}
 }
 
-void update(t_game *game, microSeconds now)
+void update(t_game *game, microSeconds tmstmpnow)
 {
-	//TODO(amc): stop update function from calling gettime
-	// update will receive the now time and everything should be
-	// calculated from that
 	if (game->minimap_toggle == 0)
 		draw_minimap(game);
-	objiter(game);
-	// update_dynamite(&game->explosion);
-	update_gun(&game->player_shoot);
-    draw_weapon(game);
+	objiter(game, tmstmpnow);
+
+	update_anim(&game->player_shoot, tmstmpnow);
+
+	draw_weapon(game);
 	draw_crosshair(game, 5, rgbtocolor(153, 0, 153));
 }

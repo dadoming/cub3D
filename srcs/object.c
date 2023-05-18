@@ -31,3 +31,34 @@ t_object	*new_empty(t_game *game)
 	(void)game;
 	return (empty);
 }
+
+void update_anim(t_animation *anim, microSeconds tmstmpnow)
+{
+    microSeconds timedifference;
+	
+    if (anim->trigger == 0)
+        return;
+	else if (anim->trigger == 1 && anim->frameCount == 1)
+	{
+        clock_gettime(CLOCK_MONOTONIC, &anim->startTime);
+        // printf("AnimationFrame_%d: %ld\n", anim->frameCount, timestamp(anim->startTime));
+        anim->frameCount++;
+        return;
+    }
+    // timedifference = timediff(anim->startTime);
+	timedifference = tmstmpnow - timestamp(anim->startTime);
+
+	if (timedifference > anim->frameTime * (anim->frameCount - 1)) // animation time has passed
+    {
+		anim->frameCount++;
+		anim->current_frame = anim->current_frame->next;
+		if (anim->current_frame == NULL)
+		{
+			anim->trigger = 0; // Stops animation and resets
+			anim->current_frame = anim->frames;
+			anim->frameCount = 1;
+		}
+		// printf("AnimationFrame_%d: %ld\n", gun->frameCount, td);
+		return;
+	}
+}

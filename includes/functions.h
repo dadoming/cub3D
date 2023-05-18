@@ -87,6 +87,8 @@ microSeconds timediff(struct timespec old);
 void draw_weapon(t_game *game);
 void update_gun(t_animation *gun);
 
+void update_anim(t_animation *anim, microSeconds tmstmpnow);
+
 int mypixelget(t_imgbuffer *imgbuffer, int x, int y);
 
 t_object *new_dynamite(t_game *game);
@@ -96,7 +98,7 @@ void load_explosion(t_game *game);
 void action_nothing(t_object **this, t_game *game);
 t_imgbuffer image_nothing(t_object *this, int dir);
 
-void update(t_game *game, microSeconds now);
+void update(t_game *game, microSeconds tmstmpnow);
 
 void load_capy_idle(t_game *game);
 void load_capy_walk(t_game *game);

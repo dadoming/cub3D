@@ -1,6 +1,7 @@
 # include "../includes/cub3D.h"
 
 # define DEADZONE 370
+# define ROTDIVIDER 8
 int	mousemove_capture(int x, int y, void *param)
 {
 	// static int oldx = 0;
@@ -12,9 +13,9 @@ int	mousemove_capture(int x, int y, void *param)
 	// if (distance <= DEADZONE)
 	// 	return (1);
 	if (x > WINDOWSIZE_X / 2)
-		rotate_direction(game, cos(-ROTATESPEED/8), sin(-ROTATESPEED/8));
+		rotate_direction(game, cos(-ROTATESPEED/ROTDIVIDER), sin(-ROTATESPEED/ROTDIVIDER));
 	if (x < WINDOWSIZE_X / 2)
-		rotate_direction(game, cos(ROTATESPEED/8), sin(ROTATESPEED/8));
+		rotate_direction(game, cos(ROTATESPEED/ROTDIVIDER), sin(ROTATESPEED/ROTDIVIDER));
 	// oldx = x;
 	mlx_mouse_move(game->mlx, game->win, WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
 	return (1);
