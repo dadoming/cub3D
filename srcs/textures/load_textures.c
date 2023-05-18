@@ -5,7 +5,8 @@ t_imgbuffer load_texture(t_game *game, char *path)
    t_imgbuffer texture;
 
    texture.img = mlx_xpm_file_to_image(game->mlx, path, &texture.width, &texture.height);
-   texture.addr = mlx_get_data_addr(texture.img, &texture.bits_per_pixel, &texture.line_length, &texture.endian);
+   if (texture.img != NULL)
+        texture.addr = mlx_get_data_addr(texture.img, &texture.bits_per_pixel, &texture.line_length, &texture.endian);
    return (texture);
 }
 
