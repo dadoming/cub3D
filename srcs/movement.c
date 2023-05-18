@@ -5,7 +5,7 @@ int collision(t_game *game, int x, int y)
     t_object *obj;
 
     obj = game->objmap[x][y];
-    if (obj == NULL)
+    if (obj == NULL || obj->type == 0)
         return (1);
     if (obj->type == DOOR && ((t_door *) obj)->state)
         return (1);
@@ -79,15 +79,26 @@ int key_event(int key, t_game *game)
         else 
             rotate_direction(game, cos(-ROTATESPEED), sin(-ROTATESPEED));
     }
-	else if (key == SPACE && game->select && game->select->action)
-		game->select->action(game->select, game);
+	else if (key == SPACE && (*(game->select)) && (*(game->select))->action)
+		(*(game->select))->action(game->select, game);
 	else if (key == CTRL)
-	{
+	{ 
         game->minimap_toggle = !game->minimap_toggle;
 	}
     else if (key == SHIFT)
     {
-        animate(&game->player_animation);
+        game->player_shoot.trigger = 1;
+    }
+    else if (key == E)
+    {
+        //TODO(amc): Dynamite code!
+        // Pseudo-free(*(game->select));
+        // if ((*(game->select))->type == COLUMN && != WALL)
+        *(game->select) = new_dynamite(game);
+    }
+    else
+    {
+        printf("Unregistered keycode:%d\n", key);
     }
     return (0);
 }

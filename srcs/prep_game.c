@@ -44,8 +44,8 @@ void close_game(t_game *game)
         mlx_destroy_image(game->mlx, game->texture_door.img);
     if (game->texture_transparent.img)
         mlx_destroy_image(game->mlx, game->texture_transparent.img);
-    if (game->player_animation.frames)
-        free_anim_list(game, &game->player_animation.frames);
+    if (game->player_shoot.frames)
+        free_anim_list(game, &game->player_shoot.frames);
     if (game->mlx)
 		mlx_destroy_display(game->mlx);
     free(game->mlx);
@@ -117,6 +117,10 @@ t_object ***load_individual_map_tile(char **map, t_game *game)
 				obj[i][j] = new_door(j, i, game);
 			else if (map[i][j] == WALL)
 				obj[i][j] = new_wall(game);
+			else if (map[i][j] == STATICENEMY)
+				obj[i][j] = new_staticenemy(game);
+			//else
+			//	obj[i][j] = new_empty(game);
 			j++;
 		}
 		i++;
@@ -128,14 +132,15 @@ int	prep_game(t_settings *map_settings, t_plinfo player, int mouse_selected)
 {
 	t_game	game;
 
+	game.mlx = mlx_init();
+	load_textures(&game, map_settings);
+	
 	game.charmap = map_settings->charmap;
     game.objmap = NULL;
 	game.objmap = load_individual_map_tile(map_settings->charmap, &game);
 	game.player = player;
   	define_start_orientation(&game.player);
 
-	game.mlx = mlx_init();
-	load_textures(&game, map_settings);
 	game.minimap_toggle = 0;
 	game.mouse_selected = mouse_selected;
 
@@ -160,16 +165,18 @@ int	prep_game(t_settings *map_settings, t_plinfo player, int mouse_selected)
 	mlx_hook(game.win, 17, 1L<<2, x_close_window, &game);
 	mlx_hook(game.win, 2, 1L<<0, key_event, &game);
 
+	/* Mouse Captures */
 	if (mouse_selected)
 	{
-		/* Mouse Captures */
+		mlx_mouse_move(game.mlx, game.win, WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
 		mlx_mouse_hide(game.mlx, game.win); // this gives mlx leaks
 		mlx_hook(game.win, 6, 1L << 6, mousemove_capture, &game);
 		mlx_hook(game.win, 4, 1L << 6, mousedown_capture, &game);
-		// mlx_mouse_hook(game.win, mousedown_capture, &game);
-
+		// mlx_mouse_hook(game.win, mousedown_capture, &game); //This is the same as previous line
 	}
 
+	clock_gettime(CLOCK_MONOTONIC, &game.now_time);
+	game.old_time = game.now_time;
 
 	return (run_game(&game));
 }

@@ -36,7 +36,7 @@ static void fill_map(char **map, t_map_check maxs, char **new_map)
             if (i == 0 || j == 0 || j == maxs.right - maxs.left + 2 || i == maxs.bottom - maxs.top + 2)
                 new_map[i][j] = '2';
             else if ((j + maxs.left - 1 < (int)ft_strlen(map[i + maxs.top - 1])) \
-                && ft_charinside(map[i + maxs.top - 1][j + maxs.left - 1], "10NSWEDXK"))
+                && ft_charinside(map[i + maxs.top - 1][j + maxs.left - 1], VALIDSTRING))
                 new_map[i][j] = map[i + maxs.top - 1][j + maxs.left - 1];
             else
                 new_map[i][j] = '2';

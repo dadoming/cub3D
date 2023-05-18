@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   invalid_chars.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amc <amc@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:03:10 by dadoming          #+#    #+#             */
-/*   Updated: 2023/04/14 19:21:35 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:57:50 by amc              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int invalid_chars(char **map)
         {
             if (iterate_through_empty_map(map, &i, &j))
                 continue;
-            if (ft_charinside(map[i][j], "10NSWEDXK") == 0)
+            if (ft_charinside(map[i][j], VALIDSTRING) == 0)
             {
                 printf("Unknown character found! \n");
                 return (1);

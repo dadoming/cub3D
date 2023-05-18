@@ -1,47 +1,47 @@
 # include "../../includes/cub3D.h"
 
-//t_imgbuffer load_texture(t_game *game, char *path)
-//{
-//    t_imgbuffer texture;
-//
-//    texture->img = mlx_xpm_file_to_image(game->mlx, path, &texture->width, &texture->height);
-//    texture->addr = mlx_get_data_addr(texture->img, &texture->bits_per_pixel, &texture->line_length, &texture->endian);
-//    return (texture);
-//}
+t_imgbuffer load_texture(t_game *game, char *path)
+{
+   t_imgbuffer texture;
+
+   texture.img = mlx_xpm_file_to_image(game->mlx, path, &texture.width, &texture.height);
+   texture.addr = mlx_get_data_addr(texture.img, &texture.bits_per_pixel, &texture.line_length, &texture.endian);
+   return (texture);
+}
 
 void load_player(t_game *game)
 {
-    game->player_animation.frameNum = 16;
-    game->player_animation.frames = load_n_images(game, "gun", game->player_animation.frameNum);
-    game->player_animation.current_frame = game->player_animation.frames;
-    game->player_animation.trigger = 0;
-    game->player_animation.frameCount = game->player_animation.frameNum;
-    //game->player_animation.frames.img = mlx_xpm_file_to_image(game->mlx, "./textures/gun1.xpm", &game->player_animation.frames.width, &game->player_animation.frames.height);    
-    //game->player_animation.frames.addr = mlx_get_data_addr(game->player_animation.frames.img, &game->player_animation.frames.bits_per_pixel, &game->player_animation.frames.line_length, &game->player_animation.frames.endian);
+    game->player_shoot.frameNum = 16;
+    game->player_shoot.frames = load_n_images(game, "gun", game->player_shoot.frameNum);
+    game->player_shoot.current_frame = game->player_shoot.frames;
+    game->player_shoot.trigger = 0;
+    // game->player_shoot.frameCount = game->player_shoot.frameNum;
+    game->player_shoot.frameCount = 1;
 
+    //game->player_shoot.frames.img = mlx_xpm_file_to_image(game->mlx, "./textures/gun1.xpm", &game->player_shoot.frames.width, &game->player_shoot.frames.height);    
+    //game->player_shoot.frames.addr = mlx_get_data_addr(game->player_shoot.frames.img, &game->player_shoot.frames.bits_per_pixel, &game->player_shoot.frames.line_length, &game->player_shoot.frames.endian);
+
+    game->player_shoot.frameTime = 100000;
+    game->player_shoot.startTime.tv_sec = 0;
+    game->player_shoot.startTime.tv_nsec = 0;
 }
 
 static int load_textures_to_mlx(t_game *game, t_settings *map_settings)
 {
-    //game->texture_wall.n = load_texture(game->mlx, map_settings->Ntexpath);
-    //game->texture_wall.s = load_texture(game->mlx, map_settings->Stexpath);
-    //game->texture_wall.w = load_texture(game->mlx, map_settings->Wtexpath);
-    //game->texture_wall.e = load_texture(game->mlx, map_settings->Etexpath);    
-    game->texture_wall.n.img = mlx_xpm_file_to_image(game->mlx, map_settings->Ntexpath, &game->texture_wall.n.width, &game->texture_wall.n.height);
-    game->texture_wall.n.addr = mlx_get_data_addr(game->texture_wall.n.img, &game->texture_wall.n.bits_per_pixel, &game->texture_wall.n.line_length, &game->texture_wall.n.endian);
-    game->texture_wall.s.img = mlx_xpm_file_to_image(game->mlx, map_settings->Stexpath, &game->texture_wall.s.width, &game->texture_wall.s.height);
-    game->texture_wall.s.addr = mlx_get_data_addr(game->texture_wall.s.img, &game->texture_wall.s.bits_per_pixel, &game->texture_wall.s.line_length, &game->texture_wall.s.endian);
-    game->texture_wall.w.img = mlx_xpm_file_to_image(game->mlx, map_settings->Wtexpath, &game->texture_wall.w.width, &game->texture_wall.w.height);
-    game->texture_wall.w.addr = mlx_get_data_addr(game->texture_wall.w.img, &game->texture_wall.w.bits_per_pixel, &game->texture_wall.w.line_length, &game->texture_wall.w.endian);
-    game->texture_wall.e.img = mlx_xpm_file_to_image(game->mlx, map_settings->Etexpath, &game->texture_wall.e.width, &game->texture_wall.e.height);
-    game->texture_wall.e.addr = mlx_get_data_addr(game->texture_wall.e.img, &game->texture_wall.e.bits_per_pixel, &game->texture_wall.e.line_length, &game->texture_wall.e.endian);
-    
-    game->texture_door.img = mlx_xpm_file_to_image(game->mlx, "./textures/capybara.xpm", &game->texture_door.width, &game->texture_door.height);
-    game->texture_door.addr = mlx_get_data_addr(game->texture_door.img, &game->texture_door.bits_per_pixel, &game->texture_door.line_length, &game->texture_door.endian);
-    
-    game->texture_transparent.img = mlx_xpm_file_to_image(game->mlx, "./textures/black.xpm", &game->texture_transparent.width, &game->texture_transparent.height);
-    game->texture_transparent.addr = mlx_get_data_addr(game->texture_transparent.img, &game->texture_transparent.bits_per_pixel, &game->texture_transparent.line_length, &game->texture_transparent.endian);
-    
+    game->texture_wall.n = load_texture(game, map_settings->Ntexpath);
+    game->texture_wall.s = load_texture(game, map_settings->Stexpath);
+    game->texture_wall.w = load_texture(game, map_settings->Wtexpath);
+    game->texture_wall.e = load_texture(game, map_settings->Etexpath);    
+    game->texture_door = load_texture(game, "./textures/capybara.xpm");
+
+    game->texture_transparent = load_texture(game, "./textures/black.xpm");
+
+    game->texture_dynamite = load_texture(game, "./textures/dynamite.xpm");
+
+    load_capy_idle(game);
+    load_capy_walk(game);
+    load_capy_munch(game);
+
     load_player(game);
     if ((game->texture_wall.n.img == NULL) || (game->texture_wall.s.img == NULL) || (game->texture_wall.w.img == NULL) || (game->texture_wall.e.img == NULL) || (game->texture_door.img == NULL) || (game->texture_transparent.img == NULL))
 

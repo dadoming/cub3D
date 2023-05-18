@@ -10,12 +10,12 @@
             "request": "launch",
             "program": "${workspaceFolder}/cub3D",
             "args": [],
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
-            // "MIMode": "gdb",
-            "miDebuggerPath": "/Users/amc/mygdb",
+            "MIMode": "gdb",
+            // "miDebuggerPath": "/Users/amc/mygdb",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
