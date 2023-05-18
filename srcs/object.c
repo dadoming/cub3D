@@ -13,8 +13,8 @@ t_imgbuffer	image_nothing(t_object *this, int dir)
 
 void    action_nothing(t_object **this, t_game *game)
 {
-    (void)this;
-    (void)game;
+	printf("Activated: %d\n", (*this)->type);
+	(void)game;
     return;
 }
 

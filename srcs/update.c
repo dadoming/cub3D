@@ -19,12 +19,12 @@ void	objiter(t_game *game, microSeconds tmstmpnow)
 				update_anim(&((t_door *)obj)->animation, tmstmpnow);
 				((t_door *)obj)->animation.trigger = 1;
 			}
-			// if (obj->type == STATICENEMY)
-			// {
-			// 	printf("Found a staticenemy\n");
-			// 	update_gun(&((t_staticenemy *)obj)->animation);
-			// 	((t_staticenemy *)obj)->animation.trigger = 1;
-			// }
+			if (obj->type == STATICENEMY)
+			{
+				// printf("Found a staticenemy\n");
+				update_anim(&((t_staticenemy *)obj)->animation, tmstmpnow);
+				((t_staticenemy *)obj)->animation.trigger = 1;
+			}
 			i++;
 		}
 		j++;
