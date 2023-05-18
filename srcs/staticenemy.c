@@ -15,6 +15,7 @@ void	action_staticenemy(t_object **this, t_game *game)
 t_imgbuffer	get_image_staticenemy(t_staticenemy *this, int dir)
 {
 	return (this->animation.current_frame->img);
+	(void)dir;
 }
 
 t_object	*new_staticenemy(t_game *game)

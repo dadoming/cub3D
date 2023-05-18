@@ -15,7 +15,7 @@ static void 		action_door(t_object **this, t_game *game)
 
 static t_imgbuffer	get_image_door(t_door *this, int dir)
 {
-    t_imgbuffer img;
+    // t_imgbuffer img;
 
 	// img = (t_imgbuffer){0};
     // if (dir == 0)
@@ -28,6 +28,7 @@ static t_imgbuffer	get_image_door(t_door *this, int dir)
 	// 	return (*this->texture_door_closed);
 	// else
 		return (this->animation.current_frame->img);
+	(void)dir;
 }
 
 t_object *new_door(int x, int y, t_game *game)

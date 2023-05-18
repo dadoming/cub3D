@@ -6,7 +6,7 @@ int	mousemove_capture(int x, int y, void *param)
 {
 	// static int oldx = 0;
 	t_game *game;
-	int distance;
+	// int distance;
 
 	game = param;
 	// distance = sqrt(x * x + y * y);
@@ -19,6 +19,7 @@ int	mousemove_capture(int x, int y, void *param)
 	// oldx = x;
 	mlx_mouse_move(game->mlx, game->win, WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
 	return (1);
+	(void)y;
 }
 
 int	mousedown_capture(int button, int x, int y, void *param)
