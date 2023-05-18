@@ -89,13 +89,6 @@ int key_event(int key, t_game *game)
     {
         game->player_shoot.trigger = 1;
     }
-    else if (key == E)
-    {
-        //TODO(amc): Dynamite code!
-        // Pseudo-free(*(game->select));
-        // if ((*(game->select))->type == COLUMN && != WALL)
-        *(game->select) = new_dynamite(game);
-    }
     else
     {
         printf("Unregistered keycode:%d\n", key);

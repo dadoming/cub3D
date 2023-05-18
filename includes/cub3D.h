@@ -69,6 +69,7 @@ typedef struct s_object t_object;
 typedef struct s_game t_game;
 typedef struct s_imgbuffer t_imgbuffer;
 typedef struct s_door t_door;
+typedef struct s_wall t_wall;
 
 typedef long microSeconds;
 
@@ -190,25 +191,15 @@ typedef struct s_animation
     t_anim_list *current_frame;
 } t_animation;
 
-typedef struct s_dynamite t_dynamite;
-struct s_dynamite
-{
-	int			    type;
-	t_imgbuffer		(*get_image)(t_dynamite *this, int dir);
-	void 		    (*action)(t_object **this, t_game *game);
-    t_imgbuffer     *texture;
-    t_animation     *animation;
-};
-
 typedef struct s_staticenemy t_staticenemy;
 struct s_staticenemy
 {
 	int		type;
 	t_imgbuffer	(*get_image)(t_staticenemy *this, int dir);
 	void 	(*action)(t_object **this, t_game *game);
+    t_animation animation;
 
 	int     state;
-    t_animation animation;
 };
 
 struct s_door
@@ -216,22 +207,31 @@ struct s_door
 	int		type;
 	t_imgbuffer	(*get_image)(t_door *this, int dir);
 	void 	(*action)(t_object **this, t_game *game);
+    t_animation animation;
+
 	int     state;
 	int     x;
 	int     y;
     t_imgbuffer    *texture_door_opened;
     t_imgbuffer    *texture_door_closed;
-
-    // t_imgbuffer *texture;
-    t_animation animation;
 };
+
+struct s_wall
+{
+	int			    type;
+	t_imgbuffer		(*get_image)(t_object *this, int dir);
+	void 		    (*action)(t_object **this, t_game *game);
+    t_animation     animation;
+    t_texture_sides	*textures;
+};
+
 
 struct s_object
 {
 	int			    type;
 	t_imgbuffer		(*get_image)(t_object *this, int dir);
 	void 		    (*action)(t_object **this, t_game *game);
-    t_texture_sides	*textures;
+    t_animation     animation;
 };
 
 typedef struct s_raycast

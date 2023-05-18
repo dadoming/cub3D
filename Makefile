@@ -32,7 +32,7 @@ ANIMATIONS_LIST = anim_list.c
 ANIMATIONS_DIRECTORY = animations/
 ANIMATIONS = $(addprefix $(ANIMATIONS_DIRECTORY), $(ANIMATIONS_LIST))
 
-SRCS_LIST = $(MAP) $(TEXTURES) $(RAYCAST) $(MENU) $(ANIMATIONS) main.c check_input.c color.c draw.c imgbuffer.c line.c movement.c prep_game.c run_game.c square.c vector.c door.c wall.c minimap.c crosshair.c mouse.c time.c gun.c dynamite.c update.c capybara.c object.c staticenemy.c
+SRCS_LIST = $(MAP) $(TEXTURES) $(RAYCAST) $(MENU) $(ANIMATIONS) main.c check_input.c color.c draw.c imgbuffer.c line.c movement.c prep_game.c run_game.c square.c vector.c door.c wall.c minimap.c crosshair.c mouse.c time.c gun.c update.c capybara.c object.c staticenemy.c
 SRCS_DIRECTORY = srcs/
 SRCS = $(addprefix $(SRCS_DIRECTORY), $(SRCS_LIST))
 
