@@ -32,26 +32,12 @@ static int load_textures_to_mlx(t_game *game, t_settings *map_settings)
     game->texture_wall.s = load_texture(game, map_settings->Stexpath);
     game->texture_wall.w = load_texture(game, map_settings->Wtexpath);
     game->texture_wall.e = load_texture(game, map_settings->Etexpath);    
-    // game->texture_wall.n.img = mlx_xpm_file_to_image(game->mlx, map_settings->Ntexpath, &game->texture_wall.n.width, &game->texture_wall.n.height);
-    // game->texture_wall.n.addr = mlx_get_data_addr(game->texture_wall.n.img, &game->texture_wall.n.bits_per_pixel, &game->texture_wall.n.line_length, &game->texture_wall.n.endian);
-    // game->texture_wall.s.img = mlx_xpm_file_to_image(game->mlx, map_settings->Stexpath, &game->texture_wall.s.width, &game->texture_wall.s.height);
-    // game->texture_wall.s.addr = mlx_get_data_addr(game->texture_wall.s.img, &game->texture_wall.s.bits_per_pixel, &game->texture_wall.s.line_length, &game->texture_wall.s.endian);
-    // game->texture_wall.w.img = mlx_xpm_file_to_image(game->mlx, map_settings->Wtexpath, &game->texture_wall.w.width, &game->texture_wall.w.height);
-    // game->texture_wall.w.addr = mlx_get_data_addr(game->texture_wall.w.img, &game->texture_wall.w.bits_per_pixel, &game->texture_wall.w.line_length, &game->texture_wall.w.endian);
-    // game->texture_wall.e.img = mlx_xpm_file_to_image(game->mlx, map_settings->Etexpath, &game->texture_wall.e.width, &game->texture_wall.e.height);
-    // game->texture_wall.e.addr = mlx_get_data_addr(game->texture_wall.e.img, &game->texture_wall.e.bits_per_pixel, &game->texture_wall.e.line_length, &game->texture_wall.e.endian);
-    
-    // game->texture_door.img = mlx_xpm_file_to_image(game->mlx, "./textures/capybara.xpm", &game->texture_door.width, &game->texture_door.height);
-    // game->texture_door.addr = mlx_get_data_addr(game->texture_door.img, &game->texture_door.bits_per_pixel, &game->texture_door.line_length, &game->texture_door.endian);
     game->texture_door = load_texture(game, "./textures/capybara.xpm");
 
-    // game->texture_transparent.img = mlx_xpm_file_to_image(game->mlx, "./textures/black.xpm", &game->texture_transparent.width, &game->texture_transparent.height);
-    // game->texture_transparent.addr = mlx_get_data_addr(game->texture_transparent.img, &game->texture_transparent.bits_per_pixel, &game->texture_transparent.line_length, &game->texture_transparent.endian);
     game->texture_transparent = load_texture(game, "./textures/black.xpm");
 
     game->texture_dynamite = load_texture(game, "./textures/dynamite.xpm");
 
-    // load_explosion(game);
     load_capy_idle(game);
     load_capy_walk(game);
     load_capy_munch(game);

@@ -17,7 +17,7 @@ void    action_nothing(t_object **this, t_game *game)
 	(void)game;
     return;
 }
-
+/*
 t_object	*new_empty(t_game *game)
 {
 	t_object *empty;
@@ -31,7 +31,7 @@ t_object	*new_empty(t_game *game)
 	(void)game;
 	return (empty);
 }
-
+*/
 void update_anim(t_animation *anim, microSeconds tmstmpnow)
 {
     microSeconds timedifference;

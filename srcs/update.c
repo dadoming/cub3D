@@ -7,23 +7,26 @@ void	objiter(t_game *game, microSeconds tmstmpnow)
 	t_object *obj;
 
 	j = 1;
-	while (game->objmap[j] != NULL)
+	while (game->charmap[j])
 	{
 		i = 1;
-		while (game->objmap[j][i] != NULL)
+		while (game->charmap[j][i])
 		{
 			obj = game->objmap[j][i];
-			if (obj->type == DOOR)
+			if (obj)
 			{
-				// printf("Found a door\n");
-				update_anim(&((t_door *)obj)->animation, tmstmpnow);
-				((t_door *)obj)->animation.trigger = 1;
-			}
-			if (obj->type == STATICENEMY)
-			{
-				// printf("Found a staticenemy\n");
-				update_anim(&((t_staticenemy *)obj)->animation, tmstmpnow);
-				((t_staticenemy *)obj)->animation.trigger = 1;
+				if (obj->type == DOOR)
+				{
+					// printf("Found a door\n");
+					update_anim(&((t_door *)obj)->animation, tmstmpnow);
+					((t_door *)obj)->animation.trigger = 1;
+				}
+				else if (obj->type == STATICENEMY)
+				{
+					// printf("Found a staticenemy\n");
+					update_anim(&((t_staticenemy *)obj)->animation, tmstmpnow);
+					((t_staticenemy *)obj)->animation.trigger = 1;
+				}
 			}
 			i++;
 		}
