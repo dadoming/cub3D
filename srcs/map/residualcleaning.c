@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:08:42 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 21:11:18 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/19 01:03:59 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ void	free_evaluation(t_settings **map_settings)
 	elmap_free((*map_settings)->elmap);
 	if ((*map_settings)->charmap)
 		charmap_free((*map_settings)->charmap);
-	if ((*map_settings)->Ntexpath)
-		free((*map_settings)->Ntexpath);
-	if ((*map_settings)->Stexpath)
-		free((*map_settings)->Stexpath);
-	if ((*map_settings)->Wtexpath)
-		free((*map_settings)->Wtexpath);
-	if ((*map_settings)->Etexpath)
-		free((*map_settings)->Etexpath);
-	if ((*map_settings)->Floorstr)
-		free((*map_settings)->Floorstr);
-	if ((*map_settings)->Ceilstr)
-		free((*map_settings)->Ceilstr);
+	if ((*map_settings)->ntexpath)
+		free((*map_settings)->ntexpath);
+	if ((*map_settings)->stexpath)
+		free((*map_settings)->stexpath);
+	if ((*map_settings)->wtexpath)
+		free((*map_settings)->wtexpath);
+	if ((*map_settings)->etexpath)
+		free((*map_settings)->etexpath);
+	if ((*map_settings)->floorstr)
+		free((*map_settings)->floorstr);
+	if ((*map_settings)->ceilstr)
+		free((*map_settings)->ceilstr);
 	free(*map_settings);
 }
 

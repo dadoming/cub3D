@@ -1,38 +1,51 @@
-# include "../includes/cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/19 00:32:57 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/19 00:44:59 by dadoming         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	objiter(t_game *game, microseconds tmstmpnow)
+#include "../includes/cub3D.h"
+
+static void	norm_helper_iter(t_game *game, t_microseconds now, int j, int i)
 {
-	int j;
-	int i;
-	t_object *obj;
-
-	j = 1;
-	while (game->charmap[j])
+	if (game->objmap[j][i]->type == DOOR)
 	{
-		i = 1;
-		while (game->charmap[j][i])
-		{
-			obj = game->objmap[j][i];
-			if (obj)
-			{
-				if (obj->type == DOOR)
-				{
-					update_anim(&((t_door *)obj)->animation, tmstmpnow);
-					((t_door *)obj)->animation.trigger = 1;
-				}
-				else if (obj->type == STATICENEMY)
-				{
-					update_anim(&((t_staticenemy *)obj)->animation, tmstmpnow);
-					((t_staticenemy *)obj)->animation.trigger = 1;
-				}
-			}
-			i++;
-		}
-		j++;
+		update_anim(&((t_door *)game->objmap[j][i])->animation, now);
+		((t_door *)game->objmap[j][i])->animation.trigger = 1;
+	}
+	else if (game->objmap[j][i]->type == STATICENEMY)
+	{
+		update_anim(&((t_staticenemy *)game->objmap[j][i])->animation, now);
+		((t_staticenemy *)game->objmap[j][i])->animation.trigger = 1;
 	}
 }
 
-void update(t_game *game, microseconds tmstmpnow)
+void	objiter(t_game *game, t_microseconds now)
+{
+	int			j;
+	int			i;
+
+	j = 0;
+	while (game->charmap[++j])
+	{
+		i = 0;
+		while (game->charmap[j][++i])
+		{
+			if (game->objmap[j][i])
+			{
+				norm_helper_iter(game, now, j, i);
+			}
+		}
+	}
+}
+
+void	update(t_game *game, t_microseconds tmstmpnow)
 {
 	if (game->minimap_toggle == 0)
 		draw_minimap(game);

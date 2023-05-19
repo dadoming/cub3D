@@ -1,4 +1,16 @@
-# include "../includes/cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   line.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/18 23:59:23 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/19 00:37:31 by dadoming         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/cub3D.h"
 
 int	horline(t_game *game, t_vec2i pos, size_t size, int color)
 {
@@ -26,11 +38,10 @@ int	verline(t_game *game, t_vec2i pos, size_t size, int color)
 	return (1);
 }
 
-
-int	lineNaive(t_game *game, t_vec2i origin, t_vec2i dest, int color)
+void	line_naive(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 {
 	int	dx;
-	int dy;
+	int	dy;
 	int	x;
 	int	y;
 
@@ -43,17 +54,15 @@ int	lineNaive(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 		mypixelput(&game->imgbuffer, x, y, color);
 		x++;
 	}
-	return (0);
 }
 
-int	line(t_game *game, t_vec2i origin, t_vec2i dest, int color)
+void	line(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 {
 	int	adx;
 	int	ady;
 
 	adx = abs(dest.x - origin.x);
 	ady = abs(dest.y - origin.y);
-
 	if (adx <= 1)
 	{
 		if (origin.y <= dest.y)
@@ -71,8 +80,7 @@ int	line(t_game *game, t_vec2i origin, t_vec2i dest, int color)
 		horline(game, origin, adx, color);
 	}
 	else if (origin.x <= dest.x)
-		lineNaive(game, origin, dest, color);
+		line_naive(game, origin, dest, color);
 	else
-		lineNaive(game, dest, origin, color);
-	return (0);
+		line_naive(game, dest, origin, color);
 }

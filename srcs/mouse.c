@@ -1,14 +1,28 @@
-# include "../includes/cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/19 00:08:20 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/19 00:09:25 by dadoming         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/cub3D.h"
 
 int	mousemove_capture(int x, int y, void *param)
 {
-	t_game *game;
+	t_game	*game;
 
 	game = param;
 	if (x > WINDOWSIZE_X / 2)
-		rotate_direction(game, cos(-ROTATESPEED/ROTDIVIDER), sin(-ROTATESPEED/ROTDIVIDER));
+		rotate_direction(game, cos(-ROTATESPEED / ROTDIVIDER), \
+		sin(-ROTATESPEED / ROTDIVIDER));
 	if (x < WINDOWSIZE_X / 2)
-		rotate_direction(game, cos(ROTATESPEED/ROTDIVIDER), sin(ROTATESPEED/ROTDIVIDER));
+		rotate_direction(game, cos(ROTATESPEED / ROTDIVIDER), \
+		sin(ROTATESPEED / ROTDIVIDER));
 	mlx_mouse_move(game->mlx, game->win, WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
 	return (1);
 	(void)y;
@@ -16,7 +30,7 @@ int	mousemove_capture(int x, int y, void *param)
 
 int	mousedown_capture(int button, int x, int y, void *param)
 {
-	t_game *game;
+	t_game	*game;
 
 	game = param;
 	if (button == 1)

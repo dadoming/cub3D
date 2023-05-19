@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:31:35 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 22:58:05 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/18 23:52:18 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	ray_direction(t_raycast *ray, t_game *game, int x)
 {
 	ray->camera_x = 2 * x / (double)WINDOWSIZE_X - 1;
-	ray->ray_dir_x = game->player.dir_x + game->player.planeX * ray->camera_x;
-	ray->ray_dir_y = game->player.dir_y + game->player.planeY * ray->camera_x;
+	ray->ray_dir_x = game->player.dir_x + game->player.plane_x * ray->camera_x;
+	ray->ray_dir_y = game->player.dir_y + game->player.plane_y * ray->camera_x;
 	ray->map_x = (int)game->player.inv_pos.x;
 	ray->map_y = (int)game->player.inv_pos.y;
 }

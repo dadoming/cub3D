@@ -1,13 +1,25 @@
-# include "../includes/cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   door.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/18 23:55:48 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/18 23:56:19 by dadoming         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void 		action_door(t_object **this, t_game *game)
+#include "../includes/cub3D.h"
+
+static void	action_door(t_object **this, t_game *game)
 {
-	t_door *door;
-	float dist;
+	t_door	*door;
+	float	dist;
 
 	door = (t_door *)(*this);
-	dist = sqrt(pow(game->player.pos.x - door->x, 2) + pow(game->player.pos.y - door->y, 2));
-	printf("dist: %f\n", dist);
+	dist = sqrt(pow(game->player.pos.x - door->x, 2) \
+		+ pow(game->player.pos.y - door->y, 2));
 	if (dist <= 2)
 		door->state = !door->state;
 	door->animation = game->capy_walk;
@@ -19,9 +31,9 @@ static t_imgbuffer	get_image_door(t_door *this, int dir)
 	(void)dir;
 }
 
-t_object *new_door(int x, int y, t_game *game)
+t_object	*new_door(int x, int y, t_game *game)
 {
-	t_door *door;
+	t_door	*door;
 
 	door = ft_calloc(sizeof(t_door), 1);
 	door->type = DOOR;
@@ -30,9 +42,7 @@ t_object *new_door(int x, int y, t_game *game)
 	door->x = x;
 	door->y = y;
 	door->state = 0;
-    door->texture_door_closed = &game->texture_door;
-
+	door->texture_door_closed = &game->texture_door;
 	door->animation = game->capy_idle;
-
 	return ((t_object *)door);
 }

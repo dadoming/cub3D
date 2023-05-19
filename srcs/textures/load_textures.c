@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:59:08 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 23:29:52 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/19 01:09:21 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,23 @@ t_imgbuffer	load_texture(t_game *game, char *path)
 
 void	load_player(t_game *game)
 {
-	game->player_shoot.frameNum = 16;
+	game->player_shoot.frame_num = 16;
 	game->player_shoot.frames = load_n_images(game, "Gun/gun", \
-		game->player_shoot.frameNum);
+		game->player_shoot.frame_num);
 	game->player_shoot.current_frame = game->player_shoot.frames;
 	game->player_shoot.trigger = 0;
-	game->player_shoot.frameCount = 1;
-	game->player_shoot.frameTime = 100000;
-	game->player_shoot.startTime.tv_sec = 0;
-	game->player_shoot.startTime.tv_nsec = 0;
+	game->player_shoot.frame_count = 1;
+	game->player_shoot.frame_time = 100000;
+	game->player_shoot.start_time.tv_sec = 0;
+	game->player_shoot.start_time.tv_nsec = 0;
 }
 
 static int	load_textures_to_mlx(t_game *game, t_settings *map_settings)
 {
-	game->texture_wall.n = load_texture(game, map_settings->Ntexpath);
-	game->texture_wall.s = load_texture(game, map_settings->Stexpath);
-	game->texture_wall.w = load_texture(game, map_settings->Wtexpath);
-	game->texture_wall.e = load_texture(game, map_settings->Etexpath);
+	game->texture_wall.n = load_texture(game, map_settings->ntexpath);
+	game->texture_wall.s = load_texture(game, map_settings->stexpath);
+	game->texture_wall.w = load_texture(game, map_settings->wtexpath);
+	game->texture_wall.e = load_texture(game, map_settings->etexpath);
 	game->texture_door = load_texture(game, "./textures/capybara.xpm");
 	game->texture_dynamite = load_texture(game, "./textures/dynamite.xpm");
 	load_capy_idle(game);
@@ -85,26 +85,26 @@ void	load_textures(t_game *game, t_settings *map_settings)
 		free_textures(game);
 		free_on_invalid(map_settings);
 	}
-	game->ceil_color = load_rgb(map_settings->Ceilstr);
+	game->ceil_color = load_rgb(map_settings->ceilstr);
 	if (game->ceil_color == -1)
 	{
 		printf("Error\nInvalid RGB value\n");
 		free_textures(game);
 		free_on_invalid(map_settings);
 	}
-	game->floor_color = load_rgb(map_settings->Floorstr);
+	game->floor_color = load_rgb(map_settings->floorstr);
 	if (game->floor_color == -1)
 	{
 		printf("Error\nInvalid RGB value\n");
 		free_textures(game);
 		free_on_invalid(map_settings);
 	}
-	free(map_settings->Ntexpath);
-	free(map_settings->Stexpath);
-	free(map_settings->Wtexpath);
-	free(map_settings->Etexpath);
-	free(map_settings->Ceilstr);
-	free(map_settings->Floorstr);
+	free(map_settings->ntexpath);
+	free(map_settings->stexpath);
+	free(map_settings->wtexpath);
+	free(map_settings->etexpath);
+	free(map_settings->ceilstr);
+	free(map_settings->floorstr);
 	free(map_settings);
 	printf("Textures loaded\n");
 	printf("Ceiling color: %d\n", game->ceil_color);

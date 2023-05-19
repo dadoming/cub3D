@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   coordcheck.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 00:41:37 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/19 00:42:00 by dadoming         ###   ########.fr       */
+/*   Created: 2023/05/19 00:12:37 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/19 00:13:52 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-t_vec2f	vec2f(float x, float y)
+char	coordcheck(t_game *game, int x, int y)
 {
-	t_vec2f	tmp;
-
-	tmp.x = x;
-	tmp.y = y;
-	return (tmp);
+	if (x < 0 || y < 0)
+		return (0);
+	else if (x >= WINDOWSIZE_X || y >= WINDOWSIZE_Y)
+		return (0);
+	else if (y >= game->mapsize.y)
+		return (0);
+	else if (x >= game->mapsize.x)
+		return (0);
+	else
+		return (game->charmap[y][x]);
 }
 
-t_vec2i	vec2i(int x, int y)
+char	coordcheck_prop(t_game *game, int x, int y)
 {
-	t_vec2i	tmp;
-
-	tmp.x = x;
-	tmp.y = y;
-	return (tmp);
+	return (coordcheck(game, x / SQUARESIZE, y / SQUARESIZE));
 }

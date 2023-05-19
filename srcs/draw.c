@@ -1,4 +1,16 @@
-# include "../includes/cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/18 23:56:29 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/18 23:57:25 by dadoming         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/cub3D.h"
 
 void	myclearimg(t_game *game)
 {
@@ -11,7 +23,7 @@ void	myclearimg(t_game *game)
 		i = 0;
 		while (i < WINDOWSIZE_X)
 		{
-			mypixelput(&game->imgbuffer, i, j, rgbtocolor(0,0,0));
+			mypixelput(&game->imgbuffer, i, j, rgbtocolor(0, 0, 0));
 			i++;
 		}
 		j++;
@@ -26,11 +38,12 @@ void	mypixelput(t_imgbuffer *imgbuffer, int x, int y, int color)
 		return ;
 	if (x > WINDOWSIZE_X || y > WINDOWSIZE_Y)
 		return ;
-    pixel = imgbuffer->addr + imgbufferoffset(imgbuffer, x, y);
-    *(unsigned int*)pixel = color;
+	pixel = imgbuffer->addr + imgbufferoffset(imgbuffer, x, y);
+	*(unsigned int *)pixel = color;
 }
 
-void draw_checkerboard(t_game *game, t_vec2i start, size_t q, size_t pixelsize)
+void	draw_checkerboard(t_game *game, t_vec2i start, size_t q, \
+	size_t pixelsize)
 {
 	size_t	x;
 	size_t	y;
@@ -38,13 +51,15 @@ void draw_checkerboard(t_game *game, t_vec2i start, size_t q, size_t pixelsize)
 	x = 0;
 	while (x <= q)
 	{
-		verline(game, vec2i(start.x + pixelsize*x, start.y), q*pixelsize, 0);
+		verline(game, vec2i(start.x + pixelsize * x, start.y), \
+			q * pixelsize, 0);
 		x += 1;
 	}
 	y = 0;
 	while (y <= q)
 	{
-		horline(game, vec2i(start.x, start.y + pixelsize*y), q*pixelsize, 0);
+		horline(game, vec2i(start.x, start.y + pixelsize * y), \
+			q * pixelsize, 0);
 		y += 1;
 	}
 

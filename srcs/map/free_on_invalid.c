@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:57:02 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 21:10:22 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/19 01:03:53 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	free_on_invalid(t_settings *settings)
 {
-	free(settings->Ntexpath);
-	free(settings->Stexpath);
-	free(settings->Wtexpath);
-	free(settings->Etexpath);
-	free(settings->Floorstr);
-	free(settings->Ceilstr);
+	free(settings->ntexpath);
+	free(settings->stexpath);
+	free(settings->wtexpath);
+	free(settings->etexpath);
+	free(settings->floorstr);
+	free(settings->ceilstr);
 	charmap_free(settings->charmap);
 	elmap_free(settings->elmap);
 	free(settings);

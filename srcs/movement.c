@@ -1,116 +1,65 @@
-# include "../includes/cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/19 00:10:19 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/19 00:29:36 by dadoming         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int collision(t_game *game, int x, int y)
+#include "../includes/cub3D.h"
+
+int	collision(t_game *game, int x, int y)
 {
-    t_object *obj;
+	t_object	*obj;
 
-    obj = game->objmap[x][y];
-    if (obj == NULL || obj->type == 0)
-        return (1);
-    if (obj->type == DOOR && ((t_door *) obj)->state)
-        return (1);
-    return (0);
+	obj = game->objmap[x][y];
+	if (obj == NULL || obj->type == 0)
+		return (1);
+	if (obj->type == DOOR && ((t_door *) obj)->state)
+		return (1);
+	return (0);
 }
 
-void rotate_direction(t_game *game, double angle_x, double angle_y)
+void	press_forward(t_game *game)
 {
-    double old_dir_x;
-    double old_plane_x;
-
-    old_dir_x = game->player.dir_x;
-    game->player.dir_x = game->player.dir_x * angle_x - game->player.dir_y * angle_y;
-    game->player.dir_y = old_dir_x * angle_y + game->player.dir_y * angle_x;
-    old_plane_x = game->player.planeX;
-    game->player.planeX = game->player.planeX * angle_x - game->player.planeY * angle_y;
-    game->player.planeY = old_plane_x * angle_y + game->player.planeY * angle_x;
+	if (collision(game, floor(game->player.inv_pos.x + \
+		game->player.dir_x * MOVESPEED), floor(game->player.inv_pos.y)))
+			game->player.inv_pos.x += game->player.dir_x * MOVESPEED;
+	if (collision(game, floor(game->player.inv_pos.x), \
+		floor(game->player.inv_pos.y + game->player.dir_y * MOVESPEED)))
+			game->player.inv_pos.y += game->player.dir_y * MOVESPEED;
 }
 
-void press_forward(t_game *game)
+void	press_back(t_game *game)
 {
-    if (collision(game, floor(game->player.inv_pos.x + game->player.dir_x * MOVESPEED), floor(game->player.inv_pos.y)))
-            game->player.inv_pos.x += game->player.dir_x * MOVESPEED;
-    if (collision(game, floor(game->player.inv_pos.x), floor(game->player.inv_pos.y + game->player.dir_y * MOVESPEED)))
-            game->player.inv_pos.y += game->player.dir_y * MOVESPEED;
+	if (collision(game, floor(game->player.inv_pos.x - game->player.dir_x \
+		* MOVESPEED), floor(game->player.inv_pos.y)))
+		game->player.inv_pos.x -= game->player.dir_x * MOVESPEED;
+	if (collision(game, floor(game->player.inv_pos.x), \
+		floor(game->player.inv_pos.y - game->player.dir_y * MOVESPEED)))
+		game->player.inv_pos.y -= game->player.dir_y * MOVESPEED;
 }
 
-void press_back(t_game *game)
+void	press_left(t_game *game)
 {
-    if (collision(game, floor(game->player.inv_pos.x - game->player.dir_x * MOVESPEED), floor(game->player.inv_pos.y)))
-        game->player.inv_pos.x -= game->player.dir_x * MOVESPEED;
-    if (collision(game, floor(game->player.inv_pos.x), floor(game->player.inv_pos.y - game->player.dir_y * MOVESPEED)))
-        game->player.inv_pos.y -= game->player.dir_y * MOVESPEED;
+	if (collision(game, floor(game->player.inv_pos.x - game->player.plane_x \
+		* MOVESPEED), floor(game->player.inv_pos.y)))
+		game->player.inv_pos.x -= game->player.plane_x * MOVESPEED;
+	if (collision(game, floor(game->player.inv_pos.x), \
+		floor(game->player.inv_pos.y - game->player.plane_y * MOVESPEED)))
+		game->player.inv_pos.y -= game->player.plane_y * MOVESPEED;
 }
 
-void press_left(t_game *game)
+void	press_right(t_game *game)
 {
-    if (collision(game, floor(game->player.inv_pos.x - game->player.planeX * MOVESPEED), floor(game->player.inv_pos.y)))
-        game->player.inv_pos.x -= game->player.planeX * MOVESPEED;
-    if (collision(game, floor(game->player.inv_pos.x), floor(game->player.inv_pos.y - game->player.planeY * MOVESPEED)))
-        game->player.inv_pos.y -= game->player.planeY * MOVESPEED;
-}
-
-void press_right(t_game *game)
-{
-    if (collision(game, floor(game->player.inv_pos.x + game->player.planeX * MOVESPEED), floor(game->player.inv_pos.y)))
-        game->player.inv_pos.x += game->player.planeX * MOVESPEED;
-    if (collision(game, floor(game->player.inv_pos.x), floor(game->player.inv_pos.y + game->player.planeY * MOVESPEED)))
-        game->player.inv_pos.y += game->player.planeY * MOVESPEED;
-}
-
-int key_event(int key, t_game *game)
-{
-    if (key == ESC)
-        close_game(game);
-	else if (key == W)
-        press_forward(game);
-	else if (key == A)
-    {
-        if (game->mouse_selected)
-            press_left(game);
-        else 
-            rotate_direction(game, cos(ROTATESPEED), sin(ROTATESPEED));
-    }
-	else if (key == S)
-        press_back(game);
-	else if (key == D)
-    {
-        if (game->mouse_selected)
-            press_right(game);
-        else 
-            rotate_direction(game, cos(-ROTATESPEED), sin(-ROTATESPEED));
-    }
-	else if (key == SPACE && (*(game->select)) && (*(game->select))->action)
-		(*(game->select))->action(game->select, game);
-	else if (key == CTRL)
-	{ 
-        game->minimap_toggle = !game->minimap_toggle;
-	}
-    else if (key == SHIFT)
-    {
-        game->player_shoot.trigger = 1;
-    }
-    else
-    {
-        printf("Unregistered keycode:%d\n", key);
-    }
-    return (0);
-}
-
-char	coordcheck(t_game *game, int x, int y)
-{
-	if (x < 0 || y < 0)
-		return 0;
-	else if (x >= WINDOWSIZE_X || y >= WINDOWSIZE_Y)
-		return 0;
-	else if (y >= game->mapsize.y)
-		return 0;
-	else if (x >= game->mapsize.x)
-		return 0;
-	else
-		return (game->charmap[y][x]);
-}
-
-char	coordcheck_prop(t_game *game, int x, int y)
-{
-	return (coordcheck(game, x / SQUARESIZE, y / SQUARESIZE));
+	if (collision(game, floor(game->player.inv_pos.x + game->player.plane_x \
+		* MOVESPEED), floor(game->player.inv_pos.y)))
+		game->player.inv_pos.x += game->player.plane_x * MOVESPEED;
+	if (collision(game, floor(game->player.inv_pos.x), \
+		floor(game->player.inv_pos.y + game->player.plane_y * MOVESPEED)))
+		game->player.inv_pos.y += game->player.plane_y * MOVESPEED;
 }

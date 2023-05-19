@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 13:26:31 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 20:57:42 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/19 01:03:51 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ t_settings	*settings_set(t_settings *map_settings)
 	int	i;
 
 	i = 0;
-	map_settings->Ntexpath = elmap_get(map_settings->elmap, "NO");
-	map_settings->Stexpath = elmap_get(map_settings->elmap, "SO");
-	map_settings->Wtexpath = elmap_get(map_settings->elmap, "WE");
-	map_settings->Etexpath = elmap_get(map_settings->elmap, "EA");
-	map_settings->Floorstr = elmap_get(map_settings->elmap, "F");
-	map_settings->Ceilstr = elmap_get(map_settings->elmap, "C");
-	if ((map_settings->Ntexpath && map_settings->Stexpath \
-			&& map_settings->Wtexpath && map_settings->Etexpath \
-			&& map_settings->Floorstr && map_settings->Ceilstr \
+	map_settings->ntexpath = elmap_get(map_settings->elmap, "NO");
+	map_settings->stexpath = elmap_get(map_settings->elmap, "SO");
+	map_settings->wtexpath = elmap_get(map_settings->elmap, "WE");
+	map_settings->etexpath = elmap_get(map_settings->elmap, "EA");
+	map_settings->floorstr = elmap_get(map_settings->elmap, "F");
+	map_settings->ceilstr = elmap_get(map_settings->elmap, "C");
+	if ((map_settings->ntexpath && map_settings->stexpath \
+			&& map_settings->wtexpath && map_settings->etexpath \
+			&& map_settings->floorstr && map_settings->ceilstr \
 			&& map_settings->charmap) == 0)
 		free_on_invalid(map_settings);
 	while (i < ELINFOLIMIT)
