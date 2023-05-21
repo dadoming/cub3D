@@ -53,9 +53,9 @@ int	x_close_window(t_game *game)
 static void	init_game_settings(t_game *game, t_settings *map_settings, \
 	t_plinfo player, int mouse_selected)
 {
-	load_textures(game, map_settings);
 	game->charmap = map_settings->charmap;
-	game->objmap = load_individual_map_tile(map_settings->charmap, game);
+	load_textures(game, map_settings);
+	game->objmap = load_individual_map_tile(game->charmap, game);
 	game->player = player;
 	game->minimap_toggle = 0;
 	game->mapsize.x = ft_strlen(game->charmap[0]);
@@ -73,7 +73,7 @@ static void	init_game_settings(t_game *game, t_settings *map_settings, \
 	{
 		mlx_mouse_move(game->mlx, game->win, \
 			WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
-		mlx_mouse_hide(game->mlx, game->win);
+		//mlx_mouse_hide(game->mlx, game->win);
 		mlx_hook(game->win, 6, 1L << 6, mousemove_capture, game);
 		mlx_hook(game->win, 4, 1L << 6, mousedown_capture, game);
 	}
@@ -89,13 +89,7 @@ static void init_null_game(t_game *game)
     game->select = NULL;
     
     // insert all textures here
-    game->imgbuffer.img = NULL;
-    game->texture_wall.n.img = NULL;
-    game->texture_wall.s.img = NULL;
-    game->texture_wall.w.img = NULL;
-    game->texture_wall.e.img = NULL;
-    game->texture_door.img = NULL;
-    game->player_shoot.frames->img = NULL;
+    
     //...
 }
 

@@ -24,7 +24,7 @@ t_map_list	*get_available_maps(void)
 	remove_invalid_maps(&map_list);
 	if (!map_list)
 	{
-		printf("Error: no valid maps found!\n");
+		printf("Error: no maps found!\n");
 		return (NULL);
 	}
 	return (map_list);

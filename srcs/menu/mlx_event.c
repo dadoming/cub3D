@@ -39,9 +39,12 @@ int	input_event(int keycode, t_menu *menu)
 void	close_window(t_menu *menu)
 {
 	printf("Closing select window...\n");
-	mlx_destroy_window(menu->mlx, menu->win);
-	mlx_destroy_image(menu->mlx, menu->imgbuffer.img);
-	mlx_destroy_display(menu->mlx);
+	if (menu->win)
+        mlx_destroy_window(menu->mlx, menu->win);
+	if (menu->imgbuffer.img)
+        mlx_destroy_image(menu->mlx, menu->imgbuffer.img);
+	if (menu->mlx)
+        mlx_destroy_display(menu->mlx);
 	free(menu->mlx);
 	delete_circular_list(&menu->map_list);
 	printf("Select window closed!\n");

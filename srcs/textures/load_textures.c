@@ -61,22 +61,16 @@ static int	load_textures_to_mlx(t_game *game, t_settings *map_settings)
 	return (0);
 }
 
-static void	free_textures(t_game *game)
+static void free_paths(t_settings *map_settings)
 {
-	if (game->texture_wall.n.img)
-		mlx_destroy_image(game->mlx, game->texture_wall.n.img);
-	if (game->texture_wall.s.img)
-		mlx_destroy_image(game->mlx, game->texture_wall.s.img);
-	if (game->texture_wall.w.img)
-		mlx_destroy_image(game->mlx, game->texture_wall.w.img);
-	if (game->texture_wall.e.img)
-		mlx_destroy_image(game->mlx, game->texture_wall.e.img);
-	if (game->texture_door.img)
-		mlx_destroy_image(game->mlx, game->texture_door.img);
-	if (game->mlx)
-		mlx_destroy_display(game->mlx);
-	free(game->mlx);
-}
+    free(map_settings->ntexpath);
+    free(map_settings->stexpath);
+    free(map_settings->wtexpath);
+    free(map_settings->etexpath);
+    free(map_settings->ceilstr);
+    free(map_settings->floorstr);
+    free(map_settings);
+} 
 
 void	load_textures(t_game *game, t_settings *map_settings)
 {
@@ -99,12 +93,6 @@ void	load_textures(t_game *game, t_settings *map_settings)
 		free_on_invalid(map_settings);
 		close_game(game);
 	}
-	free(map_settings->ntexpath);
-	free(map_settings->stexpath);
-	free(map_settings->wtexpath);
-	free(map_settings->etexpath);
-	free(map_settings->ceilstr);
-	free(map_settings->floorstr);
-	free(map_settings);
+	free_paths(map_settings);
 	printf("Textures loaded\n");
 }

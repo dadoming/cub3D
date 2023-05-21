@@ -15,10 +15,11 @@
 void	open_select_window(t_menu *menu)
 {
 	printf("Opening select window...\n");
-	menu->mlx = mlx_init();
-	if (!menu->mlx)
+     menu.mlx = mlx_init();
+    if (!menu.mlx)
 	{
 		printf("Error: could not initialize mlx!\n");
+        delete_circular_list(&menu->map_list);
 		exit(0);
 	}
 	menu->win = mlx_new_window(menu->mlx, WINDOWSIZE_X, \
@@ -26,6 +27,7 @@ void	open_select_window(t_menu *menu)
 	if (!menu->win)
 	{
 		printf("Error: could not create window!\n");
+        delete_circular_list(&menu->map_list);
 		mlx_destroy_display(menu->mlx);
 		free(menu->mlx);
 		exit(0);
@@ -51,6 +53,16 @@ void	print_map_list(t_menu *menu, t_map_list *map_list)
 		"Press space on map to start!");
 }
 
+static void create_image(t_menu *menu)
+{
+    if (!menu->imgbuffer.img || !menu->imgbuffer.addr)
+    {
+        printf("Error: could not create image!\n");
+        close_window(menu);
+        exit(0);
+    }
+}
+
 t_start_values	select_map(void)
 {
 	t_menu			menu;
@@ -66,8 +78,7 @@ t_start_values	select_map(void)
 	menu.imgbuffer.addr = mlx_get_data_addr(menu.imgbuffer.img, \
 		&menu.imgbuffer.bits_per_pixel, &menu.imgbuffer.line_length, \
 		&menu.imgbuffer.endian);
-	if (!menu.imgbuffer.img)
-		return (ret);
+	create_image(&menu);
 	clear_img(&menu);
 	menu.current = 1;
 	menu.mouse_selected = 1;
