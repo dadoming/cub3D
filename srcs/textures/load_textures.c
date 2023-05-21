@@ -82,22 +82,22 @@ void	load_textures(t_game *game, t_settings *map_settings)
 {
 	if (load_textures_to_mlx(game, map_settings))
 	{
-		free_textures(game);
 		free_on_invalid(map_settings);
+		close_game(game);
 	}
 	game->ceil_color = load_rgb(map_settings->ceilstr);
 	if (game->ceil_color == -1)
 	{
 		printf("Error\nInvalid RGB value\n");
-		free_textures(game);
 		free_on_invalid(map_settings);
+		close_game(game);
 	}
 	game->floor_color = load_rgb(map_settings->floorstr);
 	if (game->floor_color == -1)
 	{
 		printf("Error\nInvalid RGB value\n");
-		free_textures(game);
 		free_on_invalid(map_settings);
+		close_game(game);
 	}
 	free(map_settings->ntexpath);
 	free(map_settings->stexpath);
@@ -107,6 +107,4 @@ void	load_textures(t_game *game, t_settings *map_settings)
 	free(map_settings->floorstr);
 	free(map_settings);
 	printf("Textures loaded\n");
-	printf("Ceiling color: %d\n", game->ceil_color);
-	printf("Floor color: %d\n", game->floor_color);
 }

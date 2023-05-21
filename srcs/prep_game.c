@@ -16,10 +16,13 @@ void	close_game(t_game *game)
 {
 	if (game->objmap)
 		free_objmap(game->charmap, game->objmap);
-	charmap_free(game->charmap);
+	if (game->charmap)
+        charmap_free(game->charmap);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-	if (game->imgbuffer.img)
+	
+    // insert all textures here
+    if (game->imgbuffer.img)
 		mlx_destroy_image(game->mlx, game->imgbuffer.img);
 	if (game->texture_wall.n.img)
 		mlx_destroy_image(game->mlx, game->texture_wall.n.img);
@@ -33,7 +36,8 @@ void	close_game(t_game *game)
 		mlx_destroy_image(game->mlx, game->texture_door.img);
 	if (game->player_shoot.frames)
 		free_anim_list(game, &game->player_shoot.frames);
-	if (game->mlx)
+	
+    if (game->mlx)
 		mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	exit(0);
@@ -46,7 +50,7 @@ int	x_close_window(t_game *game)
 }
 
 //		mlx_mouse_hide(game->mlx, game->win); ---> this gives mlx leaks
-void	init_game_settings(t_game *game, t_settings *map_settings, \
+static void	init_game_settings(t_game *game, t_settings *map_settings, \
 	t_plinfo player, int mouse_selected)
 {
 	load_textures(game, map_settings);
@@ -57,11 +61,11 @@ void	init_game_settings(t_game *game, t_settings *map_settings, \
 	game->mapsize.x = ft_strlen(game->charmap[0]);
 	game->mapsize.y = ft_mtrxlen((void **)game->charmap);
 	define_start_orientation(&game->player);
-	game->win = mlx_new_window(game->mlx, WINDOWSIZE_X, WINDOWSIZE_Y, "cub3D");
 	game->player.inv_pos.x = player.pos.x;
 	game->player.inv_pos.y = player.pos.y;
 	game->inv_mapsize.x = game->mapsize.y;
 	game->inv_mapsize.y = game->mapsize.x;
+	game->win = mlx_new_window(game->mlx, WINDOWSIZE_X, WINDOWSIZE_Y, "cub3D");
 	mlx_hook(game->win, 17, 1L << 2, x_close_window, game);
 	mlx_hook(game->win, 2, 1L << 0, key_event, game);
 	game->mouse_selected = mouse_selected;
@@ -76,10 +80,30 @@ void	init_game_settings(t_game *game, t_settings *map_settings, \
 	clock_gettime(CLOCK_MONOTONIC, &game->old_time);
 }
 
+static void init_null_game(t_game *game)
+{
+    game->mlx = NULL;
+    game->win = NULL;
+    game->objmap = NULL;
+    game->charmap = NULL;
+    game->select = NULL;
+    
+    // insert all textures here
+    game->imgbuffer.img = NULL;
+    game->texture_wall.n.img = NULL;
+    game->texture_wall.s.img = NULL;
+    game->texture_wall.w.img = NULL;
+    game->texture_wall.e.img = NULL;
+    game->texture_door.img = NULL;
+    game->player_shoot.frames->img = NULL;
+    //...
+}
+
 int	prep_game(t_settings *map_settings, t_plinfo player, int mouse_selected)
 {
 	t_game	game;
 
+    init_null_game(&game);
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		close_game(&game);

@@ -76,8 +76,11 @@ void	elmap_free(t_elinfo *elmap)
 	{
 		if (elmap[i].key != NULL)
 			free(elmap[i].key);
+        elmap[i].key = NULL;
 		if (elmap[i].val != NULL)
 			free(elmap[i].val);
-		i++;
+        elmap[i].val = NULL;
+        i++;
 	}
+    elmap = NULL;
 }
