@@ -55,7 +55,7 @@ void	draw_minimap(t_game *game)
 	vec.x = game->player.pos.x;
 	vec.y = game->player.pos.y;
 	minimap_show(game);
-	pixsquare(game, vec2i(35 * MINIMAPSCALE, 35 * MINIMAPSCALE), 5, 0);
+	pixsquare(game, vec2i(35 * MINIMAPSCALE, 35 * MINIMAPSCALE), 3, 0);
 	game->player.pos.x = vec.x;
 	game->player.pos.y = vec.y;
 }

@@ -27,6 +27,6 @@ int	main(int argc, char **argv)
 		file_extract(ret);
 	}
 	else
-		printf("Wrong number of args");
+		printf("Wrong number of args\n");
 	return (0);
 }
