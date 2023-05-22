@@ -37,6 +37,24 @@ void	load_player(t_game *game)
 	game->player_shoot.start_time.tv_nsec = 0;
 }
 
+int no_images_or_no_h64_w64(t_game *game)
+{
+	if ((game->texture_wall.n.img == NULL) || \
+		(game->texture_wall.s.img == NULL) || \
+		(game->texture_wall.w.img == NULL) || \
+		(game->texture_wall.e.img == NULL) || \
+		(game->texture_door.img == NULL) || \
+		(game->player_shoot.frames == NULL) || \
+		(game->capy_walk.frames == NULL) || \
+		(game->capy_munch.frames == NULL) || \
+		(game->texture_wall.n.height != 64 || game->texture_wall.n.width != 64) || \
+		(game->texture_wall.s.height != 64 || game->texture_wall.s.width != 64) || \
+		(game->texture_wall.e.height != 64 || game->texture_wall.e.width != 64) || \
+		(game->texture_wall.w.height != 64 || game->texture_wall.w.width != 64))
+		return (1);
+	return (0);
+}
+
 static int	load_textures_to_mlx(t_game *game, t_settings *map_settings)
 {
 	game->texture_wall.n = load_texture(game, map_settings->etexpath);
@@ -47,16 +65,9 @@ static int	load_textures_to_mlx(t_game *game, t_settings *map_settings)
 	load_capy_walk(game);
 	load_capy_munch(game);
 	load_player(game);
-	if ((game->texture_wall.n.img == NULL) || \
-		(game->texture_wall.s.img == NULL) || \
-		(game->texture_wall.w.img == NULL) || \
-		(game->texture_wall.e.img == NULL) || \
-		(game->texture_door.img == NULL) || \
-		(game->player_shoot.frames == NULL) || \
-		(game->capy_walk.frames == NULL) || \
-		(game->capy_munch.frames == NULL))
+	if (no_images_or_no_h64_w64(game))
 	{
-		printf("Error\nInvalid texture path\n");
+		printf("Error\nInvalid texture path or texture size\n");
 		return (1);
 	}
 	return (0);
