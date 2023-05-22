@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filextract.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 13:26:31 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/19 01:03:51 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:27:31 by amaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,7 @@ t_settings	*settings_set(t_settings *map_settings)
 			&& map_settings->wtexpath && map_settings->etexpath \
 			&& map_settings->floorstr && map_settings->ceilstr \
 			&& map_settings->charmap) == 0)
-		{
-			printf("Duplicate has been found\n");
-			free_on_invalid(map_settings);
-		}
+		free_on_invalid(map_settings);
 	while (i < ELINFOLIMIT)
 	{
 		free(map_settings->elmap[i].key);

@@ -42,6 +42,5 @@ t_object	*new_door(int x, int y, t_game *game)
 	door->y = y;
 	door->state = 0;
 	door->texture_door_closed = &game->texture_door;
-	
 	return ((t_object *)door);
 }

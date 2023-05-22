@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:56:29 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 23:57:25 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:36:41 by amaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,4 @@ void	draw_checkerboard(t_game *game, t_vec2i start, size_t q, \
 			q * pixelsize, 0);
 		y += 1;
 	}
-
 }

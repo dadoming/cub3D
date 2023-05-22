@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:42:58 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 15:17:14 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:50:06 by amaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef struct s_start_values
 	char	*map_name;
 	int		mouse_selected;
 }	t_start_values;
-
 
 enum e_player_orientation
 {
@@ -205,17 +204,16 @@ struct s_door
 struct s_wall
 {
 	int				type;
-	t_imgbuffer		(*get_image)(t_object *this, int dir);
+	t_imgbuffer		(*get_image)(t_object *, int);
 	void			(*action)(t_object **this, t_game *game);
 	t_animation		animation;
 	t_texture_sides	*textures;
 };
 
-
 struct s_object
 {
 	int				type;
-	t_imgbuffer		(*get_image)(t_object *this, int dir);
+	t_imgbuffer		(*(get_image))(t_object *this, int dir);
 	void			(*action)(t_object **this, t_game *game);
 	t_animation		animation;
 };
@@ -272,7 +270,6 @@ struct s_game
 	t_animation		capy_munch;
 	struct timespec	old_time;
 };
-
 
 t_start_values		select_map(void);
 int					file_extract(t_start_values ret);
@@ -360,6 +357,7 @@ void				press_left(t_game *game);
 void				press_back(t_game *game);
 void				press_forward(t_game *game);
 int					collision(t_game *game, int x, int y);
-void free_map_settings_no_exit(t_settings *settings);
+void				free_map_settings_no_exit(t_settings *settings);
+void				free_paths(t_settings *map_settings);
 
 #endif

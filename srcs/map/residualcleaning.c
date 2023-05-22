@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   residualcleaning.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:08:42 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 15:22:55 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:31:02 by amaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	charmap_free(char ***charmap)
 {
 	size_t	i;
 
-	if ( *charmap == NULL)
+	if (*charmap == NULL)
 		return (0);
 	i = 0;
 	while ((*charmap)[i] != NULL)
@@ -76,11 +76,11 @@ void	elmap_free(t_elinfo *elmap)
 	{
 		if (elmap[i].key != NULL)
 			free(elmap[i].key);
-        elmap[i].key = NULL;
+		elmap[i].key = NULL;
 		if (elmap[i].val != NULL)
 			free(elmap[i].val);
-        elmap[i].val = NULL;
-        i++;
+		elmap[i].val = NULL;
+		i++;
 	}
-    elmap = NULL;
+	elmap = NULL;
 }

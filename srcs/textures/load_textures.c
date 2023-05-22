@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:59:08 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 15:17:45 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:23:32 by amaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	load_player(t_game *game)
 	game->player_shoot.start_time.tv_nsec = 0;
 }
 
-int no_images_or_no_h64_w64(t_game *game)
+int	no_images_or_no_h64_w64(t_game *game)
 {
 	if ((game->texture_wall.n.img == NULL) || \
 		(game->texture_wall.s.img == NULL) || \
@@ -47,10 +47,14 @@ int no_images_or_no_h64_w64(t_game *game)
 		(game->player_shoot.frames == NULL) || \
 		(game->capy_walk.frames == NULL) || \
 		(game->capy_munch.frames == NULL) || \
-		(game->texture_wall.n.height != 64 || game->texture_wall.n.width != 64) || \
-		(game->texture_wall.s.height != 64 || game->texture_wall.s.width != 64) || \
-		(game->texture_wall.e.height != 64 || game->texture_wall.e.width != 64) || \
-		(game->texture_wall.w.height != 64 || game->texture_wall.w.width != 64))
+		(game->texture_wall.n.height != 64 || \
+		game->texture_wall.n.width != 64) || \
+		(game->texture_wall.s.height != 64 || \
+		game->texture_wall.s.width != 64) || \
+		(game->texture_wall.e.height != 64 || \
+		game->texture_wall.e.width != 64) || \
+		(game->texture_wall.w.height != 64 || \
+		game->texture_wall.w.width != 64))
 		return (1);
 	return (0);
 }
@@ -72,17 +76,6 @@ static int	load_textures_to_mlx(t_game *game, t_settings *map_settings)
 	}
 	return (0);
 }
-
-static void free_paths(t_settings *map_settings)
-{
-    free(map_settings->ntexpath);
-    free(map_settings->stexpath);
-    free(map_settings->wtexpath);
-    free(map_settings->etexpath);
-    free(map_settings->ceilstr);
-    free(map_settings->floorstr);
-    free(map_settings);
-} 
 
 void	load_textures(t_game *game, t_settings *map_settings)
 {

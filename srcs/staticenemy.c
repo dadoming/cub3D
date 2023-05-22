@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   staticenemy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:32:21 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/19 00:32:28 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:37:02 by amaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	action_staticenemy(t_object **this, t_game *game)
 	t_staticenemy	*staticenemy;
 
 	staticenemy = (t_staticenemy *)*this;
-
 	if (staticenemy->animation.frames == game->capy_munch.frames)
 		staticenemy->animation = game->capy_walk;
 	else
@@ -39,6 +38,5 @@ t_object	*new_staticenemy(t_game *game)
 	staticenemy->get_image = get_image_staticenemy;
 	staticenemy->action = action_staticenemy;
 	staticenemy->animation = game->capy_munch;
-
 	return ((t_object *)staticenemy);
 }

@@ -1,4 +1,16 @@
-# include "../includes/cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   object.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/22 17:02:10 by amaria-d          #+#    #+#             */
+/*   Updated: 2023/05/22 17:03:30 by amaria-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/cub3D.h"
 
 void	update_anim(t_animation *anim, t_microseconds tmstmpnow)
 {
@@ -55,26 +67,27 @@ t_object	***load_individual_map_tile(char **map, t_game *game)
 	return (obj);
 }
 
-void free_objmap(char **map, t_object ***obj)
+void	free_objmap(char **map, t_object ***obj)
 {
-    int i = 0;
-    int j = 0;
+	int	i;
+	int	j;
 
-    while (map[i])
-    {
-        j = 0;
-        while (map[i][j])
-        {
-            if (map[i][j] == DOOR)
-                free(obj[i][j]);
-            else if (map[i][j] == WALL)
-                free(obj[i][j]);
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == DOOR)
+				free(obj[i][j]);
+			else if (map[i][j] == WALL)
+				free(obj[i][j]);
 			else if (map[i][j] == STATICENEMY)
 				free(obj[i][j]);
-            j++;
-        }
-        free(obj[i]);
-        i++;
-    }
-    free(obj);
+			j++;
+		}
+		free(obj[i]);
+		i++;
+	}
+	free(obj);
 }

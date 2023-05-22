@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_event.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:44:16 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 21:51:45 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:24:51 by amaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	close_window(t_menu *menu)
 {
 	printf("Closing select window...\n");
 	if (menu->win)
-        mlx_destroy_window(menu->mlx, menu->win);
+		mlx_destroy_window(menu->mlx, menu->win);
 	if (menu->imgbuffer.img)
-        mlx_destroy_image(menu->mlx, menu->imgbuffer.img);
+		mlx_destroy_image(menu->mlx, menu->imgbuffer.img);
 	if (menu->mlx)
-        mlx_destroy_display(menu->mlx);
+		mlx_destroy_display(menu->mlx);
 	free(menu->mlx);
 	delete_circular_list(&menu->map_list);
 	printf("Select window closed!\n");

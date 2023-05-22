@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_menu.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:27:12 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 21:42:23 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:24:19 by amaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	open_select_window(t_menu *menu)
 {
 	printf("Opening select window...\n");
-     menu->mlx = mlx_init();
-    if (!menu->mlx)
+	menu->mlx = mlx_init();
+	if (!menu->mlx)
 	{
 		printf("Error: could not initialize mlx!\n");
-        delete_circular_list(&menu->map_list);
+		delete_circular_list(&menu->map_list);
 		exit(0);
 	}
 	menu->win = mlx_new_window(menu->mlx, WINDOWSIZE_X, \
@@ -27,7 +27,7 @@ void	open_select_window(t_menu *menu)
 	if (!menu->win)
 	{
 		printf("Error: could not create window!\n");
-        delete_circular_list(&menu->map_list);
+		delete_circular_list(&menu->map_list);
 		mlx_destroy_display(menu->mlx);
 		free(menu->mlx);
 		exit(0);
@@ -53,14 +53,14 @@ void	print_map_list(t_menu *menu, t_map_list *map_list)
 		"Press space on map to start!");
 }
 
-static void create_image(t_menu *menu)
+static void	create_image(t_menu *menu)
 {
-    if (!menu->imgbuffer.img || !menu->imgbuffer.addr)
-    {
-        printf("Error: could not create image!\n");
-        close_window(menu);
-        exit(0);
-    }
+	if (!menu->imgbuffer.img || !menu->imgbuffer.addr)
+	{
+		printf("Error: could not create image!\n");
+		close_window(menu);
+		exit(0);
+	}
 }
 
 t_start_values	select_map(void)

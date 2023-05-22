@@ -3,26 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   prep_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:50:55 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 15:24:52 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:35:55 by amaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+static void	norm_close(t_game *game)
+{
+	if (game->player_shoot.frames)
+		free_anim_list(game, &game->player_shoot.frames);
+	if (game->capy_walk.frames)
+		free_anim_list(game, &game->capy_walk.frames);
+	if (game->capy_munch.frames)
+		free_anim_list(game, &game->capy_munch.frames);
+	if (game->mlx)
+		mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	exit(0);
+}
 
 void	close_game(t_game *game)
 {
 	if (game->objmap)
 		free_objmap(game->charmap, game->objmap);
 	if (game->charmap)
-        charmap_free(&game->charmap);
+		charmap_free(&game->charmap);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-	
-    // insert all textures here
-    if (game->imgbuffer.img)
+	if (game->imgbuffer.img)
 		mlx_destroy_image(game->mlx, game->imgbuffer.img);
 	if (game->texture_wall.n.img)
 		mlx_destroy_image(game->mlx, game->texture_wall.n.img);
@@ -34,16 +46,7 @@ void	close_game(t_game *game)
 		mlx_destroy_image(game->mlx, game->texture_wall.e.img);
 	if (game->texture_door.img)
 		mlx_destroy_image(game->mlx, game->texture_door.img);
-	if (game->player_shoot.frames)
-		free_anim_list(game, &game->player_shoot.frames);
-	if (game->capy_walk.frames)
-		free_anim_list(game, &game->capy_walk.frames);
-	if (game->capy_munch.frames)
-		free_anim_list(game, &game->capy_munch.frames);
-    if (game->mlx)
-		mlx_destroy_display(game->mlx);
-	free(game->mlx);
-	exit(0);
+	norm_close(game);
 }
 
 int	x_close_window(t_game *game)
@@ -52,7 +55,7 @@ int	x_close_window(t_game *game)
 	return (0);
 }
 
-//		mlx_mouse_hide(game->mlx, game->win); ---> this gives mlx leaks
+// mlx_mouse_hide(game->mlx, game->win);
 static void	init_game_settings(t_game *game, t_settings *map_settings, \
 	t_plinfo player, int mouse_selected)
 {
@@ -76,7 +79,6 @@ static void	init_game_settings(t_game *game, t_settings *map_settings, \
 	{
 		mlx_mouse_move(game->mlx, game->win, \
 			WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
-		//mlx_mouse_hide(game->mlx, game->win);
 		mlx_hook(game->win, 6, 1L << 6, mousemove_capture, game);
 		mlx_hook(game->win, 4, 1L << 6, mousedown_capture, game);
 	}

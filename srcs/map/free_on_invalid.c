@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_on_invalid.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:57:02 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 15:23:56 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:26:30 by amaria-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,18 @@ void	free_on_invalid(t_settings *settings)
 	exit(0);
 }
 
-void free_map_settings_no_exit(t_settings *settings)
+void	free_paths(t_settings *map_settings)
+{
+	free(map_settings->ntexpath);
+	free(map_settings->stexpath);
+	free(map_settings->wtexpath);
+	free(map_settings->etexpath);
+	free(map_settings->ceilstr);
+	free(map_settings->floorstr);
+	free(map_settings);
+}
+
+void	free_map_settings_no_exit(t_settings *settings)
 {
 	free(settings->ntexpath);
 	free(settings->stexpath);
