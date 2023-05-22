@@ -14,9 +14,7 @@
 
 void	norm_help(t_game *game, t_vec2i pixeldraw, int x, int y)
 {
-	if (coordcheck(game, x, y) == 'N')
-		pixsquare(game, pixeldraw, MINIMAPSCALE, rgbtocolor(0, 255, 255));
-	else if (coordcheck(game, x, y) == WALL)
+	if (coordcheck(game, x, y) == WALL)
 		pixsquare(game, pixeldraw, MINIMAPSCALE, 0x00D27D2D);
 	else if (coordcheck(game, x, y) == DOOR)
 		pixsquare(game, pixeldraw, MINIMAPSCALE, 0x00FFD700);

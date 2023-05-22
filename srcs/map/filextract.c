@@ -24,13 +24,12 @@ int	file_extract(t_start_values ret)
 
 	load_map_file(&ret, &fd);
 	settings = read_settings(fd);
+	close(fd);
 	if (settings == NULL)
 	{
 		printf("Exiting program...\n");
-		close(fd);
 		exit(0);
 	}
-	close(fd);
 	settings = settings_set(settings);
 	return (prep_game(settings, prepare_map(settings), ret.mouse_selected));
 }
@@ -70,7 +69,10 @@ t_settings	*settings_set(t_settings *map_settings)
 			&& map_settings->wtexpath && map_settings->etexpath \
 			&& map_settings->floorstr && map_settings->ceilstr \
 			&& map_settings->charmap) == 0)
-		free_on_invalid(map_settings);
+		{
+			printf("Duplicate has been found\n");
+			free_on_invalid(map_settings);
+		}
 	while (i < ELINFOLIMIT)
 	{
 		free(map_settings->elmap[i].key);

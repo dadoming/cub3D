@@ -1,0 +1,16 @@
+    NO ./textures/wall/LAB_1A.xpm
+
+
+     WE         ./textures/wall/LAB_4A.xpm
+EA     ./textures/wall/SUPPORT_6A.xpm           
+
+SO            ./textures/wall/TECH_0A.xpm
+F 220   ,      100,0
+C 225    ,30  ,    0112
+1111111111111
+1000101000001
+1000D00011111
+100010N0D0001
+1000100010001
+100000T010001
+1111111111111

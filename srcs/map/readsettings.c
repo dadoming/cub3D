@@ -101,6 +101,7 @@ void	evaluate_settings(t_list *file_list, t_settings **map_settings)
 	{
 		if (treat_caught_info((*map_settings)->elmap, &file_list, &i) == 1)
 		{
+			printf("Bad key-value pair\n");
 			free_evaluation(map_settings);
 			free_list(&temp);
 			exit(0);
