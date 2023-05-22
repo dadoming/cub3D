@@ -39,10 +39,10 @@ void	load_player(t_game *game)
 
 static int	load_textures_to_mlx(t_game *game, t_settings *map_settings)
 {
-	game->texture_wall.n = load_texture(game, map_settings->ntexpath);
-	game->texture_wall.s = load_texture(game, map_settings->stexpath);
-	game->texture_wall.w = load_texture(game, map_settings->wtexpath);
-	game->texture_wall.e = load_texture(game, map_settings->etexpath);
+	game->texture_wall.n = load_texture(game, map_settings->etexpath);
+	game->texture_wall.s = load_texture(game, map_settings->wtexpath);
+	game->texture_wall.w = load_texture(game, map_settings->ntexpath);
+	game->texture_wall.e = load_texture(game, map_settings->stexpath);
 	game->texture_door = load_texture(game, "./textures/DOOR_1E.xpm");
 	load_capy_walk(game);
 	load_capy_munch(game);
