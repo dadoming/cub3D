@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:29:02 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 18:21:34 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:20:06 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	key_press(int key, t_game *game)
 	return (0);
 }
 
-int key_release(int key, t_game *game)
+int	key_release(int key, t_game *game)
 {
 	wasd(game, key, 0);
 	return (0);
 }
 
-void keys_treatment(t_game *game)
+void	keys_treatment(t_game *game)
 {
 	mlx_hook(game->win, 02, 1L << 0, key_press, game);
 	mlx_hook(game->win, 03, 1L << 1, key_release, game);
@@ -41,6 +41,7 @@ void keys_treatment(t_game *game)
 	{
 		mlx_mouse_move(game->mlx, game->win, \
 			WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
+		mlx_mouse_hide(game->mlx, game->win);
 		mlx_hook(game->win, 6, 1L << 6, mousemove_capture, game);
 		mlx_hook(game->win, 4, 1L << 6, mousedown_capture, game);
 	}

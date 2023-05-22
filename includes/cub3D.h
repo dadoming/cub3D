@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:42:58 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 18:31:32 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:04:21 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ typedef struct s_imgbuffer		t_imgbuffer;
 typedef struct s_door			t_door;
 typedef struct s_wall			t_wall;
 typedef struct s_staticenemy	t_staticenemy;
-
+typedef t_imgbuffer				(*t_func_staticenemy)(t_staticenemy *, int);
+typedef t_imgbuffer				(*t_func_door)(t_door *, int);
+typedef t_imgbuffer				(*t_func_wall)(t_object *, int);
+typedef t_imgbuffer				(*t_func)(t_object *, int);
 typedef long					t_microseconds;
 
 typedef struct s_start_values
@@ -182,17 +185,17 @@ typedef struct s_animation
 
 struct s_staticenemy
 {
-	int				type;
-	t_imgbuffer		(*get_image)(t_staticenemy *this, int dir);
-	void			(*action)(t_object **this, t_game *game);
-	t_animation		animation;
-	int				state;
+	int					type;
+	t_func_staticenemy	get_image;
+	void				(*action)(t_object **this, t_game *game);
+	t_animation			animation;
+	int					state;
 };
 
 struct s_door
 {
 	int				type;
-	t_imgbuffer		(*get_image)(t_door *this, int dir);
+	t_func_door		get_image;
 	void			(*action)(t_object **this, t_game *game);
 	t_animation		animation;
 	int				state;
@@ -204,7 +207,7 @@ struct s_door
 struct s_wall
 {
 	int				type;
-	t_imgbuffer		(*get_image)(t_object *, int);
+	t_func_wall		get_image;
 	void			(*action)(t_object **this, t_game *game);
 	t_animation		animation;
 	t_texture_sides	*textures;
@@ -213,7 +216,7 @@ struct s_wall
 struct s_object
 {
 	int				type;
-	t_imgbuffer		(*(get_image))(t_object *this, int dir);
+	t_func			get_image;
 	void			(*action)(t_object **this, t_game *game);
 	t_animation		animation;
 };
@@ -250,11 +253,11 @@ typedef struct s_raycast
 
 typedef struct s_movement
 {
-	int w;
-	int a;
-	int s;
-	int d;
-} t_movement;
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+}	t_movement;
 
 struct s_game
 {

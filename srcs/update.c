@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:32:57 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 18:18:34 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:41:54 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ void	objiter(t_game *game, t_microseconds now)
 	}
 }
 
-void update_movement(t_game *game)
+void	update_movement(t_game *game)
 {
-	// started values?
-
 	if (game->movement.w)
 		press_forward(game);
 	if (game->movement.s)
@@ -62,10 +60,6 @@ void update_movement(t_game *game)
 		else
 			rotate_direction(game, cos(-ROTATESPEED), sin(-ROTATESPEED));
 	}
-	//if (game->movement.left)
-	//	//rotate left
-	//if (game->movement.right)
-	//	//rotate right
 }
 
 void	update(t_game *game, t_microseconds tmstmpnow)

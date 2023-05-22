@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:50:55 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 18:07:50 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:19:59 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	x_close_window(t_game *game)
 	return (0);
 }
 
-// mlx_mouse_hide(game->mlx, game->win);
 static void	init_game_settings(t_game *game, t_settings *map_settings, \
 	t_plinfo player, int mouse_selected)
 {

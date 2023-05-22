@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strcmpwhr.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/22 19:05:06 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/22 19:05:14 by dadoming         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 /* Gives pos where the strings diverge
@@ -19,4 +31,3 @@ size_t	ft_strcmpwhr(const char *s1, const char *s2)
 	}
 	return (i + 1);
 }
-

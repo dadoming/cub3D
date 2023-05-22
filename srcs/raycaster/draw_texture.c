@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:52:43 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 22:45:33 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:17:03 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	draw_vertical_stripe(t_game *game, t_raycast *ray)
 		y++;
 		j++;
 	}
-	while (j < WINDOWSIZE_Y)
+	while (j < WINDOWSIZE_Y - 1)
 	{
 		mypixelput(&game->imgbuffer, ray->x, j, game->floor_color);
 		j++;
