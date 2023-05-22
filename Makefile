@@ -85,6 +85,6 @@ c:	clean
 f:	fclean
 
 r:	clean all
-	# ./cub3D
+	./cub3D
 
 .PHONY: all clean fclean re

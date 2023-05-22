@@ -69,6 +69,8 @@ void free_objmap(char **map, t_object ***obj)
                 free(obj[i][j]);
             else if (map[i][j] == WALL)
                 free(obj[i][j]);
+			else if (map[i][j] == STATICENEMY)
+				free(obj[i][j]);
             j++;
         }
         free(obj[i]);

@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:59:08 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/19 01:09:21 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:55:30 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ static int	load_textures_to_mlx(t_game *game, t_settings *map_settings)
 	game->texture_wall.s = load_texture(game, map_settings->stexpath);
 	game->texture_wall.w = load_texture(game, map_settings->wtexpath);
 	game->texture_wall.e = load_texture(game, map_settings->etexpath);
-	game->texture_door = load_texture(game, "./textures/capybara.xpm");
-	load_capy_idle(game);
+	game->texture_door = load_texture(game, "./textures/DOOR_1E.xpm");
 	load_capy_walk(game);
 	load_capy_munch(game);
 	load_player(game);

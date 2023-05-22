@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:32:57 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/19 00:44:59 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:47:26 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 static void	norm_helper_iter(t_game *game, t_microseconds now, int j, int i)
 {
-	if (game->objmap[j][i]->type == DOOR)
-	{
-		update_anim(&((t_door *)game->objmap[j][i])->animation, now);
-		((t_door *)game->objmap[j][i])->animation.trigger = 1;
-	}
-	else if (game->objmap[j][i]->type == STATICENEMY)
+	if (game->objmap[j][i]->type == STATICENEMY)
 	{
 		update_anim(&((t_staticenemy *)game->objmap[j][i])->animation, now);
 		((t_staticenemy *)game->objmap[j][i])->animation.trigger = 1;

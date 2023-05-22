@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:42:58 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/19 01:32:26 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:45:59 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@
 # define ELINFOLIMIT 6
 # define RADJUMP 64
 # define SQUARESIZE 64
-# define MOVESPEED 0.20
+# define MOVESPEED 0.15
 # define ROTATESPEED 0.20
 # define ROTDIVIDER 8
-# define WALKDIST 10 // pixels every move
 # define WINDOWSIZE_X 640
 # define WINDOWSIZE_Y 640
 # define MINIMAPSIZE_X 160
@@ -200,7 +199,6 @@ struct s_door
 	int				state;
 	int				x;
 	int				y;
-	t_imgbuffer		*texture_door_opened;
 	t_imgbuffer		*texture_door_closed;
 };
 
@@ -252,13 +250,6 @@ typedef struct s_raycast
 	int				texture_pixels[SQUARESIZE * SQUARESIZE];
 }	t_raycast;
 
-typedef struct s_statTextures
-{
-	t_texture_sides	texture_wall;
-	t_imgbuffer		texture_door;
-	t_imgbuffer		dynamite;
-}	t_statTextures;
-
 struct s_game
 {
 	void			*mlx;
@@ -276,10 +267,7 @@ struct s_game
 	t_plinfo		player;
 	t_texture_sides	texture_wall;
 	t_imgbuffer		texture_door;
-	t_imgbuffer		texture_dynamite;
 	t_animation		player_shoot;
-	t_animation		explosion;
-	t_animation		capy_idle;
 	t_animation		capy_walk;
 	t_animation		capy_munch;
 	struct timespec	now_time;
@@ -362,7 +350,6 @@ void				free_objmap(char **map, t_object ***obj);
 void				update_anim(t_animation *anim, t_microseconds tmstmpnow);
 int					mypixelget(t_imgbuffer *imgbuffer, int x, int y);
 void				update(t_game *game, t_microseconds tmstmpnow);
-void				load_capy_idle(t_game *game);
 void				load_capy_walk(t_game *game);
 void				load_capy_munch(t_game *game);
 t_object			*new_staticenemy(t_game *game);

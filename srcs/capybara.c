@@ -6,24 +6,12 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:30:47 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/19 01:09:08 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:40:40 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	    load_capy_idle(t_game *game)
-{
-    game->capy_idle.frame_num = 8;
-    game->capy_idle.frames = load_n_images(game, "CapySitIdle/capybaraSittingIdle", game->capy_idle.frame_num);
-    game->capy_idle.current_frame = game->capy_idle.frames;
-    game->capy_idle.trigger = 0;
-    game->capy_idle.frame_count = 1;
-
-    game->capy_idle.frame_time = 200000;
-    game->capy_idle.start_time.tv_sec = 0;
-    game->capy_idle.start_time.tv_nsec = 0;
-}
 
 void	load_capy_walk(t_game *game)
 {

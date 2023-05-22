@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:50:55 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 23:54:47 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:50:32 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void	close_game(t_game *game)
 		mlx_destroy_image(game->mlx, game->texture_door.img);
 	if (game->player_shoot.frames)
 		free_anim_list(game, &game->player_shoot.frames);
-	
+	if (game->capy_walk.frames)
+		free_anim_list(game, &game->capy_walk.frames);
+	if (game->capy_munch.frames)
+		free_anim_list(game, &game->capy_munch.frames);
     if (game->mlx)
 		mlx_destroy_display(game->mlx);
 	free(game->mlx);

@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:55:48 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 23:56:19 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:46:38 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ static void	action_door(t_object **this, t_game *game)
 		+ pow(game->player.pos.y - door->y, 2));
 	if (dist <= 2)
 		door->state = !door->state;
-	door->animation = game->capy_walk;
 }
 
 static t_imgbuffer	get_image_door(t_door *this, int dir)
 {
-	return (this->animation.current_frame->img);
+	return (*this->texture_door_closed);
 	(void)dir;
 }
 
@@ -43,6 +42,6 @@ t_object	*new_door(int x, int y, t_game *game)
 	door->y = y;
 	door->state = 0;
 	door->texture_door_closed = &game->texture_door;
-	door->animation = game->capy_idle;
+	
 	return ((t_object *)door);
 }
