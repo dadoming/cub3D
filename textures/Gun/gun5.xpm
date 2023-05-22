@@ -171,7 +171,7 @@ static char *gun[] = {
 "+L c #959595",
 "+M c #c8c8c8",
 "+N c #5c5c5c",
-"+O c black",
+"+O c #030201",
 "+P c #4b4b4b",
 "+Q c #2f2f2f",
 "+R c #a3a3a3",

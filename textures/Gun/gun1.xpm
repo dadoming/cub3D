@@ -212,7 +212,7 @@ static char *gun[] = {
 "@} c #3d3d3d",
 "@| c #434343",
 "@1 c #bfbfbf",
-"@2 c black",
+"@2 c #030201",
 "@3 c #4a4a4a",
 "@4 c #ebebeb",
 "@5 c #ededed",

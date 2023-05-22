@@ -25,7 +25,7 @@ static char *gun[] = {
 ".] c #c3312f",
 ".^ c #fdf1db",
 ".( c #ffffef",
-"._ c black",
+"._ c #030201",
 ".: c #3c3c3c",
 ".< c #c9c9c9",
 ".[ c #f8d1bf",
