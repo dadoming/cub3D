@@ -44,7 +44,6 @@ static int	load_textures_to_mlx(t_game *game, t_settings *map_settings)
 	game->texture_wall.w = load_texture(game, map_settings->wtexpath);
 	game->texture_wall.e = load_texture(game, map_settings->etexpath);
 	game->texture_door = load_texture(game, "./textures/capybara.xpm");
-	game->texture_dynamite = load_texture(game, "./textures/dynamite.xpm");
 	load_capy_idle(game);
 	load_capy_walk(game);
 	load_capy_munch(game);
