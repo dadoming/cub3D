@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:42:58 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 17:50:06 by amaria-d         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:31:32 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define ELINFOLIMIT 6
 # define RADJUMP 64
 # define SQUARESIZE 64
-# define MOVESPEED 0.15
-# define ROTATESPEED 0.20
+# define MOVESPEED 0.07
+# define ROTATESPEED 0.12
 # define ROTDIVIDER 8
 # define WINDOWSIZE_X 640
 # define WINDOWSIZE_Y 640
@@ -248,12 +248,21 @@ typedef struct s_raycast
 	int				texture_pixels[SQUARESIZE * SQUARESIZE];
 }	t_raycast;
 
+typedef struct s_movement
+{
+	int w;
+	int a;
+	int s;
+	int d;
+} t_movement;
+
 struct s_game
 {
 	void			*mlx;
 	void			*win;
 	t_imgbuffer		imgbuffer;
 	int				mouse_selected;
+	t_movement		movement;
 	int				ceil_color;
 	int				floor_color;
 	int				minimap_toggle;	
@@ -359,5 +368,8 @@ void				press_forward(t_game *game);
 int					collision(t_game *game, int x, int y);
 void				free_map_settings_no_exit(t_settings *settings);
 void				free_paths(t_settings *map_settings);
+void				keys_treatment(t_game *game);
+void				wasd(t_game *game, int key, int setter);
+int					x_close_window(t_game *game);
 
 #endif

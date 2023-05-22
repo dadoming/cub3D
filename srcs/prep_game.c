@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:50:55 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 17:35:55 by amaria-d         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:07:50 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,8 @@ static void	init_game_settings(t_game *game, t_settings *map_settings, \
 	game->inv_mapsize.x = game->mapsize.y;
 	game->inv_mapsize.y = game->mapsize.x;
 	game->win = mlx_new_window(game->mlx, WINDOWSIZE_X, WINDOWSIZE_Y, "cub3D");
-	mlx_hook(game->win, 17, 1L << 2, x_close_window, game);
-	mlx_hook(game->win, 2, 1L << 0, key_event, game);
 	game->mouse_selected = mouse_selected;
-	if (mouse_selected)
-	{
-		mlx_mouse_move(game->mlx, game->win, \
-			WINDOWSIZE_X / 2, WINDOWSIZE_Y / 2);
-		mlx_hook(game->win, 6, 1L << 6, mousemove_capture, game);
-		mlx_hook(game->win, 4, 1L << 6, mousedown_capture, game);
-	}
+	keys_treatment(game);
 	clock_gettime(CLOCK_MONOTONIC, &game->old_time);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:32:57 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 14:47:26 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:18:34 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,34 @@ void	objiter(t_game *game, t_microseconds now)
 	}
 }
 
+void update_movement(t_game *game)
+{
+	// started values?
+
+	if (game->movement.w)
+		press_forward(game);
+	if (game->movement.s)
+		press_back(game);
+	if (game->movement.a)
+	{
+		if (game->mouse_selected)
+			press_left(game);
+		else
+			rotate_direction(game, cos(ROTATESPEED), sin(ROTATESPEED));
+	}
+	if (game->movement.d)
+	{
+		if (game->mouse_selected)
+			press_right(game);
+		else
+			rotate_direction(game, cos(-ROTATESPEED), sin(-ROTATESPEED));
+	}
+	//if (game->movement.left)
+	//	//rotate left
+	//if (game->movement.right)
+	//	//rotate right
+}
+
 void	update(t_game *game, t_microseconds tmstmpnow)
 {
 	if (game->minimap_toggle == 0)
@@ -48,4 +76,5 @@ void	update(t_game *game, t_microseconds tmstmpnow)
 	update_anim(&game->player_shoot, tmstmpnow);
 	draw_weapon(game);
 	draw_crosshair(game, 5, rgbtocolor(153, 0, 153));
+	update_movement(game);
 }

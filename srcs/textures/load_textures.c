@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:59:08 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 17:23:32 by amaria-d         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:30:27 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	load_player(t_game *game)
 	game->player_shoot.current_frame = game->player_shoot.frames;
 	game->player_shoot.trigger = 0;
 	game->player_shoot.frame_count = 1;
-	game->player_shoot.frame_time = 100000;
+	game->player_shoot.frame_time = 85000;
 	game->player_shoot.start_time.tv_sec = 0;
 	game->player_shoot.start_time.tv_nsec = 0;
 }
