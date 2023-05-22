@@ -1,10 +1,10 @@
-    NO ./textures/lava.xpm
+    NO ./textures/wall/LAB_1A.xpm
 
 
-     WE         ./textures/leaves.xpm
-EA     ./textures/stone.xpm           
+     WE         ./textures/wall/LAB_4A.xpm
+EA     ./textures/wall/SUPPORT_6A.xpm           
 
-SO            ./textures/water.xpm
+SO            ./textures/wall/TECH_0A.xpm
 F 220   ,      100,0
 C 225    ,30  ,    0112
 1111111111111

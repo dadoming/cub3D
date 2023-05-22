@@ -15,8 +15,8 @@
 void	open_select_window(t_menu *menu)
 {
 	printf("Opening select window...\n");
-     menu.mlx = mlx_init();
-    if (!menu.mlx)
+     menu->mlx = mlx_init();
+    if (!menu->mlx)
 	{
 		printf("Error: could not initialize mlx!\n");
         delete_circular_list(&menu->map_list);
