@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:50:55 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 14:50:32 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:24:52 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	close_game(t_game *game)
 	if (game->objmap)
 		free_objmap(game->charmap, game->objmap);
 	if (game->charmap)
-        charmap_free(game->charmap);
+        charmap_free(&game->charmap);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	
@@ -83,27 +83,18 @@ static void	init_game_settings(t_game *game, t_settings *map_settings, \
 	clock_gettime(CLOCK_MONOTONIC, &game->old_time);
 }
 
-static void init_null_game(t_game *game)
-{
-    game->mlx = NULL;
-    game->win = NULL;
-    game->objmap = NULL;
-    game->charmap = NULL;
-    game->select = NULL;
-    
-    // insert all textures here
-    
-    //...
-}
-
 int	prep_game(t_settings *map_settings, t_plinfo player, int mouse_selected)
 {
 	t_game	game;
 
-    init_null_game(&game);
+	ft_memset(&game, 0, sizeof(t_game));
 	game.mlx = mlx_init();
 	if (!game.mlx)
-		close_game(&game);
+	{
+		free_map_settings_no_exit(map_settings);
+		charmap_free(&map_settings->charmap);
+		exit(0);
+	}
 	init_game_settings(&game, map_settings, player, mouse_selected);
 	game.imgbuffer.img = mlx_new_image(game.mlx, WINDOWSIZE_X, WINDOWSIZE_Y);
 	game.imgbuffer.addr = mlx_get_data_addr(game.imgbuffer.img, &game.imgbuffer.\

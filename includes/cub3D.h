@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:42:58 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 14:45:59 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:17:14 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,6 @@ struct s_game
 	t_animation		player_shoot;
 	t_animation		capy_walk;
 	t_animation		capy_munch;
-	struct timespec	now_time;
 	struct timespec	old_time;
 };
 
@@ -286,7 +285,7 @@ int					invalid_chars(char **map);
 void				get_maximum_values(t_map_check *maxs, char **map);
 char				**cut_and_define_border(char **map);
 void				get_player(char **map, t_plinfo *player);
-int					charmap_free(char **charmap);
+int					charmap_free(char ***charmap);
 void				elmap_free(t_elinfo *map_settings);
 void				free_list(t_list **list);
 void				free_evaluation(t_settings **map_settings);
@@ -361,5 +360,6 @@ void				press_left(t_game *game);
 void				press_back(t_game *game);
 void				press_forward(t_game *game);
 int					collision(t_game *game, int x, int y);
+void free_map_settings_no_exit(t_settings *settings);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 22:59:08 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 14:55:30 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:17:45 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ static int	load_textures_to_mlx(t_game *game, t_settings *map_settings)
 		(game->texture_wall.s.img == NULL) || \
 		(game->texture_wall.w.img == NULL) || \
 		(game->texture_wall.e.img == NULL) || \
-		(game->texture_door.img == NULL))
+		(game->texture_door.img == NULL) || \
+		(game->player_shoot.frames == NULL) || \
+		(game->capy_walk.frames == NULL) || \
+		(game->capy_munch.frames == NULL))
 	{
 		printf("Error\nInvalid texture path\n");
 		return (1);
@@ -74,21 +77,21 @@ void	load_textures(t_game *game, t_settings *map_settings)
 {
 	if (load_textures_to_mlx(game, map_settings))
 	{
-		free_on_invalid(map_settings);
+		free_map_settings_no_exit(map_settings);
 		close_game(game);
 	}
 	game->ceil_color = load_rgb(map_settings->ceilstr);
 	if (game->ceil_color == -1)
 	{
 		printf("Error\nInvalid RGB value\n");
-		free_on_invalid(map_settings);
+		free_map_settings_no_exit(map_settings);
 		close_game(game);
 	}
 	game->floor_color = load_rgb(map_settings->floorstr);
 	if (game->floor_color == -1)
 	{
 		printf("Error\nInvalid RGB value\n");
-		free_on_invalid(map_settings);
+		free_map_settings_no_exit(map_settings);
 		close_game(game);
 	}
 	free_paths(map_settings);

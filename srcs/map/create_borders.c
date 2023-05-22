@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:43:55 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 21:09:41 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:16:43 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ char	**cut_and_define_border(char **map)
 	if (maxs.bottom - maxs.top < 3 && maxs.right - maxs.left < 3)
 	{
 		printf("Map is too small\n");
-		charmap_free(map);
+		charmap_free(&map);
 		return (NULL);
 	}
 	new_map = malloc(sizeof(char *) * (maxs.bottom - maxs.top + 3 + 1));
 	fill_map(map, maxs, new_map);
-	charmap_free(map);
+	charmap_free(&map);
 	return (new_map);
 }
 

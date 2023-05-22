@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:08:42 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/19 01:03:59 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:22:55 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_evaluation(t_settings **map_settings)
 	printf("Cleaning Settings.\n");
 	elmap_free((*map_settings)->elmap);
 	if ((*map_settings)->charmap)
-		charmap_free((*map_settings)->charmap);
+		charmap_free(&(*map_settings)->charmap);
 	if ((*map_settings)->ntexpath)
 		free((*map_settings)->ntexpath);
 	if ((*map_settings)->stexpath)
@@ -49,21 +49,21 @@ void	free_list(t_list **list)
 	}
 }
 
-int	charmap_free(char **charmap)
+int	charmap_free(char ***charmap)
 {
 	size_t	i;
 
-	if (!charmap)
+	if ( *charmap == NULL)
 		return (0);
 	i = 0;
-	while (charmap[i] != NULL)
+	while ((*charmap)[i] != NULL)
 	{
-		free(charmap[i]);
-		charmap[i] = NULL;
+		free((*charmap)[i]);
+		(*charmap)[i] = NULL;
 		i++;
 	}
-	free(charmap);
-	charmap = NULL;
+	free(*charmap);
+	*charmap = NULL;
 	return (1);
 }
 
