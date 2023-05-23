@@ -6,7 +6,7 @@
 #    By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/22 18:46:52 by dadoming          #+#    #+#              #
-#    Updated: 2023/05/22 18:46:53 by dadoming         ###   ########.fr        #
+#    Updated: 2023/05/23 11:12:16 by dadoming         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,11 @@ HEADERS_LIST = cub3D.h
 HEADERS_DIRECTORY = includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-TEXTURES_LIST = load_textures.c rgb_convert.c rgb_norm.c
+TEXTURES_LIST = load_textures.c rgb_convert.c rgb_norm.c color.c gun.c imgbuffer.c crosshair.c square.c minimap.c draw.c line.c 
 TEXTURES_DIRECTORY = textures/
 TEXTURES = $(addprefix $(TEXTURES_DIRECTORY), $(TEXTURES_LIST))
 
-MAP_LIST = checksettings.c filextract.c initmapsettings.c player_orientation.c player_orientation2.c readsettings.c create_borders.c get_map_sizes.c invalid_chars.c preparemap.c residualcleaning.c free_on_invalid.c
+MAP_LIST = checksettings.c filextract.c initmapsettings.c player_orientation.c player_orientation2.c readsettings.c create_borders.c get_map_sizes.c invalid_chars.c preparemap.c residualcleaning.c free_on_invalid.c coordcheck.c
 MAP_DIRECTORY = map/
 MAP = $(addprefix $(MAP_DIRECTORY), $(MAP_LIST))
 
@@ -40,11 +40,19 @@ MENU_LIST = map_menu.c mlx_event.c circular_ll.c get_maps.c loop_utils.c draw_me
 MENU_DIRECTORY = menu/
 MENU = $(addprefix $(MENU_DIRECTORY), $(MENU_LIST))
 
-ANIMATIONS_LIST = anim_list.c
+ANIMATIONS_LIST = anim_list.c capybara.c 
 ANIMATIONS_DIRECTORY = animations/
 ANIMATIONS = $(addprefix $(ANIMATIONS_DIRECTORY), $(ANIMATIONS_LIST))
 
-SRCS_LIST = $(MAP) $(TEXTURES) $(RAYCAST) $(MENU) $(ANIMATIONS) main.c color.c draw.c imgbuffer.c line.c movement.c prep_game.c run_game.c square.c vector.c door.c wall.c minimap.c crosshair.c mouse.c time.c gun.c update.c capybara.c object.c staticenemy.c init_player_start.c keys.c coordcheck.c
+INPUT_HANDLERS_LIST = movement.c mouse.c keys.c 
+INPUT_HANDLERS_DIRECTORY = input_handlers/
+INPUT_HANDLERS = $(addprefix $(INPUT_HANDLERS_DIRECTORY), $(INPUT_HANDLERS_LIST))
+
+MAP_OBJS_LIST = staticenemy.c door.c wall.c object.c init_player_start.c 
+MAP_OBJS_DIRECTORY = map_objs/
+MAP_OBJS = $(addprefix $(MAP_OBJS_DIRECTORY), $(MAP_OBJS_LIST))
+
+SRCS_LIST = $(MAP) $(TEXTURES) $(RAYCAST) $(MENU) $(ANIMATIONS) $(MAP_OBJS) $(INPUT_HANDLERS) main.c prep_game.c run_game.c vector.c time.c update.c 
 SRCS_DIRECTORY = srcs/
 SRCS = $(addprefix $(SRCS_DIRECTORY), $(SRCS_LIST))
 
@@ -70,6 +78,8 @@ $(OBJECTS_DIRECTORY):
 	mkdir -p $(OBJECTS_DIRECTORY)$(RAYCAST_DIRECTORY)
 	mkdir -p $(OBJECTS_DIRECTORY)$(MENU_DIRECTORY)
 	mkdir -p $(OBJECTS_DIRECTORY)$(ANIMATIONS_DIRECTORY)
+	mkdir -p $(OBJECTS_DIRECTORY)$(MAP_OBJS_DIRECTORY)
+	mkdir -p $(OBJECTS_DIRECTORY)$(INPUT_HANDLERS_DIRECTORY)
 
 $(OBJECTS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c
 	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@

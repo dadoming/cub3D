@@ -6,11 +6,11 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:29:02 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 19:20:06 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:09:05 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 int	key_press(int key, t_game *game)
 {

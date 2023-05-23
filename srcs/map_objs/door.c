@@ -6,11 +6,11 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:55:48 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 18:55:18 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:05:57 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 static void	action_door(t_object **this, t_game *game)
 {

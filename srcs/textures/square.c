@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   square.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 23:55:21 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 23:55:24 by dadoming         ###   ########.fr       */
+/*   Created: 2023/05/19 00:32:12 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/23 11:13:14 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
-static void	intbin_append(int *color, unsigned char fam)
+int	pixsquare(t_game *game, t_vec2i pos, size_t size, int color)
 {
-	*color = *color << 8;
-	*color = *color | fam;
-}
+	size_t	i;
 
-int	rgbtocolor(unsigned char r, unsigned char g, unsigned char b)
-{
-	int		color;
-
-	color = 127;
-	intbin_append(&color, r);
-	intbin_append(&color, g);
-	intbin_append(&color, b);
-	return (color);
+	i = 0;
+	while (i < size)
+	{
+		pos.y += 1;
+		horline(game, pos, size, color);
+		i++;
+	}
+	return (1);
 }

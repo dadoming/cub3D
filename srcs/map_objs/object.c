@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 17:02:10 by amaria-d          #+#    #+#             */
-/*   Updated: 2023/05/22 17:03:30 by amaria-d         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:06:00 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 void	update_anim(t_animation *anim, t_microseconds tmstmpnow)
 {

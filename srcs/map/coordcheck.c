@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   imgbuffer.c                                        :+:      :+:    :+:   */
+/*   coordcheck.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 23:58:19 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 23:58:50 by dadoming         ###   ########.fr       */
+/*   Created: 2023/05/19 00:12:37 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/23 11:12:48 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
-int	imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y)
+char	coordcheck(t_game *game, int x, int y)
 {
-	return (y * imgbuffer->line_length + x * (imgbuffer->bits_per_pixel / 8));
+	if (x < 0 || y < 0)
+		return (0);
+	else if (x >= WINDOWSIZE_X || y >= WINDOWSIZE_Y)
+		return (0);
+	else if (y >= game->mapsize.y)
+		return (0);
+	else if (x >= game->mapsize.x)
+		return (0);
+	else
+		return (game->charmap[y][x]);
 }
 
-int	mypixelget(t_imgbuffer *imgbuffer, int x, int y)
+char	coordcheck_prop(t_game *game, int x, int y)
 {
-	int	color;
-	int	offset;
-
-	offset = imgbufferoffset(imgbuffer, x, y);
-	color = *(int *)(imgbuffer->addr + offset);
-	return (color);
+	return (coordcheck(game, x / SQUARESIZE, y / SQUARESIZE));
 }

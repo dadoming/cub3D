@@ -6,11 +6,11 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:42:06 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 18:54:05 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:06:05 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 static void	action_nothing(t_object **this, t_game *game)
 {

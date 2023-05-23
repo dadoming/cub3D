@@ -6,11 +6,11 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:53:10 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 23:55:00 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:12:53 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 void	load_pov(t_plinfo *player, float plane_x, float plane_y)
 {

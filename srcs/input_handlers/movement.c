@@ -6,11 +6,11 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:10:19 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/19 00:29:36 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:09:09 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 int	collision(t_game *game, int x, int y)
 {

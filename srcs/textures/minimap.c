@@ -6,11 +6,11 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:03:21 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/19 01:25:52 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:13:11 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 void	norm_help(t_game *game, t_vec2i pixeldraw, int x, int y)
 {

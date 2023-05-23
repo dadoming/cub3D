@@ -6,11 +6,11 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 00:32:21 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 18:54:00 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:06:02 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 void	action_staticenemy(t_object **this, t_game *game)
 {

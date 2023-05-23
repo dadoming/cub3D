@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coordcheck.c                                       :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 00:12:37 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/19 00:13:52 by dadoming         ###   ########.fr       */
+/*   Created: 2023/05/18 23:55:21 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/23 11:06:09 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
-char	coordcheck(t_game *game, int x, int y)
+static void	intbin_append(int *color, unsigned char fam)
 {
-	if (x < 0 || y < 0)
-		return (0);
-	else if (x >= WINDOWSIZE_X || y >= WINDOWSIZE_Y)
-		return (0);
-	else if (y >= game->mapsize.y)
-		return (0);
-	else if (x >= game->mapsize.x)
-		return (0);
-	else
-		return (game->charmap[y][x]);
+	*color = *color << 8;
+	*color = *color | fam;
 }
 
-char	coordcheck_prop(t_game *game, int x, int y)
+int	rgbtocolor(unsigned char r, unsigned char g, unsigned char b)
 {
-	return (coordcheck(game, x / SQUARESIZE, y / SQUARESIZE));
+	int		color;
+
+	color = 127;
+	intbin_append(&color, r);
+	intbin_append(&color, g);
+	intbin_append(&color, b);
+	return (color);
 }

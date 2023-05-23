@@ -6,11 +6,11 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 23:55:28 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 23:55:35 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:06:11 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 void	draw_crosshair(t_game *game, int size, int color)
 {

@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   square.c                                           :+:      :+:    :+:   */
+/*   imgbuffer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 00:32:12 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/19 00:32:18 by dadoming         ###   ########.fr       */
+/*   Created: 2023/05/18 23:58:19 by dadoming          #+#    #+#             */
+/*   Updated: 2023/05/23 11:06:16 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
-int	pixsquare(t_game *game, t_vec2i pos, size_t size, int color)
+int	imgbufferoffset(t_imgbuffer *imgbuffer, int x, int y)
 {
-	size_t	i;
+	return (y * imgbuffer->line_length + x * (imgbuffer->bits_per_pixel / 8));
+}
 
-	i = 0;
-	while (i < size)
-	{
-		pos.y += 1;
-		horline(game, pos, size, color);
-		i++;
-	}
-	return (1);
+int	mypixelget(t_imgbuffer *imgbuffer, int x, int y)
+{
+	int	color;
+	int	offset;
+
+	offset = imgbufferoffset(imgbuffer, x, y);
+	color = *(int *)(imgbuffer->addr + offset);
+	return (color);
 }
