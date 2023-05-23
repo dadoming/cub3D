@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_menu.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-d <amaria-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:27:12 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/22 17:24:19 by amaria-d         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:52:03 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_start_values	select_map(void)
 	ft_memset(&menu, 0, sizeof(t_menu));
 	menu.map_list = get_available_maps();
 	if (!menu.map_list)
-		return (ret);
+		exit(0);
 	open_select_window(&menu);
 	menu.imgbuffer.img = mlx_new_image(menu.mlx, WINDOWSIZE_X, WINDOWSIZE_Y);
 	menu.imgbuffer.addr = mlx_get_data_addr(menu.imgbuffer.img, \

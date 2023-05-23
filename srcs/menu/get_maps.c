@@ -6,7 +6,7 @@
 /*   By: dadoming <dadoming@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:16:28 by dadoming          #+#    #+#             */
-/*   Updated: 2023/05/18 21:52:22 by dadoming         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:51:11 by dadoming         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ t_map_list	*get_available_maps(void)
 
 	map_list = load_map_list();
 	if (!map_list)
-		return (NULL);
+	{
+		printf("Error: no maps found1!\n");
+		exit(0);
+	}
 	remove_invalid_maps(&map_list);
 	if (!map_list)
 	{
-		printf("Error: no maps found!\n");
-		return (NULL);
+		printf("Error: no maps found2!\n");
+		exit(0);
 	}
 	return (map_list);
 }
@@ -40,7 +43,7 @@ t_map_list	*load_map_list(void)
 	if (!dir)
 	{
 		printf("Error: could not open maps directory!\n");
-		return (NULL);
+		exit(0);
 	}
 	map_list = NULL;
 	entry = readdir(dir);
@@ -61,6 +64,8 @@ static int	check_valid_filename(const char *str)
 {
 	int	i;
 
+	if (!str)
+		return (0);
 	i = ft_strlen(str) - 1;
 	while (i >= 0 && str[i] != '.')
 		i--;
@@ -91,9 +96,11 @@ static void	remove_invalid_maps(t_map_list **map_list)
 		}
 		tmp = next;
 	}
-	if (!check_valid_filename((*map_list)->name))
+	if (check_valid_filename((*map_list)->name) == 0)
 	{
-		printf("Removing invalid map: %s\n", (*map_list)->name);
-		delete_node(map_list, *map_list);
+		printf("Removing invalid map here: %s\n", (*map_list)->name);
+		free((*map_list)->name);
+		free(*map_list);
+		*map_list = NULL;
 	}
 }
