@@ -20,10 +20,12 @@ It was by far the most joy that both of us had in a project. It's fun when you c
 
 Menu:
 This menu uses a Circular Linked-List for map selection and a boolean for mouse selection.
+
 ![Menu](https://github.com/dadoming/cub3D/blob/master/doc_images/Menu.png)
 
 Game:
 This is a video of the game. It shows the movement, the rotation, the minimap, the HUD, the colors of the floor and the ceiling and the animations.
+
 https://github.com/dadoming/cub3D/assets/92876751/dfded2f7-738f-4cb6-8bae-db2fc944120b
 
 ## Installation and Run
