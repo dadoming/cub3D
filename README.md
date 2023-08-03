@@ -95,6 +95,6 @@ This menu uses a Circular Linked-List for map selection and a boolean for mouse 
 
 Game:
 
-![Game](https://github.com/dadoming/cub3D/blob/master/doc_images/show_game.mp4)
+![Game](https://github.com/dadoming/cub3D/blob/master/doc_images/game.mp4)
 
 This is a video of the game. It shows the movement, the rotation, the minimap, the HUD, the colors of the floor and the ceiling and the animations.
