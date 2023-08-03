@@ -2,12 +2,12 @@
 
 ## Table of Contents
 - [Introduction](#introduction)
+- [Screenshots](#screenshots)
 - [Installation and Run](#installation)
 - [Controls](#controls)
 - [Map](#map)
 - [Animations](#animations)
 - [Raycasting](#raycasting)
-- [Screenshots](#screenshots)
 
 ## Introduction
 This project is inspired by the very first FPS game Wolfenstein 3D. The goal is to create a 3D view by reading a 2D map.
@@ -15,6 +15,20 @@ This project is inspired by the very first FPS game Wolfenstein 3D. The goal is 
 The only graphical library we were allowed to use was miniLibX. This library is a very simple library mainly created to use in the school's projects and it's functionalities are limited to creating windows, handling input and drawing pixels in the window. The rest of the project is coded from scratch. We had to create our own functions to handle the textures/animations, the raycasting, the collisions, the movement, the rotation, the minimap, the HUD, the shadows, the colors, the floor and the ceiling, the error handling, etc.
 
 It was by far the most joy that both of us had in a project. It's fun when you can see the results of your work in real time and it's even more fun when you can play it.
+
+## Screenshots
+
+Menu:
+
+![Menu](https://github.com/dadoming/cub3D/blob/master/doc_images/Menu.png)
+
+This menu uses a Circular Linked-List for map selection and a boolean for mouse selection.
+
+Game:
+
+https://github.com/dadoming/cub3D/assets/92876751/dfded2f7-738f-4cb6-8bae-db2fc944120b
+
+This is a video of the game. It shows the movement, the rotation, the minimap, the HUD, the colors of the floor and the ceiling and the animations.
 
 ## Installation and Run
 1. Clone the repository
@@ -84,17 +98,3 @@ In this section, we had a bit of difficulty implementing a radian system to hand
 
 Thus, we followed a tutorial of Lodev.org to implement the raycasting. We had to adapt it to our code and to the miniLibX library, but it was of great help. (link: https://lodev.org/cgtutor/raycasting.html)
 
-## Screenshots
-
-Menu:
-
-![Menu](https://github.com/dadoming/cub3D/blob/master/doc_images/Menu.png)
-
-This menu uses a Circular Linked-List for map selection and a boolean for mouse selection.
-
-
-Game:
-
-https://github.com/dadoming/cub3D/assets/92876751/dfded2f7-738f-4cb6-8bae-db2fc944120b
-
-This is a video of the game. It shows the movement, the rotation, the minimap, the HUD, the colors of the floor and the ceiling and the animations.
